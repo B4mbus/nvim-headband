@@ -3,11 +3,13 @@ local symbols = require 'nvim-headband.symbols'
 ---@class UserConfig
 ---@field public enable boolean Whether to enable the winbar
 ---@field public general_separator string Separator between the file section and navic section, if both are present, can be disabled by setting it to ''
+---@field public empty_buffer_text string The text to display when an empty buffer is opened
 ---@field public file_section UserConfig.FileSection Configuration for the file section of the winbar
 ---@field public navic_section UserConfig.NavicSection Configuration for the navic section of the winbar
 local default_config = {
   enable = true,
   general_separator = '::',
+  empty_buffer = '[No name]',
 
   ---@class UserConfig.FileSection
   ---@field public enable boolean Whether to enable or disable the file section
