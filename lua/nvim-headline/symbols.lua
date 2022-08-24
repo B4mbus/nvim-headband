@@ -1,4 +1,3 @@
----@type table<string, string>
 local symbols =  {
 	empty_set = '∅',
 	ellipsis = '…',
