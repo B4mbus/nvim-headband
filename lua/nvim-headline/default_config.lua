@@ -1,10 +1,12 @@
 local symbols = require 'nvim-headline.symbols'
 
 ---@class UserConfig
+---@field public enable boolean Whether to enable the winbar
 ---@field public general_separator string Separator between the file section and navic section, if both are present, can be disabled by setting it to ''
 ---@field public file_section UserConfig.FileSection Configuration for the file section of the winbar
 ---@field public navic_section UserConfig.NavicSection Configuration for the navic section of the winbar
 local default_config = {
+  enable = true,
   general_separator = '::',
 
   ---@class UserConfig.FileSection
@@ -31,8 +33,8 @@ local default_config = {
   ---@field public enable boolean Whether to enable the navic section
   ---@field public depth_limit number The depth limit of the navic symbols, 0 means none
   ---@field public depth_limit_indicator string The depth limit indicator that is used when the limit is reached
-  ---@field public empty_symbol string The symbol that will be displayed when navic is available but the location is empty, can be disabled by setting it to ''
   --
+  ---@field public empty_symbol UserConfig.Navic.EmptySymbol Configuration for the empty navic symbol
   ---@field public separator UserConfig.Navic.Separator Configuration for the separator between the navic elements
   ---@field public icons UserConfig.Navic.Icons Configuration for navic icons
   navic_section = {
@@ -40,7 +42,14 @@ local default_config = {
 
     depth_limit = 0,
     depth_limit_indicator = symbols.ellipsis,
-    empty_symbol = symbols.empty_set,
+
+    ---@class UserConfig.Navic.EmptySymbol
+    ---@field public symbol string The symbol that will be displayed when navic is available but the location is empty, can be disabled by setting it to ''
+    ---@field public highlight boolean Whether to highlight the empty location symbol
+    empty_symbol = {
+      symbol = symbols.empty_set,
+      highlight = true
+    },
 
     ---@class UserConfig.Navic.Separator
     ---@field public symbol string The symbol to use for a navic separator
