@@ -1,18 +1,31 @@
 <div align="center">
 
 # Nvim-headline - a simple and opinionated winbar
-
+  <div>
+    <a href='#Showcase'>Showcase</a> |
+    <a href='#Installation'>Installation</a> |
+    <a href='#Configuration'>Configuration</a> |
+    <a href='#Highlights'>Highlights</a> |
+  </div>
 </div>
 
-Nvim-headline is a simple winbar plugin with sane defaults, that requires barely any configuration (tho is still highly configurable).
+Nvim-headline..
+ - is **simple** - you can just install it and you are good to go
+ - is **opinionated** - it doesn't give you *all the possible* cofiguration options in the world, it has two simple sections
+ - has **sane defaults** - it's very likely that you won't have to change the default configuration
 
+.. but it's still **highly configurable**! See [Configuration](#Configuration) and [Highlights](#Highlights).
 
-It's not meant to be a beast, it's meant to be simple and ad-hoc. If you want a powerful plugin extensible in all the possible ways use [lualine](https://github.com/nvim-lualine/lualine.nvim).
+## Showcase
 
-TODO: TOC
-## Table Of Contents
+## Installation
 
-- [ ] Installation
-- [ ] Usage
-- [ ] Configuration
-- [ ] ???
+## Configuration
+
+## Highlights
+
+## TODO
+ - Disabling for certain filetypes
+ - Register default highlights
+ - Add option to center the winbar
+ - Setup navic
