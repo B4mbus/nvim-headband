@@ -2,11 +2,11 @@
 
 # nvim-headband - a simple and opinionated winbar
   <div>
-    <a href='#Showcase'>🖼 Showcase</a> |
-    <a href='#Installation'>💾 Installation</a> |
-    <a href='#Configuration'>⚙ Configuration & Usage</a> |
-    <a href='#Highlights'>🎨 Highlights</a> |
-    <a href='#Todo'>🧾 Todo</a>
+    <a href='#-Showcase'>🖼 Showcase</a> |
+    <a href='#-Installation'>💾 Installation</a> |
+    <a href='#-Configuration'>⚙ Configuration & Usage</a> |
+    <a href='#-Highlights'>🎨 Highlights</a> |
+    <a href='#-Todo'>🧾 Todo</a>
   </div>
 </div>
 
