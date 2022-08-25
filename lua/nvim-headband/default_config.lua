@@ -13,7 +13,7 @@ local default_config = {
 
   ---@class UserConfig.FileSection
   ---@field public enable boolean Whether to enable or disable the file section
-  ---@field public style string Style of the file section can be 'filename' | 'shortened' | 'full'
+  ---@field public style string Style of the file section can be 'filename' | 'shortened' | 'shortened_lower' | 'full' | 'full_lower'.
   ---@field public bold_filename boolean Whether set the NvimHeadbandFilename hl group as bold
   ---@field public devicons UserConfig.File.DevIcons Configuration for the file section's devicons
   file_section = {
