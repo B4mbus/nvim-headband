@@ -4,16 +4,16 @@ local concat = table.concat
 local fmt = string.format
 local empty_hl = '%##'
 
-local notif = require 'nvim-headband.notifications'
+local errors = require 'nvim-headband.error_handling'
 
 local issue_lack_of_devicons_error = function()
-  notif.issue_headband_error(
+  errors.headband_notify(
     'The "kyazdani42/nvim-web-devicons" plugin is not present. Cannot enable devicons for winbar.'
   )
 end
 
 local issue_lack_of_navic_error = function()
-  notif.issue_headband_error(
+  errors.headband_notify(
     'The "SmiteshP/nvim-navic" plugin is not present. Cannot enable navic for winbar.'
   )
 end
