@@ -25,6 +25,10 @@ Headband.setup = function(user_config)
     local default_config = require 'nvim-headband.default_config'
     local config = vim.tbl_deep_extend('force', default_config, user_config or {})
 
+    if not config.enable then
+      return
+    end
+
     require 'nvim-headband.winbar'.enable(config)
   end
 end
