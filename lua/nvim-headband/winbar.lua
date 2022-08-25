@@ -218,7 +218,7 @@ function NvimHeadbandWinbarMod.get()
 
   local file_readable = fn.filereadable(fn.expand('%:p')) ~= 0
   if not file_readable then
-    return hl('NvimHeadbandEmptyBuf') .. ' ' .. self.config.empty_buffer_text
+    return hl('NvimHeadbandEmptyBuf') .. ' ' .. self.config.unsaved_buffer_text
   end
 
   local navic_section = self:get_navic_section()
@@ -248,6 +248,7 @@ Winbar.enable = function(config)
       pattern = '*',
       group = augroup('NvimHeadbandWinbar'),
       callback = function()
+        -- TODO: This callback will be used for toggling, probably
         if api.nvim_buf_get_option(0, 'buftype') == '' then
           vim.wo.winbar = '%{%v:lua.NvimHeadbandWinbarMod.get()%}'
         end

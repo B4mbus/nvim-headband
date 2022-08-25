@@ -9,7 +9,7 @@ local symbols = require 'nvim-headband.symbols'
 local default_config = {
   enable = true,
   general_separator = '::',
-  empty_buffer_text = '[No name]',
+  unsaved_buffer_text = '[No name]',
 
   ---@class UserConfig.FileSection
   ---@field public enable boolean Whether to enable or disable the file section
