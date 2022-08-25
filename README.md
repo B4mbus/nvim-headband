@@ -17,6 +17,10 @@ nvim-headband..
 
 .. but it's still **highly configurable**! See [Configuration](#Configuration) and [Highlights](#Highlights).
 
+# ⚠⚠⚠⚠⚠⚠⚠ WIP ⚠⚠⚠⚠⚠⚠⚠
+
+Still WIP, some things don't work, some things break, some things fly.
+
 ## 🖼 Showcase
 
 **TODO**
