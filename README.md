@@ -53,7 +53,11 @@ use {
  - Add option to disable for filetypes (e.g. GITCOMMIT, etc.) (by default it's only disabled in nofile buffers)
  - Strip config
  - Register default highlights
+ - Setup navic
+ - Strip config
+ - Add option to disable for filetypes (e.g. GITCOMMIT, etc.) (by default it's only disabled in nofile buffers)
  - Add option to center the winbar
+ - Vim docs
  - Add option to make the navic section on the right
  - Setup navic
  - VSCode like clickable breadcrumbs
