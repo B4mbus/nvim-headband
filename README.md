@@ -41,6 +41,61 @@ use {
 
 ## ⚙ Configuration
 
+These are the default values
+
+```lua
+require 'nvim-headband'.setup {
+  enable = true, -- Whether to enable the winbar
+  general_separator = '::', -- What will be displayed between the file section and navic section if both are present
+  unsaved_buffer_text = '[No name]', -- The text to display for an unsaved buffer (not a readable file)
+
+  file_section = {
+    enable = true, -- Whether to enable the file section
+    -- Can be 'filename' | 'shortened' | 'shortened_lower' | 'full' | 'full_lower'.
+    -- For a path like /home/b4mbus/dev/file.cpp or C:\Users\B4mbus\dev\file.cpp
+    -- 'filename' will be file.cpp and file.cpp
+    -- 'shortened' will be /h/b/d/file.cpp and C:\U\B\d\file.cpp
+    -- 'shortened_lower' will be /h/b/d/file.cpp and c:\u\b\d\file.cpp
+    -- 'full' will be /home/b4mbus/dev/file.cpp nd C:\Users\B4mbus\dev\file.cpp
+    -- 'full_lower' will be /home/b4mbus/dev/file.cpp nd c:\users\b4mbus\dev\file.cpp
+    style = 'filename',
+    bold_filename = true, -- Makes the filename bold (set's the NvimHeadbandFilename hl group to bold)
+
+    devicons = {
+      enable = true, -- Whether to enable the devicons
+      highlight = true -- Whether to highlight the devicons
+    },
+  },
+
+  navic_section = {
+    enable = true, -- Whether to enable the navic section
+
+    depth_limit = 0, -- Passed directly to navic, taken from the navic repo: 'maximum depth of context to be shown. If the context hits this depth limit, it is truncated'
+    depth_limit_indicator = symbols.ellipsis, -- Passed directly to navic, taken from the navic repo:  Icon to indicate that depth_limit was hit and the shown context is truncated'
+
+    empty_symbol = {
+      symbol = symbols.empty_set, -- A symbol to set when the navic location is available but there's no location to show (e.g. global namespace in some languages)
+      highlight = true -- Experimental (TODO??????????????????????????)
+    },
+
+    separator = {
+      symbol = symbols.nice_arrow, -- The symbol to use as a navic separator
+      highlight = true -- Whether to register the default highlight for the navic separator (TODO??????????????????????????)
+    },
+
+    icons = {
+      default_icons = true, -- Whether to enable the default icons for navic
+      -- Can be 'link' | 'none' | 'default'
+      -- For 'link' it will use the same highlights as CmpItem*
+      -- For 'default' it will set the default vscode-like hl groups (TODO??????????????????????????)
+      -- For 'none' it will not color the navic icons
+      highlights = 'link'
+    },
+  }
+}
+
+return default_config
+```
 
 ## 🎨 Highlights
 
