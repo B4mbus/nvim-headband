@@ -97,8 +97,6 @@ require 'nvim-headband'.setup {
     },
   }
 }
-
-return default_config
 ```
 
 ## 🎨 Highlights
