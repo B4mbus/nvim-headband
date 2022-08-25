@@ -231,11 +231,11 @@ function NvimHeadbandWinbarMod.get()
     .. navic_section
 end
 
-local M = {}
+local Winbar = {}
 
 --- Enables the nvim-headband winbar
 ---@param config UserConfig
-M.enable = function(config)
+Winbar.enable = function(config)
   local autocmd = api.nvim_create_autocmd
   local augroup = function(x) api.nvim_create_augroup(x, { clear = true }) end
 
@@ -256,4 +256,4 @@ M.enable = function(config)
   )
 end
 
-return M
+return Winbar
