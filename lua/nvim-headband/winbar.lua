@@ -2,6 +2,7 @@ local api = vim.api
 local fn = vim.fn
 local concat = table.concat
 local fmt = string.format
+local empty_hl = '%##'
 
 local notif = require 'nvim-headband.notifications'
 
@@ -47,10 +48,16 @@ local get_preffered_path_separator = function()
   end
 end
 
-local empty_hl = '%##'
-
 local hl = function(group)
   return '%#' .. group .. '#'
+end
+
+local format_path = function(path)
+  if fn.has('win32') then
+    return path:sub(1, 1) .. ':' .. path:sub(2, -1)
+  else
+    return '/' .. path
+  end
 end
 
 NvimHeadbandWinbarMod = {}
@@ -86,18 +93,18 @@ function NvimHeadbandWinbarMod:conditionally_shorten_path(path)
   end
 
   local preffered_separator = get_preffered_path_separator()
-  local return_first = function(path_elem)
-    return path_elem[1]
+  local get_first = function(path_elem)
+    return path_elem:sub(1, 1)
   end
 
-  return concat(
-    unpack(
-      vim.tbl_map(
-        fn.split(path, preffered_separator),
-        return_first
-      )
-    ),
-    preffered_separator
+  return format_path(
+    concat(
+        vim.tbl_map(
+          get_first,
+          fn.split(path, preffered_separator)
+        ),
+        preffered_separator
+      ) .. preffered_separator
   )
 end
 
@@ -105,12 +112,12 @@ function NvimHeadbandWinbarMod:get_file_string()
   local style = self.config.file_section.style
 
   local filename = fn.expand('%:p:t')
-  local path_without_filename = fn.expand('%::h')
+  local path_without_filename = fn.expand('%:p:h')
 
   if style == 'filename' then
     return hl('NvimHeadbandFilename') .. filename .. empty_hl
   else
-    local possibly_shortened_path = self.conditionally_shorten_path(path_without_filename)
+    local possibly_shortened_path = self:conditionally_shorten_path(path_without_filename)
 
     return
       hl('NvimHeadbandPath')
@@ -173,8 +180,10 @@ function NvimHeadbandWinbarMod:get_navic_section()
 
   local navic_loaded, navic = get_navic_mod()
 
-  if navic_loaded then
+  if navic_loaded and navic.is_available() then
     return self:get_navic_location(navic)
+  else
+    return ''
   end
 end
 
@@ -215,7 +224,8 @@ function NvimHeadbandWinbarMod.get()
   local navic_section = self:get_navic_section()
 
   return
-    hl('WinBar ')
+    hl('WinBar')
+    .. ' '
     .. self:get_file_section()
     .. self:get_separator_conditionally(navic_section)
     .. navic_section
