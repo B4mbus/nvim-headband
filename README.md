@@ -64,7 +64,7 @@ require 'nvim-headband'.setup {
     -- 'shortened_lower' will be /h/b/d/file.cpp and c:\u\b\d\file.cpp
     -- 'full' will be /home/b4mbus/dev/file.cpp nd C:\Users\B4mbus\dev\file.cpp
     -- 'full_lower' will be /home/b4mbus/dev/file.cpp nd c:\users\b4mbus\dev\file.cpp
-    style = 'filename',
+    text = 'filename',
     bold_filename = true, -- Makes the filename bold (set's the NvimHeadbandFilename hl group to bold)
 
     devicons = {

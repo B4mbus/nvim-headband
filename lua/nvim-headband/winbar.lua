@@ -88,13 +88,13 @@ function NvimHeadbandWinbarMod:get_file_section_icon()
 end
 
 function NvimHeadbandWinbarMod:conditionally_lower_path(path)
-  if self.config.file_section.style:find('shortened') then
+  if self.config.file_section.text:find('shortened') then
     return path:tolower()
   end
 end
 
 function NvimHeadbandWinbarMod:conditionally_shorten_path(path)
-  if self.config.file_section.style:find('full') then
+  if self.config.file_section.text:find('full') then
     return self:conditionally_lower_path(path)
   end
 
@@ -117,12 +117,12 @@ function NvimHeadbandWinbarMod:conditionally_shorten_path(path)
 end
 
 function NvimHeadbandWinbarMod:get_file_string()
-  local style = self.config.file_section.style
+  local text = self.config.file_section.text
 
   local filename = fn.expand('%:p:t')
   local path_without_filename = fn.expand('%:p:h')
 
-  if style == 'filename' then
+  if text == 'filename' then
     return hl('NvimHeadbandFilename') .. filename .. empty_hl
   else
     local possibly_shortened_path = self:conditionally_shorten_path(path_without_filename)
