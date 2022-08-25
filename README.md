@@ -6,6 +6,7 @@
     <a href='#Installation'>💾 Installation</a> |
     <a href='#Configuration'>⚙ Configuration & Usage</a> |
     <a href='#Highlights'>🎨 Highlights</a> |
+    <a href='#Todo'>🧾 Todo</a>
   </div>
 </div>
 
@@ -16,9 +17,9 @@ nvim-headband..
 
 .. but it's still **highly configurable**! See [Configuration](#Configuration) and [Highlights](#Highlights).
 
-## Showcase
+## 🖼 Showcase
 
-## Installation
+## 💾 Installation
 
 Install with your favourite package manager, e.g. **[https://github.com/wbthomason/packer.nvim](packer)**:
 ```lua
@@ -36,11 +37,11 @@ use {
 }
 ```
 
-## Configuration
+## ⚙ Configuration
 
 Ło kurwa
 
-## Highlights
+## 🎨 Highlights
 
  - NvimHeadbandFilename
  - NvimHeadbandPath
@@ -48,10 +49,11 @@ use {
  - NvimHeadbandEmptyBuf
  - NvimHeadbandEmptyLoc
 
-## TODO
- - Disable for filetypes (e.g. GITCOMMIT, etc.) (by default it's only disabled in nofile buffers)
+## 🧾 Todo
+ - Add option to disable for filetypes (e.g. GITCOMMIT, etc.) (by default it's only disabled in nofile buffers)
  - Strip config
  - Register default highlights
  - Add option to center the winbar
+ - Add option to make the navic section on the right
  - Setup navic
  - VSCode like clickable breadcrumbs
