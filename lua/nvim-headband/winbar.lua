@@ -227,7 +227,7 @@ function NvimHeadbandWinbarMod.get_winbar(self)
     return hl('NvimHeadbandEmptyBuf') .. ' ' .. self.config.unsaved_buffer_text
   end
 
-  local navic_section = aelf:get_navic_section()
+  local navic_section = self:get_navic_section()
 
   return
     hl('WinBar')
@@ -279,6 +279,14 @@ end
 
 local Winbar = {}
 
+local get_headband_callback = function()
+  return function()
+    if api.nvim_buf_get_option(0, 'buftype') == '' then
+      vim.wo.winbar = '%{%v:lua.NvimHeadbandWinbarMod.get()%}'
+    end
+  end
+end
+
 --- Enables the nvim-headband winbar
 ---@param config UserConfig
 Winbar.enable = function(config)
@@ -294,12 +302,7 @@ Winbar.enable = function(config)
     {
       pattern = '*',
       group = NvimHeadbandWinbarMod.augroup_id,
-      callback = function()
-        -- TODO: This callback will be used for toggling, probably
-        if api.nvim_buf_get_option(0, 'buftype') == '' then
-          vim.wo.winbar = '%{%v:lua.NvimHeadbandWinbarMod.get()%}'
-        end
-      end
+      callback = get_headband_callback()
     }
   )
 end
