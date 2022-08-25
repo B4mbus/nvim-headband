@@ -49,6 +49,7 @@ use {
  - NvimHeadbandEmptyLoc
 
 ## TODO
+ - Disable for filetypes (e.g. GITCOMMIT, etc.) (by default it's only disabled in nofile buffers)
  - Strip config
  - Register default highlights
  - Add option to center the winbar
