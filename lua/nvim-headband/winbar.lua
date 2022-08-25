@@ -217,9 +217,7 @@ function NvimHeadbandWinbarMod:get_separator_conditionally(navic_string)
     .. empty_hl
 end
 
-function NvimHeadbandWinbarMod.get()
-  local self = NvimHeadbandWinbarMod
-
+function NvimHeadbandWinbarMod.get_winbar(self)
   if not self.config.enable then
     return ''
   end
@@ -229,7 +227,7 @@ function NvimHeadbandWinbarMod.get()
     return hl('NvimHeadbandEmptyBuf') .. ' ' .. self.config.unsaved_buffer_text
   end
 
-  local navic_section = self:get_navic_section()
+  local navic_section = aelf:get_navic_section()
 
   return
     hl('WinBar')
@@ -239,22 +237,63 @@ function NvimHeadbandWinbarMod.get()
     .. navic_section
 end
 
+function NvimHeadbandWinbarMod.get()
+  local self = NvimHeadbandWinbarMod
+
+  local error_handler = function(error)
+    vim.defer_fn(
+      function()
+        vim.notify(
+          'Error encountered while trying to get the winbar, disabling.\n'
+          .. 'Please contact the author and file an issue.'
+          .. '\n\n'
+          .. error,
+          vim.log.levels.ERROR,
+          {
+            title = 'nvim-headband',
+            on_open = function(win)
+              local buf = vim.api.nvim_win_get_buf(win)
+              vim.api.nvim_buf_set_option(buf, 'filetype', 'markdown')
+            end,
+          }
+        )
+      end,
+      100
+    )
+
+    self:disable()
+  end
+
+  local _, winbar_string = xpcall(self.get_winbar, error_handler, self)
+
+  return winbar_string
+end
+
+function NvimHeadbandWinbarMod:disable()
+  self.config.enable = false
+
+  api.nvim_clear_autocmds({ group = self.augroup_id })
+
+  vim.wo.winbar = ''
+end
+
 local Winbar = {}
 
 --- Enables the nvim-headband winbar
 ---@param config UserConfig
 Winbar.enable = function(config)
   local autocmd = api.nvim_create_autocmd
-  local augroup = function(x) api.nvim_create_augroup(x, { clear = true }) end
+  local augroup = function(x) return api.nvim_create_augroup(x, { clear = true }) end
 
   -- TODO: Strip config
   NvimHeadbandWinbarMod.config = config
+  NvimHeadbandWinbarMod.augroup_id = augroup('NvimHeadbandWinbar')
 
   autocmd(
     { 'VimEnter', 'BufEnter' },
     {
       pattern = '*',
-      group = augroup('NvimHeadbandWinbar'),
+      group = NvimHeadbandWinbarMod.augroup_id,
       callback = function()
         -- TODO: This callback will be used for toggling, probably
         if api.nvim_buf_get_option(0, 'buftype') == '' then
