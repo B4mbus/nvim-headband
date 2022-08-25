@@ -4,7 +4,7 @@
   <div>
     <a href='#Showcase'>🖼 Showcase</a> |
     <a href='#Installation'>💾 Installation</a> |
-    <a href='#Configuration'>⚙ Configuration</a> |
+    <a href='#Configuration'>⚙ Configuration & Usage</a> |
     <a href='#Highlights'>🎨 Highlights</a> |
   </div>
 </div>
@@ -20,12 +20,37 @@ nvim-headband..
 
 ## Installation
 
+Install with your favourite package manager, e.g. **[https://github.com/wbthomason/packer.nvim](packer)**:
+```lua
+use {
+  'B4mbus/nvim-headband',
+  config = function()
+    require 'nvim-headband'.setup {
+      -- Optionally, if you want to configure stuff
+    }
+  end
+  requires = {
+    { 'SmiteshP/nvim-navic', opt = true } -- required for for the navic section to work
+    { 'kyazdani42/nvim-web-devicons', opt = true } -- required for for devicons and default navic_section.separator highlight group
+  }
+}
+```
+
 ## Configuration
+
+Ło kurwa
 
 ## Highlights
 
+ - NvimHeadbandFilename
+ - NvimHeadbandPath
+ - NvimHeadbandSeparator
+ - NvimHeadbandEmptyBuf
+ - NvimHeadbandEmptyLoc
+
 ## TODO
- - Disabling for certain filetypes
+ - Strip config
  - Register default highlights
  - Add option to center the winbar
  - Setup navic
+ - VSCode like clickable breadcrumbs
