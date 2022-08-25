@@ -57,13 +57,15 @@ require 'nvim-headband'.setup {
 
   file_section = {
     enable = true, -- Whether to enable the file section
-    -- Can be 'filename' | 'shortened' | 'shortened_lower' | 'full' | 'full_lower'.
+    -- Can be 'filename' | 'shortened' | 'shortened_lower' | 'full' | 'full_lower' | a function that returns the text
     -- For a path like /home/b4mbus/dev/file.cpp or C:\Users\B4mbus\dev\file.cpp
     -- 'filename' will be file.cpp and file.cpp
     -- 'shortened' will be /h/b/d/file.cpp and C:\U\B\d\file.cpp
     -- 'shortened_lower' will be /h/b/d/file.cpp and c:\u\b\d\file.cpp
     -- 'full' will be /home/b4mbus/dev/file.cpp nd C:\Users\B4mbus\dev\file.cpp
     -- 'full_lower' will be /home/b4mbus/dev/file.cpp nd c:\users\b4mbus\dev\file.cpp
+    --
+    -- If text is a function, it should have the following signature: `fun(): string`, that is, a function taking nothing and returning a string
     text = 'filename',
     bold_filename = true, -- Makes the filename bold (set's the NvimHeadbandFilename hl group to bold)
 
@@ -114,6 +116,7 @@ Apart from that
 
 
 ## 🧾 Todo
+ - Handle `text` being a function
  - Register default highlights
  - Setup navic
  - Strip config
