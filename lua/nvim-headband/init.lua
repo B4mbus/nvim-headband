@@ -23,7 +23,7 @@ Headband.setup = function(user_config)
     issue_lack_of_winbar_notification()
   else
     local default_config = require 'nvim-headband.default_config'
-    local config = vim.tbl_extend('force', default_config, user_config or {})
+    local config = vim.tbl_deep_extend('force', default_config, user_config or {})
 
     require 'nvim-headband.winbar'.enable(config)
   end
