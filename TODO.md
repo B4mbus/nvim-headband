@@ -1,0 +1,12 @@
+# TODO
+ - Move the config description from the codeblock to a separate section in markdown
+ - Handle `text` being a function
+ - Register default highlights
+ - Setup navic
+ - Strip config
+ - Add option to disable for filetypes (e.g. GITCOMMIT, etc.) (by default it's only disabled in nofile buffers)
+ - Add option to center the winbar
+ - Vim docs
+ - Add option to make the navic section on the right
+ - Add option to make sections 'bubbly' (like lualines bubble theme)
+ - VSCode like clickable breadcrumbs
