@@ -5,8 +5,6 @@ local fmt = string.format
 
 local notif = require 'nvim-headband.notifications'
 
-local empty_hl = '%##'
-
 local issue_lack_of_devicons_error = function()
   notif.issue_headband_error(
     'The "kyazdani42/nvim-web-devicons" plugin is not present. Cannot enable devicons for winbar.'
@@ -49,6 +47,12 @@ local get_preffered_path_separator = function()
   end
 end
 
+local empty_hl = '%##'
+
+local hl = function(group)
+  return '%#' .. group .. '#'
+end
+
 NvimHeadbandWinbarMod = {}
 
 function NvimHeadbandWinbarMod:get_file_section_icon()
@@ -69,7 +73,7 @@ function NvimHeadbandWinbarMod:get_file_section_icon()
     local format_string = '%s'
 
     if self.config.file_section.devicons.highlight then
-      format_string = '%%#' .. name .. '#' .. format_string
+      format_string = '%' .. hl(name) .. format_string
     end
 
     return fmt(format_string, icon)
@@ -104,14 +108,14 @@ function NvimHeadbandWinbarMod:get_file_string()
   local path_without_filename = fn.expand('%::h')
 
   if style == 'filename' then
-    return '%#NvimHeadbandFilename#' .. filename .. empty_hl
+    return hl('NvimHeadbandFilename') .. filename .. empty_hl
   else
     local possibly_shortened_path = self.conditionally_shorten_path(path_without_filename)
 
     return
-      '%#NvimHeadbandPath#'
+      hl('NvimHeadbandPath')
       .. possibly_shortened_path
-      ..'%#NvimHeadbandFilename#'
+      ..hl('NvimHeadbandFilename')
       .. filename
       .. empty_hl
   end
@@ -134,50 +138,63 @@ end
 
 function NvimHeadbandWinbarMod:get_navic_hl()
   if self.config.navic_section.empty_symbol.highlight then
-    return '%#NvimHeadbandEmptyLoc'
+    return hl('NvimHeadbandEmptyLoc')
   else
     return ''
   end
 end
 
+function NvimHeadbandWinbarMod:get_empty_symbol()
+  local empty_symbol = self.config.navic_section.empty_symbol.symbol
+
+  if empty_symbol == '' then
+    return ''
+  else
+    return
+      self:get_navic_hl()
+      .. empty_symbol
+  end
+end
+
+function NvimHeadbandWinbarMod:get_navic_location(navic)
+  local loc = navic.get_location()
+
+  if loc == '' then
+    return self:get_empty_symbol()
+  else
+    return loc
+  end
+end
+
 function NvimHeadbandWinbarMod:get_navic_section()
   if not self.config.navic_section.enable then
+    print('AAAAAAAAAAA KURWAAAAAAAAAA')
     return ''
   end
 
-  local navic_loaded, navic = xpcall(
-    require,
-    issue_lack_of_navic_error,
-    'nvim-navic'
-  )
+  local navic_loaded, navic = get_navic_mod()
 
   if navic_loaded then
-    local loc = navic.get_location()
-    local config = self.config.navic_section
-
-    if loc == '' then
-      return
-        self:get_navic_hl()
-        .. config.empty_symbol.symbol
-    else
-      return loc
-    end
+    return self:get_navic_location(navic)
   end
 end
 
-function NvimHeadbandWinbarMod:separator_available()
-  return (self.config.file_section.enable)
-    or (self.config.navic_section.enable)
-    or (get_navic_mod().is_available())
+function NvimHeadbandWinbarMod:separator_available(navic_string)
+  local _, navic = get_navic_mod()
+
+  return ((self.config.file_section.enable)
+    and (self.config.navic_section.enable))
+    and (navic.is_available())
+    and (navic_string ~= '')
 end
 
-function NvimHeadbandWinbarMod:get_separator()
-  if not self:separator_available() then
+function NvimHeadbandWinbarMod:get_separator_conditionally(navic_string)
+  if not self:separator_available(navic_string) then
     return ''
   end
 
   return
-    '%#NvimHeadbandSeparator#'
+    hl('NvimHeadbandSeparator')
     .. ' '
     .. self.config.general_separator
     .. ' '
@@ -185,24 +202,23 @@ function NvimHeadbandWinbarMod:get_separator()
 end
 
 function NvimHeadbandWinbarMod.get()
-  local file_readable = fn.filereadable(fn.expand('%:p'))
-
-  if file_readable == 0 then
-    return '%#NvimHeadbandEmptyBuf# ' .. self.config.empty_buffer_text
-  end
-
   local self = NvimHeadbandWinbarMod
 
-  local preamble = '%#WinBar# '
-  local file_section = self:get_file_section()
-  local separator = self:get_separator()
+  if not self.config.enable then
+    return ''
+  end
+
+  local file_readable = fn.filereadable(fn.expand('%:p')) ~= 0
+  if not file_readable then
+    return hl('NvimHeadbandEmptyBuf') .. ' ' .. self.config.empty_buffer_text
+  end
+
   local navic_section = self:get_navic_section()
 
-
   return
-    preamble
-    .. file_section
-    .. separator
+    hl('WinBar ')
+    .. self:get_file_section()
+    .. self:get_separator_conditionally(navic_section)
     .. navic_section
 end
 
