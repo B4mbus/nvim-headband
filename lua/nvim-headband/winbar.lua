@@ -168,7 +168,6 @@ end
 
 function NvimHeadbandWinbarMod:get_navic_section()
   if not self.config.navic_section.enable then
-    print('AAAAAAAAAAA KURWAAAAAAAAAA')
     return ''
   end
 
