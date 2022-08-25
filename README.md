@@ -116,6 +116,7 @@ Apart from that
 
 
 ## 🧾 Todo
+ - Move the config description from the codeblock to a separate section in markdown
  - Handle `text` being a function
  - Register default highlights
  - Setup navic
