@@ -87,9 +87,15 @@ function NvimHeadbandWinbarMod:get_file_section_icon()
   end
 end
 
+function NvimHeadbandWinbarMod:conditionally_lower_path(path)
+  if self.config.file_section.style:find('shortened') then
+    return path:tolower()
+  end
+end
+
 function NvimHeadbandWinbarMod:conditionally_shorten_path(path)
-  if self.config.file_section.style == 'full' then
-    return path
+  if self.config.file_section.style:find('full') then
+    return self:conditionally_lower_path(path)
   end
 
   local preffered_separator = get_preffered_path_separator()
@@ -97,15 +103,17 @@ function NvimHeadbandWinbarMod:conditionally_shorten_path(path)
     return path_elem:sub(1, 1)
   end
 
-  return format_path(
+  local formatted_path = format_path(
     concat(
-        vim.tbl_map(
-          get_first,
-          fn.split(path, preffered_separator)
-        ),
-        preffered_separator
-      ) .. preffered_separator
+      vim.tbl_map(
+        get_first,
+        fn.split(path, preffered_separator)
+      ),
+      preffered_separator
+    ) .. preffered_separator
   )
+
+  return self:conditionally_lower_path(formatted_path)
 end
 
 function NvimHeadbandWinbarMod:get_file_string()
