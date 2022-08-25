@@ -21,6 +21,8 @@ nvim-headband..
 
 Still WIP, some things don't work, some things break, some things fly.
 
+### Don't become attached to your current configuration, **I PLAN TO AND WILL MAKE BREAKING CHANGES BEFORE THE 1.0.0 RELEASE**.
+
 ## 🖼 Showcase
 
 **TODO**
