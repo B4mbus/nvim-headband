@@ -16,6 +16,10 @@ local default_config = {
   unsaved_buffer_text = '[No name]',
   buffer_filter = require 'nvim-headband.utils'.bt_filter {
     'NvimTree',
+    'packer',
+    'alpha',
+    'dashboard',
+    'startify'
   },
 
   ---@class UserConfig.FileSection
