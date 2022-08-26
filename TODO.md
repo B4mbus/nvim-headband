@@ -5,6 +5,7 @@
 # Soon
  1. Add option to center the winbar
  2. Add option to make the navic section on the right
+ 3. Tests
 
 # Docs
  1. Vim docs
