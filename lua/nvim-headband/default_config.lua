@@ -3,11 +3,12 @@ local symbols = require 'nvim-headband.symbols'
 ---A function for handling buffers, called inside multiple places from headband
 ---@alias BufferFunc fun(bid: number, bname: string, bt: string, ft: string): boolean
 
----@class UserConfig
+---@class UserConfig The configuration table user is meant to pass to setup
 ---@field public enable boolean Whether to enable the winbar
 ---@field public general_separator string Separator between the file section and navic section, if both are present, can be disabled by setting it to ''
 ---@field public unsaved_buffer_text string | BufferFunc The text to display for an unsaved buffer, can be @BufferFunc
 ---@field public buffer_filter BufferFunc A function that filters buffers out (buffers for which it will return false won't have winbar enabled)
+--
 ---@field public file_section UserConfig.FileSection Configuration for the file section of the winbar
 ---@field public navic_section UserConfig.NavicSection Configuration for the navic section of the winbar
 local default_config = {
@@ -16,6 +17,8 @@ local default_config = {
   unsaved_buffer_text = '[No name]',
   buffer_filter = require 'nvim-headband.utils'.bt_filter {
     'NvimTree',
+    'nerdtree',
+    'neot-tree',
     'packer',
     'alpha',
     'dashboard',
