@@ -1,7 +1,6 @@
 # Need to
  1. Setup navic
  2. Register default highlights
- 3. Handle `text` and `unsaved_buffer_text` being a function
 
 # Soon
  1. Add option to center the winbar
