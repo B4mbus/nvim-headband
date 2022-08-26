@@ -2,8 +2,6 @@
 ---@author Daniel Zaradny <danielzarany@gmail.com>
 ---@license MIT
 
-local Headband = {}
-
 local has_winbar = function()
   return vim.api.nvim_get_all_options_info()['winbar']
 end
@@ -13,6 +11,8 @@ local issue_lack_of_winbar_notification = function()
     'This neovim installation does not have the winbar feature. Cannot enable nvim-headband.'
   )
 end
+
+local Headband = {}
 
 --- Function to call to get winbar up and running
 ---@param user_config UserConfig | nil
