@@ -282,6 +282,10 @@ function NvimHeadbandWinbarMod:clear_autocmd()
 end
 
 function NvimHeadbandWinbarMod:disable()
+  if not self.config.enable then
+    return
+  end
+
   self.config.enable = false
   self:clear_autocmd()
 
@@ -289,6 +293,10 @@ function NvimHeadbandWinbarMod:disable()
 end
 
 function NvimHeadbandWinbarMod:enable()
+  if self.config.enable then
+    return
+  end
+
   self.config.enable = true
   self:register_autocmd()
 
@@ -297,10 +305,10 @@ end
 
 local Winbar = {}
 
---- Enables the nvim-headband winbar
----@param config UserConfig
-Winbar.start = function(config)
-  local augroup = function(x) return api.nvim_create_augroup(x, { clear = true }) end
+Winbar.start = function(global_headband_mod, config)
+  local augroup = function(x)
+    return api.nvim_create_augroup(x, { clear = true })
+  end
 
   NvimHeadbandWinbarMod.config = config
   NvimHeadbandWinbarMod.augroup_id = augroup('NvimHeadbandWinbar')
