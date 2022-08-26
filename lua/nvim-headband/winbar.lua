@@ -292,8 +292,10 @@ function NvimHeadbandWinbarMod:disable()
   vim.wo.winbar = ''
 end
 
-function NvimHeadbandWinbarMod:enable()
-  if self.config.enable then
+function NvimHeadbandWinbarMod:enable(force)
+  local force = force or false
+
+  if self.config.enable and (not force) then
     return
   end
 
@@ -314,7 +316,7 @@ Winbar.start = function(config)
   NvimHeadbandWinbarMod.augroup_id = augroup('NvimHeadbandWinbar')
   NvimHeadbandWinbarMod.winbar_string = '%{%v:lua.NvimHeadbandWinbarMod.get()%}'
 
-  NvimHeadbandWinbarMod:enable()
+  NvimHeadbandWinbarMod:enable(true)
 end
 
 return Winbar
