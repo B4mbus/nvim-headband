@@ -33,4 +33,20 @@ Headband.setup = function(user_config)
   end
 end
 
+Headband.enable = function()
+  NvimHeadbandWinbarMod:enable()
+end
+
+Headband.disable = function()
+  NvimHeadbandWinbarMod:disable()
+end
+
+Headband.toggle = function()
+  if NvimHeadbandWinbarMod.config.enable then
+    NvimHeadbandWinbarMod:disable()
+  else
+    NvimHeadbandWinbarMod:enable()
+  end
+end
+
 return Headband
