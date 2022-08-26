@@ -7,8 +7,9 @@ local issue_lack_of_navic_error = function()
 end
 
 local get_navic_mod = function()
-  return require 'nvim-headband.impl.utils'
-    .conditional_require('nvim-navic', issue_lack_of_navic_error)
+  local conditional_require = require 'nvim-headband.impl.conditional_require'
+
+   return conditional_require('nvim-navic', issue_lack_of_navic_error)
 end
 
 local hl = function(group)

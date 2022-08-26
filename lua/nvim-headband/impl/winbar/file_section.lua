@@ -13,8 +13,9 @@ local issue_lack_of_devicons_error = function()
 end
 
 local get_devicons_mod = function()
-  return require 'nvim-headband.impl.utils'
-    .conditional_require('nvim-web-devicons', issue_lack_of_devicons_error)
+  local conditional_require = require 'nvim-headband.impl.conditional_require'
+
+  return conditional_require('nvim-web-devicons', issue_lack_of_devicons_error)
 end
 
 local get_preffered_path_separator = function()

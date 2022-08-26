@@ -1,6 +1,4 @@
-local Utils = {}
-
-Utils.conditional_require = function(name, handler)
+return function(name, handler)
   if package.preload[name] then
       return true, require(name)
     end
@@ -13,5 +11,3 @@ Utils.conditional_require = function(name, handler)
 
   return loaded, mod
 end
-
-return Utils
