@@ -9,9 +9,7 @@ local has_winbar = function()
 end
 
 local issue_lack_of_winbar_notification = function()
-  local notif = 'nvim-headband.notifications'
-
-  notif.issue_headband_error(
+  require 'nvim-headband.error_handling'.issue_headband_error(
     'This neovim installation does not have the winbar feature. Cannot enable nvim-headband.'
   )
 end
