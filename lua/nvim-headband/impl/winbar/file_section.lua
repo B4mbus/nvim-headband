@@ -37,7 +37,7 @@ end
 local FileSection = {}
 
 function FileSection:conditionally_lower_path(path)
-  if self.config.text:find('shortened') then
+  if self.config.text:find('lower') then
     return path:tolower()
   end
 end
