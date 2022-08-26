@@ -269,42 +269,57 @@ function NvimHeadbandWinbarMod.get()
   return winbar_string
 end
 
-function NvimHeadbandWinbarMod:disable()
-  self.config.enable = false
-
-  api.nvim_clear_autocmds({ group = self.augroup_id })
-
-  vim.wo.winbar = ''
-end
-
-local Winbar = {}
-
-local get_headband_callback = function()
+local get_headband_callback = function(mod)
   return function()
     if api.nvim_buf_get_option(0, 'buftype') == '' and fn.getcmdwintype() == '' then
-      vim.wo.winbar = '%{%v:lua.NvimHeadbandWinbarMod.get()%}'
+      vim.wo.winbar = mod.winbar_string
     end
   end
 end
 
---- Enables the nvim-headband winbar
----@param config UserConfig
-Winbar.enable = function(config)
+function NvimHeadbandWinbarMod:register_autocmd()
   local autocmd = api.nvim_create_autocmd
-  local augroup = function(x) return api.nvim_create_augroup(x, { clear = true }) end
-
-  -- TODO: Strip config
-  NvimHeadbandWinbarMod.config = config
-  NvimHeadbandWinbarMod.augroup_id = augroup('NvimHeadbandWinbar')
 
   autocmd(
     { 'VimEnter', 'BufEnter' },
     {
       pattern = '*',
       group = NvimHeadbandWinbarMod.augroup_id,
-      callback = get_headband_callback()
+      callback = get_headband_callback(NvimHeadbandWinbarMod)
     }
   )
+end
+
+function NvimHeadbandWinbarMod:clear_autocmd()
+  api.nvim_clear_autocmds({ group = self.augroup_id })
+end
+
+function NvimHeadbandWinbarMod:disable()
+  self.config.enable = false
+  self:clear_autocmd()
+
+  vim.wo.winbar = ''
+end
+
+function NvimHeadbandWinbarMod:enable()
+  self.config.enable = true
+  self:register_autocmd()
+
+  vim.wo.winbar = self.winbar_string
+end
+
+local Winbar = {}
+
+--- Enables the nvim-headband winbar
+---@param config UserConfig
+Winbar.enable = function(config)
+  local augroup = function(x) return api.nvim_create_augroup(x, { clear = true }) end
+
+  NvimHeadbandWinbarMod.config = config
+  NvimHeadbandWinbarMod.augroup_id = augroup('NvimHeadbandWinbar')
+  NvimHeadbandWinbarMod.winbar_string = '%{%v:lua.NvimHeadbandWinbarMod.get()%}'
+
+  NvimHeadbandWinbarMod:enable()
 end
 
 return Winbar
