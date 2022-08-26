@@ -70,15 +70,29 @@ function NvimHeadbandWinbarMod.get()
   return winbar_string
 end
 
-local get_headband_callback = function(mod)
+local get_headband_callback = function(mod, buffer_filter)
+  local proper_buffer = function()
+    local bufnr = fn.bufnr()
+
+    local buf_id = fn.bufwinnr(bufnr)
+    local buf_name = fn.bufname()
+    local buftype = api.nvim_buf_get_option(0, 'bt')
+    local filetype = api.nvim_buf_get_option(0, 'ft')
+
+    return
+      api.nvim_buf_get_option(0, 'buftype') == ''
+      and fn.getcmdwintype() == ''
+      and not buffer_filter(buf_id, buf_name, buftype, filetype)
+  end
+
   return function()
-    if api.nvim_buf_get_option(0, 'buftype') == '' and fn.getcmdwintype() == '' then
+    if proper_buffer() then
       vim.wo.winbar = mod.winbar_string
     end
   end
 end
 
-function NvimHeadbandWinbarMod:register_autocmd()
+function NvimHeadbandWinbarMod:register_autocmd(buffer_filter)
   local autocmd = api.nvim_create_autocmd
 
   autocmd(
@@ -86,7 +100,7 @@ function NvimHeadbandWinbarMod:register_autocmd()
     {
       pattern = '*',
       group = NvimHeadbandWinbarMod.augroup_id,
-      callback = get_headband_callback(NvimHeadbandWinbarMod)
+      callback = get_headband_callback(NvimHeadbandWinbarMod, buffer_filter)
     }
   )
 end
@@ -114,7 +128,7 @@ function NvimHeadbandWinbarMod:enable(force)
   end
 
   self.config.enable = true
-  self:register_autocmd()
+  self:register_autocmd(self.config.buffer_filter)
 
   vim.wo.winbar = self.winbar_string
 end
