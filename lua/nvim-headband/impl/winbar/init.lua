@@ -35,7 +35,10 @@ function NvimHeadbandWinbarMod.get_winbar(self)
 
   local file_readable = fn.filereadable(fn.expand('%:p')) ~= 0
   if not file_readable then
-    return hl('NvimHeadbandEmptyBuf') .. ' ' .. self.config.unsaved_buffer_text
+    local ubt = self.config.unsaved_buffer_text
+    local call_or_id = require 'nvim-headband.impl.utils'.call_or_id
+
+    return hl('NvimHeadbandEmptyBuf') .. ' ' .. call_or_id(ubt)
   end
 
   local loc_section_mod = require 'nvim-headband.impl.winbar.location_section'

@@ -7,7 +7,7 @@ local issue_lack_of_location_provider_error = function()
 end
 
 local get_location_provider_mod = function()
-  local conditional_require = require 'nvim-headband.impl.conditional_require'
+  local conditional_require = require 'nvim-headband.impl.utils'.conditional_require
 
    return conditional_require('nvim-navic', issue_lack_of_location_provider_error)
 end

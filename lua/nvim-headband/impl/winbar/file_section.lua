@@ -13,7 +13,7 @@ local issue_lack_of_devicons_error = function()
 end
 
 local get_devicons_mod = function()
-  local conditional_require = require 'nvim-headband.impl.conditional_require'
+  local conditional_require = require 'nvim-headband.impl.utils'.conditional_require
 
   return conditional_require('nvim-web-devicons', issue_lack_of_devicons_error)
 end
