@@ -1,9 +1,12 @@
 local symbols = require 'nvim-headband.symbols'
 
+---A function for handling buffers, called inside multiple places from headband
+---@alias BufferFunc fun(bid: number, bname: string, bt: string, ft: string):boolean
+
 ---@class UserConfig
 ---@field public enable boolean Whether to enable the winbar
 ---@field public general_separator string Separator between the file section and navic section, if both are present, can be disabled by setting it to ''
----@field public empty_buffer_text string The text to display when an empty buffer is opened
+---@field public unsaved_buffer_text string | BufferFunc The text to display for an unsaved buffer, can be @BufferFunc
 ---@field public file_section UserConfig.FileSection Configuration for the file section of the winbar
 ---@field public navic_section UserConfig.NavicSection Configuration for the navic section of the winbar
 local default_config = {
@@ -13,7 +16,7 @@ local default_config = {
 
   ---@class UserConfig.FileSection
   ---@field public enable boolean Whether to enable or disable the file section
-  ---@field public text string Style of the file section can be 'filename' | 'shortened' | 'shortened_lower' | 'full' | 'full_lower or a function that will return the text
+  ---@field public text string | BufferFunc Style of the file section can be 'filename' | 'shortened' | 'shortened_lower' | 'full' | 'full_lower or a @BufferFunc that will return the text
   ---@field public bold_filename boolean Whether set the NvimHeadbandFilename hl group as bold
   ---@field public devicons UserConfig.File.DevIcons Configuration for the file section's devicons
   file_section = {
