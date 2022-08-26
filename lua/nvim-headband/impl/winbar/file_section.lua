@@ -71,7 +71,9 @@ function FileSection:get_file_string()
   local filename = fn.expand('%:p:t')
   local path_without_filename = fn.expand('%:p:h')
 
-  if text == 'filename' then
+  if type(text) == 'function' then
+    return text()
+  elseif text == 'filename' then
     return hl('NvimHeadbandFilename') .. filename .. empty_hl
   else
     local possibly_shortened_path = self:conditionally_shorten_path(path_without_filename)
@@ -106,7 +108,7 @@ function FileSection:get_icon()
       format_string = '%' .. hl(name) .. format_string
     end
 
-    return fmt(format_string, icon)
+    return fmt(format_string, icon) .. empty_hl
   end
 end
 
