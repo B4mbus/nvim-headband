@@ -4,16 +4,16 @@ local concat = table.concat
 local fmt = string.format
 local empty_hl = '%##'
 
-local errors = require 'nvim-headband.error_handling'
+local ErrorHandler = require 'nvim-headband.error_handler'
 
 local issue_lack_of_devicons_error = function()
-  errors.headband_notify(
+  ErrorHandler.headband_notify_error_deffered(
     'The "kyazdani42/nvim-web-devicons" plugin is not present. Cannot enable devicons for winbar.'
   )
 end
 
 local issue_lack_of_navic_error = function()
-  errors.headband_notify(
+  ErrorHandler.headband_notify_error_deffered(
     'The "SmiteshP/nvim-navic" plugin is not present. Cannot enable navic for winbar.'
   )
 end
@@ -241,24 +241,11 @@ function NvimHeadbandWinbarMod.get()
   local self = NvimHeadbandWinbarMod
 
   local error_handler = function(error)
-    vim.defer_fn(
-      function()
-        vim.notify(
-          'Error encountered while trying to get the winbar, disabling.\n'
-          .. 'Please contact the author and file an issue.'
-          .. '\n\n'
-          .. error,
-          vim.log.levels.ERROR,
-          {
-            title = 'nvim-headband',
-            on_open = function(win)
-              local buf = vim.api.nvim_win_get_buf(win)
-              vim.api.nvim_buf_set_option(buf, 'filetype', 'markdown')
-            end,
-          }
-        )
-      end,
-      100
+    ErrorHandler.headband_notify_error_deffered(
+      'Error encountered while trying to get the winbar, disabling.\n'
+      .. 'Please contact the author and file an issue.'
+      .. '\n\n'
+      .. error
     )
 
     self:disable()
