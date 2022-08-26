@@ -35,7 +35,7 @@ local default_config = {
   ---@field public devicons UserConfig.File.DevIcons Configuration for the file section's devicons
   file_section = {
     enable = true,
-    text = function() return 'filename' end,
+    text = 'filename',
     bold_filename = true,
 
     ---@class UserConfig.File.DevIcons
