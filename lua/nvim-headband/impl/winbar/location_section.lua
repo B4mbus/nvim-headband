@@ -1,22 +1,22 @@
 local LocationSection = {}
 
-local issue_lack_of_navic_error = function()
+local issue_lack_of_location_provider_error = function()
   require 'nvim-headband.impl.error_handler'.headband_notify_error_deffered(
     'The "SmiteshP/nvim-navic" plugin is not present. Cannot enable navic for winbar.'
   )
 end
 
-local get_navic_mod = function()
+local get_location_provider_mod = function()
   local conditional_require = require 'nvim-headband.impl.conditional_require'
 
-   return conditional_require('nvim-navic', issue_lack_of_navic_error)
+   return conditional_require('nvim-navic', issue_lack_of_location_provider_error)
 end
 
 local hl = function(group)
   return '%#' .. group .. '#'
 end
 
-function LocationSection:get_navic_hl()
+function LocationSection:get_loc_empty_hl()
   if self.config.empty_symbol.highlight then
     return hl('NvimHeadbandEmptyLoc')
   else
@@ -31,12 +31,12 @@ function LocationSection:get_empty_symbol()
     return ''
   else
     return
-      self:get_navic_hl()
+      self:get_loc_empty_hl()
       .. empty_symbol
   end
 end
 
-function LocationSection:get_navic_location(navic)
+function LocationSection:get_location(navic)
   local loc = navic.get_location()
 
   if loc == '' then
@@ -55,11 +55,12 @@ function LocationSection.get(config)
     return false, ''
   end
 
-  local navic_loaded, navic = get_navic_mod()
-  local available = navic.is_available()
+  local loc_provider_loaded, loc_provider = get_location_provider_mod()
+  -- TODO: maybe abstract away?
+  local available = loc_provider.is_available()
 
-  if navic_loaded then
-    return available, (available and self:get_navic_location(navic) or '')
+  if loc_provider_loaded then
+    return available, (available and self:get_location(loc_provider) or '')
   end
 end
 
