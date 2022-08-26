@@ -281,7 +281,7 @@ local Winbar = {}
 
 local get_headband_callback = function()
   return function()
-    if api.nvim_buf_get_option(0, 'buftype') == '' then
+    if api.nvim_buf_get_option(0, 'buftype') == '' and fn.getcmdwintype() == '' then
       vim.wo.winbar = '%{%v:lua.NvimHeadbandWinbarMod.get()%}'
     end
   end
