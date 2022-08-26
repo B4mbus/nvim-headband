@@ -312,7 +312,7 @@ local Winbar = {}
 
 --- Enables the nvim-headband winbar
 ---@param config UserConfig
-Winbar.enable = function(config)
+Winbar.start = function(config)
   local augroup = function(x) return api.nvim_create_augroup(x, { clear = true }) end
 
   NvimHeadbandWinbarMod.config = config
