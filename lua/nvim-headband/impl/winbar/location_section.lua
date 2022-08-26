@@ -1,13 +1,13 @@
 local LocationSection = {}
 
 local issue_lack_of_navic_error = function()
-  require 'nvim-headband.error_handler'.headband_notify_error_deffered(
+  require 'nvim-headband.impl.error_handler'.headband_notify_error_deffered(
     'The "SmiteshP/nvim-navic" plugin is not present. Cannot enable navic for winbar.'
   )
 end
 
 local get_navic_mod = function()
-  return require 'nvim-headband.utils'
+  return require 'nvim-headband.impl.utils'
     .conditional_require('nvim-navic', issue_lack_of_navic_error)
 end
 

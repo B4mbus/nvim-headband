@@ -3,17 +3,17 @@ local fmt = string.format
 local api = vim.api
 local fn = vim.fn
 
-local hl = require 'nvim-headband.highlights'.hl
-local empty_hl = require 'nvim-headband.highlights'.empty_hl
+local hl = require 'nvim-headband.impl.highlights'.hl
+local empty_hl = require 'nvim-headband.impl.highlights'.empty_hl
 
 local issue_lack_of_devicons_error = function()
-  require 'nvim-headband.error_handler'.headband_notify_error_deffered(
+  require 'nvim-headband.impl.error_handler'.headband_notify_error_deffered(
       'The "kyazdani42/nvim-web-devicons" plugin is not present. Cannot enable devicons for winbar.'
     )
 end
 
 local get_devicons_mod = function()
-  return require 'nvim-headband.utils'
+  return require 'nvim-headband.impl.utils'
     .conditional_require('nvim-web-devicons', issue_lack_of_devicons_error)
 end
 

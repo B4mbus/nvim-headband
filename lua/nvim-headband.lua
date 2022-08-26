@@ -27,7 +27,7 @@ Headband.setup = function(user_config)
       return
     end
 
-    require 'nvim-headband.winbar'.start(config)
+    require 'nvim-headband.impl.winbar'.start(config)
   end
 end
 

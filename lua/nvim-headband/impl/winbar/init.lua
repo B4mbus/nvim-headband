@@ -1,10 +1,10 @@
 local api = vim.api
 local fn = vim.fn
 
-local empty_hl = require 'nvim-headband.highlights'.empty_hl
-local hl = require 'nvim-headband.highlights'.hl
+local empty_hl = require 'nvim-headband.impl.highlights'.empty_hl
+local hl = require 'nvim-headband.impl.highlights'.hl
 
-local ErrorHandler = require 'nvim-headband.error_handler'
+local ErrorHandler = require 'nvim-headband.impl.error_handler'
 
 --- The global winbar mod, contains the whole needed state for the winbar to work
 NvimHeadbandWinbarMod = {}
@@ -38,10 +38,10 @@ function NvimHeadbandWinbarMod.get_winbar(self)
     return hl('NvimHeadbandEmptyBuf') .. ' ' .. self.config.unsaved_buffer_text
   end
 
-  local loc_section_mod = require 'nvim-headband.winbar.location_section'
+  local loc_section_mod = require 'nvim-headband.impl.winbar.location_section'
   local loc_available, loc_section = loc_section_mod.get(self.config.navic_section)
 
-  local file_section_mod = require 'nvim-headband.winbar.file_section'
+  local file_section_mod = require 'nvim-headband.impl.winbar.file_section'
 
   return
     hl('WinBar')
