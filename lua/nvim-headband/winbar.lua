@@ -305,7 +305,7 @@ end
 
 local Winbar = {}
 
-Winbar.start = function(global_headband_mod, config)
+Winbar.start = function(config)
   local augroup = function(x)
     return api.nvim_create_augroup(x, { clear = true })
   end
