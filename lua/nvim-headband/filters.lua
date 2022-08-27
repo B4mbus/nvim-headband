@@ -78,4 +78,32 @@ Filters.combine = function(...)
   end
 end
 
+--- Returns a @BufferFilterFunc that runs certain filters right after another and immediately returns if any of them returns false
+---@vararg BufferFilterFunc The functions
+---@return BufferFilterFunc
+Filters.strict_combine = function(...)
+  local filters = { ... }
+
+  --- Returns combined @BufferFilterFunc s
+  ---@type BufferFilterFunc
+  ---@param bid number Buffer id
+  ---@param bname string Buffer name
+  ---@param bt string Buftype
+  ---@param ft string Filetype
+  ---@param prev boolean The result of previous filter if used with a combinator
+  ---@return boolean
+  return function(bid, bname, bt, ft, prev)
+    local prev_result = true
+    for _, filter in ipairs(filters) do
+      prev_result = filter(bid, bname, bt, ft, prev_result)
+
+      if not prev_result then
+        return false
+      end
+    end
+
+    return prev_result
+  end
+end
+
 return Filters

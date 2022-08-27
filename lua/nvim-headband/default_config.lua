@@ -10,6 +10,10 @@ local symbols = require 'nvim-headband.symbols'
 --- A function that returns two string values wrapping a section
 ---@alias WrapFunction fun(bid: number, bname: string, bt:string, ft:string): string, string
 
+local strict_combine = require 'nvim-headband.filters'.strict_combine
+local bt_filter = require 'nvim-headband.filters'.bt_filter
+local ft_filter = require 'nvim-headband.filters'.ft_filter
+
 ---@class UserConfig The configuration table user is meant to pass to setup
 ---@field public enable boolean Whether to enable the winbar
 ---@field public general_separator string Separator between the file section and navic section, if both are present, can be disabled by setting it to ''
@@ -22,15 +26,20 @@ local default_config = {
   enable = true,
   general_separator = '::',
   unsaved_buffer_text = '[No name]',
-  buffer_filter = require 'nvim-headband.filters'.bt_filter {
-    'NvimTree',
-    'nerdtree',
-    'neot-tree',
-    'packer',
-    'alpha',
-    'dashboard',
-    'startify'
-  },
+  buffer_filter = strict_combine(
+    bt_filter {
+      'NvimTree',
+      'nerdtree',
+      'neot-tree',
+      'packer',
+      'alpha',
+      'dashboard',
+      'startify'
+    },
+    ft_filter {
+      'NeogitCommitMessage'
+    }
+  ),
 
   ---@class UserConfig.FileSection
   ---@field public enable boolean Whether to enable or disable the file section
