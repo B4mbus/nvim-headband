@@ -98,7 +98,7 @@ Filters.strict_combine = function(...)
       prev_result = filter(bid, bname, bt, ft, prev_result)
 
       if not prev_result then
-        return false
+        return true
       end
     end
 
