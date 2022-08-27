@@ -18,6 +18,13 @@ local get_headband_callback = function(mod)
   end
 end
 
+local patch_highlight_config = function(config)
+  config.file_section.highlights = {}
+  config.file_section.highlights.devicons = config.highlights.devicons
+
+  return config
+end
+
 --- The global winbar mod, contains the whole needed state for the winbar to work
 NvimHeadbandWinbarMod = {}
 
@@ -50,6 +57,9 @@ function NvimHeadbandWinbarMod.get_winbar(self)
 
     return hl('NvimHeadbandEmptyBuf') .. ' ' .. call_or_id(ubt)
   end
+
+  -- HACK: hacky as b4LLz, but fuck it, no one's gonna see :tf:
+  self.config = patch_highlight_config(self.config)
 
   local loc_section_mod = require 'nvim-headband.impl.winbar.location_section'
   local loc_available, loc_section = loc_section_mod.get(self.config.location_section)

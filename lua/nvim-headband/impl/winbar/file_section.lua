@@ -86,7 +86,7 @@ end
 function FileSection:format_icon(name, icon)
   local format_string = '%s'
 
-  if self.config.devicons.highlight then
+  if self.config.highlights.devicons then
     format_string = '%' .. hl(name) .. format_string
   end
 
@@ -94,7 +94,7 @@ function FileSection:format_icon(name, icon)
 end
 
 function FileSection:get_icon()
-  if not self.config.devicons.enable then
+  if not self.config.enable_devicons then
     return ''
   end
 

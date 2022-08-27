@@ -16,22 +16,14 @@ local hl = function(group)
   return '%#' .. group .. '#'
 end
 
-function LocationSection:get_loc_empty_hl()
-  if self.config.empty_symbol.highlight then
-    return hl('NvimHeadbandEmptyLoc')
-  else
-    return ''
-  end
-end
-
 function LocationSection:get_empty_symbol()
-  local empty_symbol = self.config.empty_symbol.symbol
+  local empty_symbol = self.config.empty_symbol
 
   if empty_symbol == '' then
     return ''
   else
     return
-      self:get_loc_empty_hl()
+      hl('NvimHeadbandEmptyLocSymbol')
       .. empty_symbol
   end
 end

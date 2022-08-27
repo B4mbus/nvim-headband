@@ -1,15 +1,14 @@
 local symbols = require 'nvim-headband.symbols'
-require 'nvim-headband.impl.config_annotations' -- not sure if I have to require this lol
 
 local strict_combine = require 'nvim-headband.filters'.strict_combine
 local bt_filter = require 'nvim-headband.filters'.bt_filter
 local ft_filter = require 'nvim-headband.filters'.ft_filter
 
----@type UserConfig
 local default_config = {
   enable = true,
   general_separator = '::',
   unsaved_buffer_text = '[No name]',
+
   window_filter = strict_combine(
     bt_filter {
       'NvimTree',
@@ -26,7 +25,6 @@ local default_config = {
     }
   ),
 
-  ---@type UserConfig.FileSection
   file_section = {
     enable = true,
 
@@ -35,14 +33,9 @@ local default_config = {
 
     wrap = nil,
 
-    ---@type UserConfig.FileSection.DevIcons
-    devicons = {
-      enable = true,
-      highlight = true
-    },
+    enable_devicons = true,
   },
 
-  ---@type UserConfig.LocationSection
   location_section = {
     enable = true,
 
@@ -51,23 +44,17 @@ local default_config = {
 
     wrap = nil,
 
-    ---@type UserConfig.LocationSection.EmptySymbol
-    empty_symbol = {
-      symbol = symbols.empty_set,
-      highlight = true
-    },
+    empty_symbol = symbols.empty_set,
 
-    ---@type UserConfig.LocationSection.Separator
-    separator = {
-      symbol = symbols.nice_arrow,
-      highlight = true
-    },
+    separator = symbols.nice_arrow,
 
-    ---@type UserConfig.LocationSection.Icons
-    icons = {
-      default_icons = true,
-      highlights = 'link'
-    }
+    icons = 'default'
+  },
+
+  highlights = {
+    devicons = true,
+    default_location_separator = true,
+    location_icons = 'link'
   }
 }
 
