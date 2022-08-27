@@ -68,7 +68,7 @@ function FileSection:build_full_path(path_without_filename, filename)
     .. empty_hl
 end
 
-function FileSection:get_file_string()
+function FileSection:get_path()
   local text = self.config.text
 
   local filename = fn.expand('%:p:t')
@@ -81,6 +81,16 @@ function FileSection:get_file_string()
   else
     return self:build_full_path(path_without_filename, filename)
   end
+end
+
+function FileSection:format_icon(name, icon)
+  local format_string = '%s'
+
+  if self.config.devicons.highlight then
+    format_string = '%' .. hl(name) .. format_string
+  end
+
+  return fmt(format_string, icon) .. empty_hl
 end
 
 function FileSection:get_icon()
@@ -97,19 +107,13 @@ function FileSection:get_icon()
       return ''
     end
 
-    local format_string = '%s'
-
-    if self.config.devicons.highlight then
-      format_string = '%' .. hl(name) .. format_string
-    end
-
-    return fmt(format_string, icon) .. empty_hl
+    return self:format_icon(name, icon)
   end
 end
 
 function FileSection:get_file_section()
   local icon = self:get_icon()
-  local path = self:get_file_string()
+  local path = self:get_path()
   local wrapper = require 'nvim-headband.impl.winbar.shared'.evaluate_wrap(self.config.wrap)
 
   return wrapper(
