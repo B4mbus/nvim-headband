@@ -6,7 +6,6 @@ end
 
 SectionShared.evaluate_wrap = function(wrap)
   local Checkers = require 'nvim-headband.impl.checkers'
-  local ErrorHandler = require 'nvim-headband.impl.error_handler'
 
   local wrap_pre
   local wrap_post
