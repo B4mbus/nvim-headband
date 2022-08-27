@@ -1,8 +1,3 @@
-local setup_navic = function(config)
-  require 'nvim-navic'.setup {
-  }
-end
-
 local LocationSection = {}
 
 local issue_lack_of_location_provider_error = function()
@@ -59,8 +54,6 @@ function LocationSection.get(config)
   if not self.config.enable then
     return false, ''
   end
-
-  setup_navic(config)
 
   local loc_provider_loaded, loc_provider = get_location_provider_mod()
   -- TODO: maybe abstract away?
