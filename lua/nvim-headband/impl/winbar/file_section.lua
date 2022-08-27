@@ -119,12 +119,14 @@ function FileSection:get_file_section()
 
   local icon = self:get_icon()
   local file_string = self:get_file_string()
+  local wrapper = require 'nvim-headband.impl.winbar.shared'.evaluate_wrap()
 
-  return
+  return wrapper(
     icon
     .. ' '
     .. file_string
     .. empty_hl
+  )
 end
 
 function FileSection.get(config)

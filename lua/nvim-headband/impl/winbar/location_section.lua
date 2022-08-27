@@ -1,3 +1,8 @@
+local setup_navic = function(config)
+  require 'nvim-navic'.setup {
+  }
+end
+
 local LocationSection = {}
 
 local issue_lack_of_location_provider_error = function()
@@ -55,12 +60,17 @@ function LocationSection.get(config)
     return false, ''
   end
 
+  setup_navic(config)
+
   local loc_provider_loaded, loc_provider = get_location_provider_mod()
   -- TODO: maybe abstract away?
   local available = loc_provider.is_available()
 
   if loc_provider_loaded then
-    return available, (available and self:get_location(loc_provider) or '')
+    local wrapper = require 'nvim-headband.impl.winbar.shared'.evaluate_wrap()
+    local location_string = wrapper(self:get_location(loc_provider))
+
+    return available, (available and location_string or '')
   end
 end
 
