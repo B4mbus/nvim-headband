@@ -55,6 +55,8 @@ end
 ---@vararg BufferFilterFunc The functions
 ---@return BufferFilterFunc
 Filters.combine = function(...)
+  local filters = { ... }
+
   --- Returns combined @BufferFilterFunc s
   ---@type BufferFilterFunc
   ---@param bid number Buffer id
@@ -65,7 +67,7 @@ Filters.combine = function(...)
   ---@return boolean
   return function(bid, bname, bt, ft, prev)
     local prev_result = true
-    for _, filter in ipairs(arg) do
+    for _, filter in ipairs(filters) do
       prev_result = filter(bid, bname, bt, ft, prev_result)
     end
 
