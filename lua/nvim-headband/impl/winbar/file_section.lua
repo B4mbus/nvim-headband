@@ -109,10 +109,6 @@ function FileSection:get_icon()
 end
 
 function FileSection:get_file_section()
-  if not self.config.devicons.enable then
-    return ''
-  end
-
   local icon = self:get_icon()
   local file_string = self:get_file_string()
   local wrapper = require 'nvim-headband.impl.winbar.shared'.evaluate_wrap(self.config.wrap)
@@ -128,11 +124,11 @@ end
 function FileSection.get(config)
   local self = FileSection
 
-  self.config = config
-
-  if not self.config.enable then
+  if not config.enable then
     return ''
   end
+
+  self.config = config
 
   return self:get_file_section()
 end
