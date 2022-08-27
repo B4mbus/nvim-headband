@@ -1,4 +1,3 @@
-local concat = table.concat
 local fmt = string.format
 local api = vim.api
 local fn = vim.fn
@@ -52,15 +51,11 @@ function FileSection:conditionally_shorten_path(path)
     return path_elem:sub(1, 1)
   end
 
-  local formatted_path = format_path(
-    concat(
-      vim.tbl_map(
-        get_first,
-        fn.split(path, preffered_separator)
-      ),
-      preffered_separator
-    ) .. preffered_separator
+  local shortened_path = table.concat(
+    vim.tbl_map(get_first, fn.split(path, preffered_separator)),
+    preffered_separator
   )
+  local formatted_path = format_path(shortened_path .. preffered_separator)
 
   return self:conditionally_lower_path(formatted_path)
 end
