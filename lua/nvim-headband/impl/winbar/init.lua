@@ -149,10 +149,6 @@ end
 local Winbar = {}
 
 Winbar.start = function(config)
-  if not config.enable then
-    return
-  end
-
   local augroup = function(x)
     return api.nvim_create_augroup(x, { clear = true })
   end
