@@ -6,7 +6,7 @@ local ft_filter = require 'nvim-headband.filters'.ft_filter
 
 local default_config = {
   enable = true,
-  general_separator = '::',
+  separator_text = '::',
   unsaved_buffer_text = '[No name]',
 
   window_filter = strict_combine(

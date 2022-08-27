@@ -40,10 +40,12 @@ function NvimHeadbandWinbarMod:get_separator_conditionally(loc_available)
     return ''
   end
 
+  local call_or_id = require 'nvim-headband.impl.utils'.call_or_id
+
   return
     hl('NvimHeadbandSeparator')
     .. ' '
-    .. self.config.general_separator
+    .. call_or_id(self.config.separator_text)
     .. ' '
     .. empty_hl
 end
