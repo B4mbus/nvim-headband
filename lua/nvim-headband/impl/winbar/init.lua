@@ -6,6 +6,18 @@ local empty_hl = require 'nvim-headband.impl.utils'.empty_hl
 
 local ErrorHandler = require 'nvim-headband.impl.error_handler'
 
+local get_headband_callback = function(mod)
+  return function()
+    local proper_buffer =
+      api.nvim_buf_get_option(0, 'buftype') == ''
+      and fn.getcmdwintype() == ''
+
+    if proper_buffer then
+      vim.wo.winbar = mod.winbar_string
+    end
+  end
+end
+
 --- The global winbar mod, contains the whole needed state for the winbar to work
 NvimHeadbandWinbarMod = {}
 
@@ -85,18 +97,6 @@ function NvimHeadbandWinbarMod.get()
   local _, winbar_string = xpcall(self.get_winbar, error_handler, self)
 
   return winbar_string
-end
-
-local get_headband_callback = function(mod)
-  return function()
-    local proper_buffer =
-      api.nvim_buf_get_option(0, 'buftype') == ''
-      and fn.getcmdwintype() == ''
-
-    if proper_buffer then
-      vim.wo.winbar = mod.winbar_string
-    end
-  end
 end
 
 function NvimHeadbandWinbarMod:register_autocmd()
