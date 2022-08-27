@@ -13,8 +13,7 @@ Filters.bt_filter = function(buffertypes)
   ---@param prev boolean The result of previous filter if used with a combinator
   ---@return boolean
   return function(bid, bname, bt, ft, prev)
-    if not prev then return false end
-    return vim.tbl_contains(buffertypes, bt)
+    return prev or vim.tbl_contains(buffertypes, bt)
   end
 end
 
@@ -31,8 +30,7 @@ Filters.ft_filter = function(filetypes)
   ---@param prev boolean The result of previous filter if used with a combinator
   ---@return boolean
   return function(bid, bname, bt, ft, prev)
-    if not prev then return false end
-    return vim.tbl_contains(filetypes, ft)
+    return prev or vim.tbl_contains(filetypes, ft)
   end
 end
 
@@ -49,8 +47,7 @@ Filters.bname_filter = function(bufnames)
   ---@param prev boolean The result of previous filter if used with a combinator
   ---@return boolean
   return function(bid, bname, bt, ft, prev)
-    if not prev then return false end
-    return vim.tbl_contains(bufnames, bname)
+    return prev or vim.tbl_contains(bufnames, bname)
   end
 end
 
@@ -69,12 +66,13 @@ Filters.combine = function(...)
   ---@param prev boolean The result of previous filter if used with a combinator
   ---@return boolean
   return function(bid, bname, bt, ft, prev)
-    local prev_result = true
+    local prev = prev or false
+
     for _, filter in ipairs(filters) do
-      prev_result = filter(bid, bname, bt, ft, prev_result)
+      prev = filter(bid, bname, bt, ft, prev)
     end
 
-    return prev_result
+    return prev
   end
 end
 
@@ -93,16 +91,15 @@ Filters.strict_combine = function(...)
   ---@param prev boolean The result of previous filter if used with a combinator
   ---@return boolean
   return function(bid, bname, bt, ft, prev)
-    local prev_result = true
-    for _, filter in ipairs(filters) do
-      prev_result = filter(bid, bname, bt, ft, prev_result)
+    local prev = prev or false
 
-      if not prev_result then
-        return true
-      end
+    for _, filter in ipairs(filters) do
+      prev = filter(bid, bname, bt, ft, prev)
+
+      if prev then return true end
     end
 
-    return prev_result
+    return false
   end
 end
 
