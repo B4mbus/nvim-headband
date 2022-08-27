@@ -34,7 +34,8 @@ local default_config = {
       'packer',
       'alpha',
       'dashboard',
-      'startify'
+      'startify',
+      'nofile'
     },
     ft_filter {
       'NeogitCommitMessage'
