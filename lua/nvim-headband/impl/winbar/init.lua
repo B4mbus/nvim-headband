@@ -1,8 +1,8 @@
 local api = vim.api
 local fn = vim.fn
 
-local empty_hl = require 'nvim-headband.impl.highlights'.empty_hl
-local hl = require 'nvim-headband.impl.highlights'.hl
+local hl = require 'nvim-headband.impl.utils'.hl
+local empty_hl = require 'nvim-headband.impl.utils'.empty_hl
 
 local ErrorHandler = require 'nvim-headband.impl.error_handler'
 
@@ -11,7 +11,7 @@ NvimHeadbandWinbarMod = {}
 
 function NvimHeadbandWinbarMod:separator_available(loc_available)
   return ((self.config.file_section.enable)
-    and (self.config.navic_section.enable))
+    and (self.config.location_section.enable))
     and (loc_available)
 end
 
@@ -42,7 +42,7 @@ function NvimHeadbandWinbarMod.get_winbar(self)
   end
 
   local loc_section_mod = require 'nvim-headband.impl.winbar.location_section'
-  local loc_available, loc_section = loc_section_mod.get(self.config.navic_section)
+  local loc_available, loc_section = loc_section_mod.get(self.config.location_section)
 
   local file_section_mod = require 'nvim-headband.impl.winbar.file_section'
 

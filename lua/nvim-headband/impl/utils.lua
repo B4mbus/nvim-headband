@@ -24,4 +24,10 @@ Utils.call_or_id = function(obj)
   end
 end
 
+Utils.empty_hl = '%##'
+
+Utils.hl = function(name)
+  return '%#' .. name .. '#'
+end
+
 return Utils

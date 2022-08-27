@@ -13,7 +13,7 @@ local symbols = require 'nvim-headband.symbols'
 ---@field public buffer_filter BufferFunc A function that filters buffers out (buffers for which it will return false won't have winbar enabled)
 --
 ---@field public file_section UserConfig.FileSection Configuration for the file section of the winbar
----@field public navic_section UserConfig.NavicSection Configuration for the navic section of the winbar
+---@field public navic_section UserConfig.LocationSection Configuration for the navic section of the winbar
 local default_config = {
   enable = true,
   general_separator = '::',
@@ -35,6 +35,7 @@ local default_config = {
   ---@field public devicons UserConfig.File.DevIcons Configuration for the file section's devicons
   file_section = {
     enable = true,
+
     text = 'filename',
     bold_filename = true,
 
@@ -48,21 +49,21 @@ local default_config = {
   },
 
   ---
-  ---@class UserConfig.NavicSection
+  ---@class UserConfig.LocationSection
   ---@field public enable boolean Whether to enable the navic section
   ---@field public depth_limit number The depth limit of the navic symbols, 0 means none
   ---@field public depth_limit_indicator string The depth limit indicator that is used when the limit is reached
   --
-  ---@field public empty_symbol UserConfig.Navic.EmptySymbol Configuration for the empty navic symbol
-  ---@field public separator UserConfig.Navic.Separator Configuration for the separator between the navic elements
-  ---@field public icons UserConfig.Navic.Icons Configuration for navic icons
-  navic_section = {
+  ---@field public empty_symbol UserConfig.LocationSection.EmptySymbol Configuration for the empty navic symbol
+  ---@field public separator UserConfig.LocationSection.Separator Configuration for the separator between the navic elements
+  ---@field public icons UserConfig.LocationSection.Icons Configuration for navic icons
+  location_section = {
     enable = true,
 
     depth_limit = 0,
     depth_limit_indicator = symbols.ellipsis,
 
-    ---@class UserConfig.Navic.EmptySymbol
+    ---@class UserConfig.LocationSection.EmptySymbol
     ---@field public symbol string The symbol that will be displayed when navic is available but the location is empty, can be disabled by setting it to ''
     ---@field public highlight boolean Whether to highlight the empty location symbol
     empty_symbol = {
@@ -70,7 +71,7 @@ local default_config = {
       highlight = true
     },
 
-    ---@class UserConfig.Navic.Separator
+    ---@class UserConfig.LocationSection.Separator
     ---@field public symbol string The symbol to use for a navic separator
     ---@field public highlight boolean Whether to register the default highlight group for the separator
     separator = {
@@ -78,13 +79,13 @@ local default_config = {
       highlight = true
     },
 
-    ---@class UserConfig.Navic.Icons
+    ---@class UserConfig.LocationSection.Icons
     ---@field public default_icons boolean Whether to enable the default navic icons
     ---@field public highlights string How to highlight the default navic groups, the valid options are 'none' | 'link'| 'default'
     icons = {
       default_icons = true,
       highlights = 'link'
-    },
+    }
   }
 }
 

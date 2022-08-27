@@ -40,7 +40,7 @@ use {
   end
   requires = {
     { 'SmiteshP/nvim-navic', opt = true } -- required for for the navic section to work
-    { 'kyazdani42/nvim-web-devicons', opt = true } -- required for for devicons and default navic_section.separator highlight group
+    { 'kyazdani42/nvim-web-devicons', opt = true } -- required for for devicons and default location_section.separator highlight group
   }
 }
 ```
@@ -75,7 +75,7 @@ require 'nvim-headband'.setup {
     },
   },
 
-  navic_section = {
+  location_section = {
     enable = true, -- Whether to enable the navic section
 
     depth_limit = 0, -- Passed directly to navic, taken from the navic repo: 'maximum depth of context to be shown. If the context hits this depth limit, it is truncated'

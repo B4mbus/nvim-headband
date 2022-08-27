@@ -3,8 +3,8 @@ local fmt = string.format
 local api = vim.api
 local fn = vim.fn
 
-local hl = require 'nvim-headband.impl.highlights'.hl
-local empty_hl = require 'nvim-headband.impl.highlights'.empty_hl
+local hl = require 'nvim-headband.impl.utils'.hl
+local empty_hl = require 'nvim-headband.impl.utils'.empty_hl
 
 local issue_lack_of_devicons_error = function()
   require 'nvim-headband.impl.error_handler'.headband_notify_error_deffered(
