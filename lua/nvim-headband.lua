@@ -1,5 +1,5 @@
----@module Nvim-headband
----@author Daniel Zaradny <danielzarany@gmail.com>
+---@module nvim-headband
+---@author Daniel Zaradny <danielzaradny@gmail.com>
 ---@license MIT
 
 local has_winbar = function()
