@@ -1,11 +1,14 @@
 local symbols = require 'nvim-headband.symbols'
 
---- A function for filtering buffers, takes buffer id, buffer name, buftype, filetype and the result of previous filter if used with a combinator
 --- Buffer filter essentially asks a question 'should this buffer be excluded', which means - if it returns true, the buffer is excluded from the epic headband team B)
 ---@alias BufferFilterFunc fun(bid: number, bname: string, bt: string, ft: string, prev: boolean): boolean
 
----A function for displaying text on the buffer
+--- A function for displaying text on the buffer
 ---@alias BufferTextFunc fun(bid: number, bname: string, bt: string, ft: string): string
+
+
+--- A function that returns two string values wrapping a section
+---@alias WrapFunction fun(bid: number, bname: string, bt:string, ft:string): string, string
 
 ---@class UserConfig The configuration table user is meant to pass to setup
 ---@field public enable boolean Whether to enable the winbar
@@ -33,12 +36,16 @@ local default_config = {
   ---@field public enable boolean Whether to enable or disable the file section
   ---@field public text string | BufferTextFunc Style of the file section can be 'filename' | 'shortened' | 'shortened_lower' | 'full' | 'full_lower or a @BufferTextFunc that will return the text
   ---@field public bold_filename boolean Whether set the NvimHeadbandFilename hl group as bold
+  ---@field public wrap string[] | WrapFunction | nil Can be a list of two strings, a @WrapFunction that returns two strings or a nil
+  --
   ---@field public devicons UserConfig.FileSection.DevIcons Configuration for the file section's devicons
   file_section = {
     enable = true,
 
     text = 'filename',
     bold_filename = true,
+
+    wrap = nil,
 
     ---@class UserConfig.FileSection.DevIcons
     ---@field public enable boolean Whether to enable devicons in front of the filename
@@ -54,6 +61,7 @@ local default_config = {
   ---@field public enable boolean Whether to enable the navic section
   ---@field public depth_limit number The depth limit of the navic symbols, 0 means none
   ---@field public depth_limit_indicator string The depth limit indicator that is used when the limit is reached
+  ---@field public wrap string[] | WrapFunction | nil Can be a list of two strings, a @WrapFunction that returns two strings or a nil
   --
   ---@field public empty_symbol UserConfig.LocationSection.EmptySymbol Configuration for the empty navic symbol
   ---@field public separator UserConfig.LocationSection.Separator Configuration for the separator between the navic elements
@@ -63,6 +71,8 @@ local default_config = {
 
     depth_limit = 0,
     depth_limit_indicator = symbols.ellipsis,
+
+    wrap = nil,
 
     ---@class UserConfig.LocationSection.EmptySymbol
     ---@field public symbol string The symbol that will be displayed when navic is available but the location is empty, can be disabled by setting it to ''
