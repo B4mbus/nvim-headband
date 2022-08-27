@@ -70,9 +70,7 @@ end
 function NvimHeadbandWinbarMod.get()
   local self = NvimHeadbandWinbarMod
 
-  local bufnr = fn.bufnr()
-
-  local bid = fn.bufwinnr(bufnr)
+  local bid = fn.bufwinnr(fn.bufnr())
   local bname = fn.bufname()
   local bt = api.nvim_buf_get_option(0, 'bt')
   local ft = api.nvim_buf_get_option(0, 'ft')
