@@ -137,7 +137,7 @@ end
 function NvimHeadbandWinbarMod:enable(force)
   local force = force or false
 
-  if self.config.enable and (not force) then
+  if self.config.enable and not force then
     return
   end
 
