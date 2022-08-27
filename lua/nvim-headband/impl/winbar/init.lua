@@ -57,6 +57,19 @@ end
 function NvimHeadbandWinbarMod.get()
   local self = NvimHeadbandWinbarMod
 
+  local bufnr = fn.bufnr()
+
+  local bid = fn.bufwinnr(bufnr)
+  local bname = fn.bufname()
+  local bt = api.nvim_buf_get_option(0, 'bt')
+  local ft = api.nvim_buf_get_option(0, 'ft')
+
+  if self.config.buffer_filter(bid, bname, bt, ft) then
+    self:disable()
+  else
+    self:enable()
+  end
+
   local error_handler = function(error)
     ErrorHandler.headband_notify_error_deffered(
       'Error encountered while trying to get the winbar, disabling.\n'
@@ -75,27 +88,17 @@ end
 
 local get_headband_callback = function(mod, buffer_filter)
   return function()
-    local proper_buffer = function()
-      local bufnr = fn.bufnr()
+    local proper_buffer =
+      api.nvim_buf_get_option(0, 'buftype') == ''
+      and fn.getcmdwintype() == ''
 
-      local bid = fn.bufwinnr(bufnr)
-      local bname = fn.bufname()
-      local bt = api.nvim_buf_get_option(0, 'bt')
-      local ft = api.nvim_buf_get_option(0, 'ft')
-
-      return
-        api.nvim_buf_get_option(0, 'buftype') == ''
-        and fn.getcmdwintype() == ''
-        and not buffer_filter(bid, bname, bt, ft)
-    end
-
-    if proper_buffer() then
+    if proper_buffer then
       vim.wo.winbar = mod.winbar_string
     end
   end
 end
 
-function NvimHeadbandWinbarMod:register_autocmd(buffer_filter)
+function NvimHeadbandWinbarMod:register_autocmd()
   local autocmd = api.nvim_create_autocmd
 
   autocmd(
@@ -103,13 +106,21 @@ function NvimHeadbandWinbarMod:register_autocmd(buffer_filter)
     {
       pattern = '*',
       group = NvimHeadbandWinbarMod.augroup_id,
-      callback = get_headband_callback(NvimHeadbandWinbarMod, buffer_filter)
+      callback = get_headband_callback(NvimHeadbandWinbarMod)
     }
   )
 end
 
 function NvimHeadbandWinbarMod:clear_autocmd()
   api.nvim_clear_autocmds({ group = self.augroup_id })
+end
+
+function NvimHeadbandWinbarMod:soft_enable()
+  vim.wo.winbar = self.winbar_string
+end
+
+function NvimHeadbandWinbarMod:soft_disable()
+  vim.wo.winbar = ''
 end
 
 function NvimHeadbandWinbarMod:disable()
@@ -119,8 +130,7 @@ function NvimHeadbandWinbarMod:disable()
 
   self.config.enable = false
   self:clear_autocmd()
-
-  vim.wo.winbar = ''
+  self:soft_disable()
 end
 
 function NvimHeadbandWinbarMod:enable(force)
@@ -131,9 +141,8 @@ function NvimHeadbandWinbarMod:enable(force)
   end
 
   self.config.enable = true
-  self:register_autocmd(self.config.buffer_filter)
-
-  vim.wo.winbar = self.winbar_string
+  self:register_autocmd()
+  self:soft_enable()
 end
 
 local Winbar = {}
