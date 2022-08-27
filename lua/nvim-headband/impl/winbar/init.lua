@@ -42,10 +42,6 @@ function NvimHeadbandWinbarMod:get_separator_conditionally(loc_available)
 end
 
 function NvimHeadbandWinbarMod.get_winbar(self)
-  if not self.config.enable then
-    return ''
-  end
-
   local file_readable = fn.filereadable(fn.expand('%:p')) ~= 0
   if not file_readable then
     local ubt = self.config.unsaved_buffer_text
@@ -69,6 +65,10 @@ end
 
 function NvimHeadbandWinbarMod.get()
   local self = NvimHeadbandWinbarMod
+
+  if not self.config.enable then
+    return ''
+  end
 
   local bid = fn.bufwinnr(fn.bufnr())
   local bname = fn.bufname()
