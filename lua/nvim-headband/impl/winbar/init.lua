@@ -10,9 +10,10 @@ local ErrorHandler = require 'nvim-headband.impl.error_handler'
 NvimHeadbandWinbarMod = {}
 
 function NvimHeadbandWinbarMod:separator_available(loc_available)
-  return ((self.config.file_section.enable)
-    and (self.config.location_section.enable))
-    and (loc_available)
+  return
+    self.config.file_section.enable
+    and self.config.location_section.enable
+    and loc_available
 end
 
 function NvimHeadbandWinbarMod:get_separator_conditionally(loc_available)
