@@ -85,7 +85,7 @@ function NvimHeadbandWinbarMod.get()
   local error_handler = function(error)
     ErrorHandler.headband_notify_error_deffered(
       'Error encountered while trying to get the winbar, disabling.\n'
-      .. 'Please contact the author and file an issue.'
+      .. 'Please file an issue on "https://github.com/B4mbus/nvim-headband".'
       .. '\n\n'
       .. error
     )
