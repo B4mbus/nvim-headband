@@ -74,21 +74,21 @@ function NvimHeadbandWinbarMod.get()
 end
 
 local get_headband_callback = function(mod, buffer_filter)
-  local proper_buffer = function()
-    local bufnr = fn.bufnr()
-
-    local buf_id = fn.bufwinnr(bufnr)
-    local buf_name = fn.bufname()
-    local buftype = api.nvim_buf_get_option(0, 'bt')
-    local filetype = api.nvim_buf_get_option(0, 'ft')
-
-    return
-      api.nvim_buf_get_option(0, 'buftype') == ''
-      and fn.getcmdwintype() == ''
-      and not buffer_filter(buf_id, buf_name, buftype, filetype)
-  end
-
   return function()
+    local proper_buffer = function()
+      local bufnr = fn.bufnr()
+
+      local bid = fn.bufwinnr(bufnr)
+      local bname = fn.bufname()
+      local bt = api.nvim_buf_get_option(0, 'bt')
+      local ft = api.nvim_buf_get_option(0, 'ft')
+
+      return
+        api.nvim_buf_get_option(0, 'buftype') == ''
+        and fn.getcmdwintype() == ''
+        and not buffer_filter(bid, bname, bt, ft)
+    end
+
     if proper_buffer() then
       vim.wo.winbar = mod.winbar_string
     end
