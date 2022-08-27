@@ -1,6 +1,6 @@
 local symbols = require 'nvim-headband.symbols'
 
---- Buffer filter essentially asks a question 'should this buffer be excluded', which means - if it returns true, the buffer is excluded from the epic headband team B)
+--- Window filter essentially asks a question 'should this buffer be excluded', which means - if it returns true, the buffer is excluded from the epic headband team B)
 ---@alias WinFilterFunc fun(bid: number, bname: string, bt: string, ft: string, prev: boolean): boolean
 
 --- A function for displaying text on the buffer
@@ -18,7 +18,7 @@ local ft_filter = require 'nvim-headband.filters'.ft_filter
 ---@field public enable boolean Whether to enable the winbar
 ---@field public general_separator string Separator between the file section and navic section, if both are present, can be disabled by setting it to ''
 ---@field public unsaved_buffer_text string | WinTextFunc The text to display for an unsaved buffer, can be @WinTextFunc
----@field public buffer_filter WinFilterFunc A function that filters buffers out (buffers for which it will return false won't have winbar enabled)
+---@field public window_filter WinFilterFunc A function that filters buffers out (buffers for which it will return false won't have winbar enabled)
 --
 ---@field public file_section UserConfig.FileSection Configuration for the file section of the winbar
 ---@field public navic_section UserConfig.LocationSection Configuration for the navic section of the winbar
@@ -26,7 +26,7 @@ local default_config = {
   enable = true,
   general_separator = '::',
   unsaved_buffer_text = '[No name]',
-  buffer_filter = strict_combine(
+  window_filter = strict_combine(
     bt_filter {
       'NvimTree',
       'nerdtree',

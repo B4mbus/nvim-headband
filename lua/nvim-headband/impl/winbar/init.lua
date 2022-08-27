@@ -64,7 +64,7 @@ function NvimHeadbandWinbarMod.get()
   local bt = api.nvim_buf_get_option(0, 'bt')
   local ft = api.nvim_buf_get_option(0, 'ft')
 
-  if self.config.buffer_filter(bid, bname, bt, ft) then
+  if self.config.window_filter(bid, bname, bt, ft) then
     self:disable()
   else
     self:enable()
@@ -86,7 +86,7 @@ function NvimHeadbandWinbarMod.get()
   return winbar_string
 end
 
-local get_headband_callback = function(mod, buffer_filter)
+local get_headband_callback = function(mod)
   return function()
     local proper_buffer =
       api.nvim_buf_get_option(0, 'buftype') == ''
