@@ -79,6 +79,7 @@ function NvimHeadbandWinbarMod.get()
 
   if self.config.window_filter(bid, bname, bt, ft) then
     self:disable()
+    return
   else
     self:enable()
   end
