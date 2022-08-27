@@ -1,11 +1,13 @@
 # Need to
  1. Setup navic
  2. Register default highlights
+ 3. Add an option to override navic icons
+ 4. Better highlighting options
+ 5. Move the config to a separate section since it's gonna be huge
 
 # Soon
  1. Add option to center the winbar
  2. Add option to make the navic section on the right
- 3. Tests
 
 # Docs
  1. Vim docs
