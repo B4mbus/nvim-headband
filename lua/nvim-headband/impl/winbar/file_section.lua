@@ -33,19 +33,7 @@ local format_path = function(path)
   end
 end
 
-local FileSection = {}
-
-function FileSection:conditionally_lower_path(path)
-  if self.config.text:find('lower') then
-    return path:tolower()
-  end
-end
-
-function FileSection:conditionally_shorten_path(path)
-  if self.config.text:find('full') then
-    return self:conditionally_lower_path(path)
-  end
-
+local shorten_path = function(path)
   local preffered_separator = get_preffered_path_separator()
   local get_first = function(path_elem)
     return path_elem:sub(1, 1)
@@ -55,9 +43,29 @@ function FileSection:conditionally_shorten_path(path)
     vim.tbl_map(get_first, fn.split(path, preffered_separator)),
     preffered_separator
   )
-  local formatted_path = format_path(shortened_path .. preffered_separator)
 
-  return self:conditionally_lower_path(formatted_path)
+  return format_path(shortened_path .. preffered_separator)
+end
+
+local FileSection = {}
+
+function FileSection:build_full_path(path_without_filename, filename)
+  local full_path = path_without_filename
+
+  if self.config.text:find('shortened') then
+    full_path = shorten_path(path_without_filename)
+  end
+
+  if self.config.text:find('lower') then
+    full_path = full_path:lower()
+  end
+
+  return
+    hl('NvimHeadbandPath')
+    .. full_path
+    ..hl('NvimHeadbandFilename')
+    .. filename
+    .. empty_hl
 end
 
 function FileSection:get_file_string()
@@ -71,14 +79,7 @@ function FileSection:get_file_string()
   elseif text == 'filename' then
     return hl('NvimHeadbandFilename') .. filename .. empty_hl
   else
-    local possibly_shortened_path = self:conditionally_shorten_path(path_without_filename)
-
-    return
-      hl('NvimHeadbandPath')
-      .. possibly_shortened_path
-      ..hl('NvimHeadbandFilename')
-      .. filename
-      .. empty_hl
+    return self:build_full_path(path_without_filename, filename)
   end
 end
 
