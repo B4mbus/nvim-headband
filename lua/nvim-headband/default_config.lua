@@ -1,10 +1,10 @@
 local symbols = require 'nvim-headband.symbols'
 
 --- Buffer filter essentially asks a question 'should this buffer be excluded', which means - if it returns true, the buffer is excluded from the epic headband team B)
----@alias BufferFilterFunc fun(bid: number, bname: string, bt: string, ft: string, prev: boolean): boolean
+---@alias WinFilterFunc fun(bid: number, bname: string, bt: string, ft: string, prev: boolean): boolean
 
 --- A function for displaying text on the buffer
----@alias BufferTextFunc fun(bid: number, bname: string, bt: string, ft: string): string
+---@alias WinTextFunc fun(bid: number, bname: string, bt: string, ft: string): string
 
 
 --- A function that returns two string values wrapping a section
@@ -17,8 +17,8 @@ local ft_filter = require 'nvim-headband.filters'.ft_filter
 ---@class UserConfig The configuration table user is meant to pass to setup
 ---@field public enable boolean Whether to enable the winbar
 ---@field public general_separator string Separator between the file section and navic section, if both are present, can be disabled by setting it to ''
----@field public unsaved_buffer_text string | BufferTextFunc The text to display for an unsaved buffer, can be @BufferTextFunc
----@field public buffer_filter BufferFilterFunc A function that filters buffers out (buffers for which it will return false won't have winbar enabled)
+---@field public unsaved_buffer_text string | WinTextFunc The text to display for an unsaved buffer, can be @WinTextFunc
+---@field public buffer_filter WinFilterFunc A function that filters buffers out (buffers for which it will return false won't have winbar enabled)
 --
 ---@field public file_section UserConfig.FileSection Configuration for the file section of the winbar
 ---@field public navic_section UserConfig.LocationSection Configuration for the navic section of the winbar
@@ -44,7 +44,7 @@ local default_config = {
 
   ---@class UserConfig.FileSection
   ---@field public enable boolean Whether to enable or disable the file section
-  ---@field public text string | BufferTextFunc Style of the file section can be 'filename' | 'shortened' | 'shortened_lower' | 'full' | 'full_lower or a @BufferTextFunc that will return the text
+  ---@field public text string | WinTextFunc Style of the file section can be 'filename' | 'shortened' | 'shortened_lower' | 'full' | 'full_lower or a @WinTextFunc that will return the text
   ---@field public bold_filename boolean Whether set the NvimHeadbandFilename hl group as bold
   ---@field public wrap string[] | WrapFunction | nil Can be a list of two strings, a @WrapFunction that returns two strings or a nil
   --
