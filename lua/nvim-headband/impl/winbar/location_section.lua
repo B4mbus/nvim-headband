@@ -60,7 +60,7 @@ function LocationSection.get(config)
   local available = loc_provider.is_available()
 
   if loc_provider_loaded then
-    local wrapper = require 'nvim-headband.impl.winbar.shared'.evaluate_wrap()
+    local wrapper = require 'nvim-headband.impl.winbar.shared'.evaluate_wrap(self.config.wrap)
     local location_string = wrapper(self:get_location(loc_provider))
 
     return available, (available and location_string or '')

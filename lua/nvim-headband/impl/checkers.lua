@@ -1,8 +1,8 @@
 local Checkers = {}
 
-Checkers.ensure = function (obj, target, ...)
-  for _, type in ipairs({ ... }) do
-    if type(obj) == type then
+Checkers.ensure = function (obj, ...)
+  for _, needed_type in ipairs({ ... }) do
+    if type(obj) == needed_type then
       return true
     end
   end
