@@ -4,6 +4,7 @@
  3. Add an option to override navic icons
  4. Better highlighting options
  5. Move the config to a separate section since it's gonna be huge
+ 6. Reorder, rethink and redo the config
 
 # Soon
  1. Add option to center the winbar
