@@ -23,6 +23,8 @@ Still WIP, some things don't work, some things break, some things fly.
 
 ### Don't become attached to your current configuration, **I PLAN TO AND WILL MAKE BREAKING CHANGES BEFORE THE 1.0.0 RELEASE**.
 
+**Also keep in mind that the readme you are seeing is entirely outdated and will be completely remade after I finish everything I want to finish, only [#Todo](#-Todo) is constantly updated**
+
 ## 🖼 Showcase
 
 **TODO**
