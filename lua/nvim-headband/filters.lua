@@ -51,4 +51,26 @@ Filters.bname_filter = function(bufnames)
   end
 end
 
+--- Returns a @BufferFilterFunc that runs certain filters right after another
+---@vararg BufferFilterFunc The functions
+---@return BufferFilterFunc
+Filters.combine = function(...)
+  --- Returns combined @BufferFilterFunc s
+  ---@type BufferFilterFunc
+  ---@param bid number Buffer id
+  ---@param bname string Buffer name
+  ---@param bt string Buftype
+  ---@param ft string Filetype
+  ---@param prev boolean The result of previous filter if used with a combinator
+  ---@return boolean
+  return function(bid, bname, bt, ft, prev)
+    local prev_result = true
+    for _, filter in ipairs(arg) do
+      prev_result = filter(bid, bname, bt, ft, prev_result)
+    end
+
+    return prev_result
+  end
+end
+
 return Filters
