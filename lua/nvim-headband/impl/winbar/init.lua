@@ -100,9 +100,7 @@ local get_headband_callback = function(mod)
 end
 
 function NvimHeadbandWinbarMod:register_autocmd()
-  local autocmd = api.nvim_create_autocmd
-
-  autocmd(
+  api.nvim_create_autocmd(
     { 'VimEnter', 'BufEnter' },
     {
       pattern = '*',
