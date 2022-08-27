@@ -84,8 +84,7 @@ function FileSection:get_file_string()
 end
 
 function FileSection:get_icon()
-  local devicons_enabled = self.config.devicons.enable
-  if not devicons_enabled then
+  if not self.config.devicons.enable then
     return ''
   end
 
