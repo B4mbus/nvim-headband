@@ -18,7 +18,7 @@ local default_config = {
   enable = true,
   general_separator = '::',
   unsaved_buffer_text = '[No name]',
-  buffer_filter = require 'nvim-headband.utils'.bt_filter {
+  buffer_filter = require 'nvim-headband.filters'.bt_filter {
     'NvimTree',
     'nerdtree',
     'neot-tree',
