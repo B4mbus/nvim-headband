@@ -13,6 +13,7 @@ Filters.bt_filter = function(buffertypes)
   ---@param prev boolean The result of previous filter if used with a combinator
   ---@return boolean
   return function(bid, bname, bt, ft, prev)
+    if not prev then return false end
     return vim.tbl_contains(buffertypes, bt)
   end
 end
@@ -30,6 +31,7 @@ Filters.ft_filter = function(filetypes)
   ---@param prev boolean The result of previous filter if used with a combinator
   ---@return boolean
   return function(bid, bname, bt, ft, prev)
+    if not prev then return false end
     return vim.tbl_contains(filetypes, ft)
   end
 end
@@ -47,6 +49,7 @@ Filters.bname_filter = function(bufnames)
   ---@param prev boolean The result of previous filter if used with a combinator
   ---@return boolean
   return function(bid, bname, bt, ft, prev)
+    if not prev then return false end
     return vim.tbl_contains(bufnames, bname)
   end
 end
