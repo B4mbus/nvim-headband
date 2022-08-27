@@ -43,6 +43,7 @@ end
 
 function NvimHeadbandWinbarMod.get_winbar(self)
   local file_readable = fn.filereadable(fn.expand('%:p')) ~= 0
+
   if not file_readable then
     local ubt = self.config.unsaved_buffer_text
     local call_or_id = require 'nvim-headband.impl.utils'.call_or_id
