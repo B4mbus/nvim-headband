@@ -106,14 +106,14 @@ function NvimHeadbandWinbarMod:register_autocmd()
     { 'VimEnter', 'BufEnter' },
     {
       pattern = '*',
-      group = NvimHeadbandWinbarMod.augroup_id,
+      group = NvimHeadbandWinbarMod.augroup,
       callback = get_headband_callback(NvimHeadbandWinbarMod)
     }
   )
 end
 
 function NvimHeadbandWinbarMod:clear_autocmd()
-  api.nvim_clear_autocmds({ group = self.augroup_id })
+  api.nvim_clear_autocmds({ group = self.augroup })
 end
 
 function NvimHeadbandWinbarMod:soft_enable()
@@ -154,7 +154,7 @@ Winbar.start = function(config)
   end
 
   NvimHeadbandWinbarMod.config = config
-  NvimHeadbandWinbarMod.augroup_id = augroup('NvimHeadbandWinbar')
+  NvimHeadbandWinbarMod.augroup = augroup('NvimHeadbandWinbar')
   NvimHeadbandWinbarMod.winbar_string = '%{%v:lua.NvimHeadbandWinbarMod.get()%}'
 
   NvimHeadbandWinbarMod:enable(true)
