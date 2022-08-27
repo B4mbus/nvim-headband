@@ -49,11 +49,11 @@ end
 function LocationSection.get(config)
   local self = LocationSection
 
-  self.config = config
-
-  if not self.config.enable then
+  if not config.enable then
     return false, ''
   end
+
+  self.config = config
 
   local loc_provider_loaded, loc_provider = get_location_provider_mod()
   -- TODO: maybe abstract away?
