@@ -15,7 +15,6 @@ end
 local Headband = {}
 
 --- Function to call to get winbar up and running
----@param user_config UserConfig | nil
 Headband.setup = function(user_config)
   if not has_winbar() then
     issue_lack_of_winbar_notification()
@@ -27,6 +26,7 @@ Headband.setup = function(user_config)
       return
     end
 
+    require 'nvim-headband.impl.highlights'.setup_highlights(config.highlights)
     require 'nvim-headband.impl.winbar'.start(config)
   end
 end
