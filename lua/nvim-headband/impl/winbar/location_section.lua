@@ -127,7 +127,7 @@ function LocationSection.get(config)
   self.config = config
 
   local loc_provider_loaded, loc_provider = get_location_provider_mod()
-  -- TODO: maybe abstract away?
+
   local available = loc_provider.is_available()
 
   if loc_provider_loaded then
