@@ -1,5 +1,9 @@
 <div align="center">
 
+# ⚠ WIP ⚠ WIP ⚠ WIP ⚠ WIP ⚠
+
+The plugin is still WIP. Most stuff generally work, but I spotted some bugs that are submitted in the Issues and the documentation is not present (neither readme nor vim docs).
+
 # nvim-headband - a simple and opinionated winbar
   <div>
     <a href='#-Showcase'>🖼 Showcase</a> |
