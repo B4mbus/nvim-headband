@@ -1,11 +1,11 @@
 local Filters = {}
 
---- Returns a @WinFilterFunc that filters out certain buffertypes
+--- Returns a @FilterFunc that filters out certain buffertypes
 ---@param buffertypes string[] The buffertypes
----@return WinFilterFunc
+---@return FilterFunc
 function Filters.bt_filter(buffertypes)
   --- Filters out certain buffertypes
-  ---@type WinFilterFunc
+  ---@type FilterFunc
   ---@param bid number Buffer id
   ---@param bname string Buffer name
   ---@param bt string Buftype
@@ -17,12 +17,12 @@ function Filters.bt_filter(buffertypes)
   end
 end
 
---- Returns a @WinFilterFunc that filters out certain buffertypes
+--- Returns a @FilterFunc that filters out certain buffertypes
 ---@param filetypes string[] The filetypes
----@return WinFilterFunc
+---@return FilterFunc
 function Filters.ft_filter(filetypes)
   --- Filters out certain filetypes
-  ---@type WinFilterFunc
+  ---@type FilterFunc
   ---@param bid number Buffer id
   ---@param bname string Buffer name
   ---@param bt string Buftype
@@ -34,12 +34,12 @@ function Filters.ft_filter(filetypes)
   end
 end
 
---- Returns a @WinFilterFunc that filters out certain buffertypes
+--- Returns a @FilterFunc that filters out certain buffertypes
 ---@param bufnames string[] The buffer names
----@return WinFilterFunc
+---@return FilterFunc
 function Filters.bname_filter(bufnames)
   --- Filters out certain buffer names
-  ---@type WinFilterFunc
+  ---@type FilterFunc
   ---@param bid number Buffer id
   ---@param bname string Buffer name
   ---@param bt string Buftype
@@ -51,14 +51,14 @@ function Filters.bname_filter(bufnames)
   end
 end
 
---- Returns a @WinFilterFunc that runs certain filters right after another
----@vararg WinFilterFunc The functions
----@return WinFilterFunc
+--- Returns a @FilterFunc that runs certain filters right after another
+---@vararg FilterFunc The functions
+---@return FilterFunc
 function Filters.combine(...)
   local filters = { ... }
 
-  --- Returns combined @WinFilterFunc s
-  ---@type WinFilterFunc
+  --- Returns combined @FilterFunc s
+  ---@type FilterFunc
   ---@param bid number Buffer id
   ---@param bname string Buffer name
   ---@param bt string Buftype
@@ -76,14 +76,14 @@ function Filters.combine(...)
   end
 end
 
---- Returns a @WinFilterFunc that runs certain filters right after another and immediately returns if any of them returns false
----@vararg WinFilterFunc The functions
----@return WinFilterFunc
+--- Returns a @FilterFunc that runs certain filters right after another and immediately returns if any of them returns false
+---@vararg FilterFunc The functions
+---@return FilterFunc
 function Filters.strict_combine(...)
   local filters = { ... }
 
-  --- Returns combined @WinFilterFunc s
-  ---@type WinFilterFunc
+  --- Returns combined @FilterFunc s
+  ---@type FilterFunc
   ---@param bid number Buffer id
   ---@param bname string Buffer name
   ---@param bt string Buftype
