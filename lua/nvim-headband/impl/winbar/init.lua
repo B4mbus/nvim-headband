@@ -22,6 +22,9 @@ local patch_highlight_config = function(config)
   config.file_section.highlights = {}
   config.file_section.highlights.devicons = config.highlights.devicons
 
+  config.location_section.highlights = {}
+  config.location_section.highlights.location_icons = config.highlights.location_icons
+
   return config
 end
 
