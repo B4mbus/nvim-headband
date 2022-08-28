@@ -12,7 +12,24 @@ local issue_lack_of_winbar_notification = function()
   )
 end
 
+local issue_setup_error_notification = function(error)
+  local ErrorHandler = require 'nvim-headband.impl.error_handler'
+
+  ErrorHandler.headband_notify_error_deffered(
+    'Error encountered while trying to setup the winbar, disabling.\n'
+    .. 'Make sure your config is correct.'
+    .. 'If you are sure it\'s a bug, please file an issue on "https://github.com/B4mbus/nvim-headband".'
+    .. '\n\n'
+    .. error
+  )
+end
+
 local Headband = {}
+
+Headband.protected_setup = function(config)
+  require 'nvim-headband.impl.highlights'.setup_highlights(config.highlights)
+  require 'nvim-headband.impl.winbar'.start(config)
+end
 
 --- Function to call to get winbar up and running
 Headband.setup = function(user_config)
@@ -26,8 +43,7 @@ Headband.setup = function(user_config)
       return
     end
 
-    require 'nvim-headband.impl.highlights'.setup_highlights(config.highlights)
-    require 'nvim-headband.impl.winbar'.start(config)
+    xpcall(Headband.protected_setup, issue_setup_error_notification, config)
   end
 end
 
