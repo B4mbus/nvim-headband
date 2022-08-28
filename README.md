@@ -15,11 +15,11 @@ nvim-headband..
  - is **opinionated** - it doesn't give you *all the possible* cofiguration options in the world, it has two simple sections
  - has **sane defaults** - it's very likely that you won't have to change the default configuration
 
-.. but it's still **highly configurable**! See [Configuration](#Configuration) and [Highlights](#Highlights).
+.. but it's still **highly configurable**! See [Configuration](#-Configuration) and [Highlights](#-Highlights).
 
 ## 🖼 Showcase
 
-
+***TODO***
 
 ## 💾 Installation
 
