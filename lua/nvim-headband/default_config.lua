@@ -51,10 +51,13 @@ local default_config = {
     icons = 'default'
   },
 
-  highlights = {
-    devicons = true,
-    default_location_separator = true,
-    location_icons = 'link'
+  styling = {
+    highlights = {
+      devicons = true,
+      default_location_separator = true,
+      location_icons = 'link'
+    },
+    bold_filename = true
   }
 }
 

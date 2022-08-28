@@ -5,10 +5,10 @@ local empty_hl = require 'nvim-headband.impl.utils'.empty_hl
 
 local patch_highlight_config = function(config)
   config.file_section.highlights = {}
-  config.file_section.highlights.devicons = config.highlights.devicons
+  config.file_section.highlights.devicons = config.styling.highlights.devicons
 
   config.location_section.highlights = {}
-  config.location_section.highlights.location_icons = config.highlights.location_icons
+  config.location_section.highlights.location_icons = config.styling.highlights.location_icons
 
   return config
 end

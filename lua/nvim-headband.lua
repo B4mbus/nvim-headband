@@ -27,7 +27,7 @@ end
 local Headband = {}
 
 Headband.protected_setup = function(config)
-  require 'nvim-headband.impl.highlights'.setup_highlights(config.highlights)
+  require 'nvim-headband.impl.highlights'.setup_highlights(config.styling)
   require 'nvim-headband.impl.winbar'.start(config)
 end
 

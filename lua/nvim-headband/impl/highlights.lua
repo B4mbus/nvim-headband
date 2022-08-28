@@ -1,6 +1,8 @@
 local Highlights = {}
 
 Highlights.setup_highlights = function(config)
+  local highlights = config.highlights
+
   local hl = function(group, opts)
     vim.api.nvim_set_hl(0, group, opts)
   end
