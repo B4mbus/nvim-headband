@@ -12,7 +12,7 @@ function Highlights.setup_highlights(config)
   end
 
   if highlights.default_location_separator then
-    hl('NavicSeparator', { fg = "#6d8086" } )
+    hl('NavicSeparator', { fg = '#6d8086' })
   end
 
   if config.location_icons == 'link' then

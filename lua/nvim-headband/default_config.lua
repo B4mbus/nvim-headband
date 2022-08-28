@@ -1,8 +1,8 @@
 local symbols = require 'nvim-headband.symbols'
 
-local strict_combine = require 'nvim-headband.filters'.strict_combine
-local bt_filter = require 'nvim-headband.filters'.bt_filter
-local ft_filter = require 'nvim-headband.filters'.ft_filter
+local strict_combine = require('nvim-headband.filters').strict_combine
+local bt_filter = require('nvim-headband.filters').bt_filter
+local ft_filter = require('nvim-headband.filters').ft_filter
 
 local default_config = {
   enable = true,
@@ -18,10 +18,10 @@ local default_config = {
       'alpha',
       'dashboard',
       'startify',
-      'nofile'
+      'nofile',
     },
     ft_filter {
-      'NeogitCommitMessage'
+      'NeogitCommitMessage',
     }
   ),
 
@@ -35,7 +35,7 @@ local default_config = {
     enable_devicons = true,
 
     position = 'left',
-    reversed = true
+    reversed = true,
   },
 
   location_section = {
@@ -53,17 +53,17 @@ local default_config = {
     icons = 'default',
 
     position = 'left',
-    reversed = false
+    reversed = false,
   },
 
   styling = {
     highlights = {
       devicons = true,
       default_location_separator = true,
-      location_icons = 'link'
+      location_icons = 'link',
     },
-    bold_filename = true
-  }
+    bold_filename = true,
+  },
 }
 
 return default_config

@@ -96,7 +96,9 @@ function Filters.strict_combine(...)
     for _, filter in ipairs(filters) do
       prev = filter(bid, bname, bt, ft, prev)
 
-      if prev then return true end
+      if prev then
+        return true
+      end
     end
 
     return false

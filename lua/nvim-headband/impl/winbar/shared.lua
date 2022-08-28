@@ -29,11 +29,11 @@ function SectionShared.evaluate_wrap(wrap)
 
   local Checkers = require 'nvim-headband.impl.checkers'
   if wrap_pre and not Checkers.concatenable(wrap_pre) then
-    issue_wrap_concanetable_error('pre')
+    issue_wrap_concanetable_error 'pre'
   end
 
   if wrap_post and not Checkers.concatenable(wrap_post) then
-    issue_wrap_concanetable_error('post')
+    issue_wrap_concanetable_error 'post'
   end
 
   return wrap_function(wrap_pre, wrap_post)

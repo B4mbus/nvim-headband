@@ -5,9 +5,7 @@ local ErrorHandler = require 'nvim-headband.impl.error_handler'
 
 local function get_headband_callback(mod)
   return function()
-    local proper_buffer =
-      api.nvim_buf_get_option(0, 'buftype') == ''
-      and fn.getcmdwintype() == ''
+    local proper_buffer = api.nvim_buf_get_option(0, 'buftype') == '' and fn.getcmdwintype() == ''
 
     if proper_buffer then
       vim.wo.winbar = mod.winbar_string
@@ -45,10 +43,10 @@ function NvimHeadbandWinbarMod.get()
   local error_handler = function(error)
     ErrorHandler.headband_notify_error_deffered(
       'Error encountered while trying to get the winbar, disabling.\n'
-      .. 'Make sure your config is correct.\n'
-      .. 'If you are sure it\'s a bug, please file an issue on "https://github.com/B4mbus/nvim-headband".'
-      .. '\n\n'
-      .. error
+        .. 'Make sure your config is correct.\n'
+        .. 'If you are sure it\'s a bug, please file an issue on "https://github.com/B4mbus/nvim-headband".'
+        .. '\n\n'
+        .. error
     )
 
     self:disable()
@@ -60,18 +58,15 @@ function NvimHeadbandWinbarMod.get()
 end
 
 function NvimHeadbandWinbarMod:register_autocmd()
-  api.nvim_create_autocmd(
-    { 'VimEnter', 'BufEnter' },
-    {
-      pattern = '*',
-      group = NvimHeadbandWinbarMod.augroup,
-      callback = get_headband_callback(NvimHeadbandWinbarMod)
-    }
-  )
+  api.nvim_create_autocmd({ 'VimEnter', 'BufEnter' }, {
+    pattern = '*',
+    group = NvimHeadbandWinbarMod.augroup,
+    callback = get_headband_callback(NvimHeadbandWinbarMod),
+  })
 end
 
 function NvimHeadbandWinbarMod:clear_autocmd()
-  api.nvim_clear_autocmds({ group = self.augroup })
+  api.nvim_clear_autocmds { group = self.augroup }
 end
 
 function NvimHeadbandWinbarMod:soft_enable()
@@ -112,7 +107,7 @@ Winbar.start = function(config)
   end
 
   NvimHeadbandWinbarMod.config = config
-  NvimHeadbandWinbarMod.augroup = augroup('NvimHeadbandWinbar')
+  NvimHeadbandWinbarMod.augroup = augroup 'NvimHeadbandWinbar'
   NvimHeadbandWinbarMod.winbar_string = '%{%v:lua.NvimHeadbandWinbarMod.get()%}'
 
   NvimHeadbandWinbarMod:enable(true)

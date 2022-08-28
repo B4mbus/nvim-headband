@@ -5,11 +5,7 @@ function Utils.conditional_require(name, handler)
     return true, require(name)
   end
 
-  local loaded, mod = xpcall(
-    require,
-    handler,
-    name
-  )
+  local loaded, mod = xpcall(require, handler, name)
 
   return loaded, mod
 end

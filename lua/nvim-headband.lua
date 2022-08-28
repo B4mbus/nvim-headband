@@ -7,9 +7,7 @@ local function has_winbar()
 end
 
 local function issue_lack_of_winbar_notification()
-  require 'nvim-headband.error_handler'.headband_notify_error_deffered(
-    'This neovim installation does not have the winbar feature. Cannot enable nvim-headband.'
-  )
+  require('nvim-headband.error_handler').headband_notify_error_deffered 'This neovim installation does not have the winbar feature. Cannot enable nvim-headband.'
 end
 
 local function issue_setup_error_notification(error)
@@ -17,18 +15,18 @@ local function issue_setup_error_notification(error)
 
   ErrorHandler.headband_notify_error_deffered(
     'Error encountered while trying to setup the winbar, disabling.\n'
-    .. 'Make sure your config is correct.\n'
-    .. 'If you are sure it\'s a bug, please file an issue on "https://github.com/B4mbus/nvim-headband".'
-    .. '\n\n'
-    .. error
+      .. 'Make sure your config is correct.\n'
+      .. 'If you are sure it\'s a bug, please file an issue on "https://github.com/B4mbus/nvim-headband".'
+      .. '\n\n'
+      .. error
   )
 end
 
 local Headband = {}
 
 function Headband.protected_setup(config)
-  require 'nvim-headband.impl.highlights'.setup_highlights(config.styling)
-  require 'nvim-headband.impl.winbar'.start(config)
+  require('nvim-headband.impl.highlights').setup_highlights(config.styling)
+  require('nvim-headband.impl.winbar').start(config)
 end
 
 --- Function to call to get winbar up and running

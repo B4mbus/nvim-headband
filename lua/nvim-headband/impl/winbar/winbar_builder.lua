@@ -1,7 +1,7 @@
 local WinbarBuilder = {}
 
-local hl = require 'nvim-headband.impl.utils'.hl
-local empty_hl = require 'nvim-headband.impl.utils'.empty_hl
+local hl = require('nvim-headband.impl.utils').hl
+local empty_hl = require('nvim-headband.impl.utils').empty_hl
 
 local function patch_highlight_config(config)
   config.file_section.highlights = {}
@@ -14,9 +14,7 @@ local function patch_highlight_config(config)
 end
 
 local function in_unsaved_buffer()
-  return vim.fn.filereadable(
-    vim.fn.expand('%:p')
-  ) == 0
+  return vim.fn.filereadable(vim.fn.expand '%:p') == 0
 end
 
 function WinbarBuilder:separator_available(loc_available)
@@ -24,10 +22,7 @@ function WinbarBuilder:separator_available(loc_available)
   local ls = self.config.location_section
 
   return
-    fs.enable
-    and ls.enable
-    and loc_available
-    and fs.position == ls.position
+fs.enable and ls.enable and loc_available and fs.position == ls.position
 end
 
 function WinbarBuilder:get_separator_conditionally(loc_available)
@@ -35,21 +30,17 @@ function WinbarBuilder:get_separator_conditionally(loc_available)
     return ''
   end
 
-  local call_or_id = require 'nvim-headband.impl.utils'.call_or_id
+  local call_or_id = require('nvim-headband.impl.utils').call_or_id
 
   return
-    hl('NvimHeadbandSeparator')
-    .. ' '
-    .. call_or_id(self.config.separator_text)
-    .. ' '
-    .. empty_hl
+hl 'NvimHeadbandSeparator' .. ' ' .. call_or_id(self.config.separator_text) .. ' ' .. empty_hl
 end
 
 function WinbarBuilder:build_unsaved_buffer_winbar()
   local ubt = self.config.unsaved_buffer_text
-  local call_or_id = require 'nvim-headband.impl.utils'.call_or_id
+  local call_or_id = require('nvim-headband.impl.utils').call_or_id
 
-  return hl('NvimHeadbandEmptyBuf') .. ' ' .. call_or_id(ubt)
+  return hl 'NvimHeadbandEmptyBuf' .. ' ' .. call_or_id(ubt)
 end
 
 function WinbarBuilder:get_sections_strings()
@@ -75,18 +66,14 @@ function WinbarBuilder:get_sections_with_layout()
 
   if fpos == 'left' and lpos == 'left' then
     return '', fstring, sep, '', lstring
-
   elseif fpos == 'right' and lpos == 'right' then
     return '%=', fstring, sep, '', lstring
-
   elseif fpos == 'left' and lpos == 'right' then
     return '', fstring, sep, '%=', lstring
-
   elseif fpos == 'right' and lpos == 'left' then
     return '', lstring, sep, '%=', fstring
-
   else
-    error('The "position" option must be a string of either "left" or "right".')
+    error 'The "position" option must be a string of either "left" or "right".'
   end
 end
 
@@ -100,14 +87,7 @@ function WinbarBuilder.build(config)
   else
     local first_align, first_section, separator, second_align, second_section = self:get_sections_with_layout()
 
-    return hl('WinBar')
-      .. ' '
-      .. first_align
-      .. first_section
-      .. separator
-      .. second_align
-      .. second_section
-      .. ' '
+    return hl 'WinBar' .. ' ' .. first_align .. first_section .. separator .. second_align .. second_section .. ' '
   end
 end
 

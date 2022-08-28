@@ -6,16 +6,9 @@ local ErrorHandler = {}
 function ErrorHandler.headband_notify_error_deffered(content, timeout)
   local actual_timeout = timeout or 100
 
-  vim.defer_fn(
-    function()
-      vim.notify(
-        content,
-        vim.log.levels.ERROR,
-        { title = 'nvim-headband' }
-      )
-    end,
-    actual_timeout
-  )
+  vim.defer_fn(function()
+    vim.notify(content, vim.log.levels.ERROR, { title = 'nvim-headband' })
+  end, actual_timeout)
 end
 
 return ErrorHandler
