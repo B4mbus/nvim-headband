@@ -55,7 +55,7 @@ local setup_location_provider = function(config)
       icons = get_location_icons(config),
       highlight = (config.highlights.location_icons ~= 'none'),
 
-      separator = config.separator,
+      separator = ' ' .. config.separator .. ' ',
       depth_limit = config.depth_limit,
       depth_limit_indicator = config.depth_limit_indicator,
     }
