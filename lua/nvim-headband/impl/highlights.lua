@@ -7,7 +7,11 @@ Highlights.setup_highlights = function(config)
     vim.api.nvim_set_hl(0, group, opts)
   end
 
-  if config.default_location_separator then
+  if config.bold_filename then
+    hl('NvimHeadbandFilename', { bold = true })
+  end
+
+  if highlights.default_location_separator then
     hl('NavicSeparator', { fg = "#6d8086" } )
   end
 
@@ -43,7 +47,7 @@ Highlights.setup_highlights = function(config)
     for _, suffix in ipairs(group_suffixes) do
       hl('NavicIcons' .. suffix, { link = 'CmpItemKind' .. suffix })
     end
-  elseif config.location_icons == 'default' then
+  elseif highlights.location_icons == 'default' then
     local groups = {
       Variable = { fg = '#9CDCFE' },
       Interface = { fg = '#9CDCFE' },
