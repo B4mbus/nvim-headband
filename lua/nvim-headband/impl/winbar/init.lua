@@ -1,9 +1,6 @@
 local api = vim.api
 local fn = vim.fn
 
-local hl = require 'nvim-headband.impl.utils'.hl
-local empty_hl = require 'nvim-headband.impl.utils'.empty_hl
-
 local ErrorHandler = require 'nvim-headband.impl.error_handler'
 
 local get_headband_callback = function(mod)
@@ -18,65 +15,12 @@ local get_headband_callback = function(mod)
   end
 end
 
-local patch_highlight_config = function(config)
-  config.file_section.highlights = {}
-  config.file_section.highlights.devicons = config.highlights.devicons
-
-  config.location_section.highlights = {}
-  config.location_section.highlights.location_icons = config.highlights.location_icons
-
-  return config
-end
-
 --- The global winbar mod, contains the whole needed state for the winbar to work
 NvimHeadbandWinbarMod = {}
 
-function NvimHeadbandWinbarMod:separator_available(loc_available)
-  return
-    self.config.file_section.enable
-    and self.config.location_section.enable
-    and loc_available
-end
-
-function NvimHeadbandWinbarMod:get_separator_conditionally(loc_available)
-  if not self:separator_available(loc_available) then
-    return ''
-  end
-
-  local call_or_id = require 'nvim-headband.impl.utils'.call_or_id
-
-  return
-    hl('NvimHeadbandSeparator')
-    .. ' '
-    .. call_or_id(self.config.separator_text)
-    .. ' '
-    .. empty_hl
-end
-
 function NvimHeadbandWinbarMod.get_winbar(self)
-  local file_readable = fn.filereadable(fn.expand('%:p')) ~= 0
-
-  if not file_readable then
-    local ubt = self.config.unsaved_buffer_text
-    local call_or_id = require 'nvim-headband.impl.utils'.call_or_id
-
-    return hl('NvimHeadbandEmptyBuf') .. ' ' .. call_or_id(ubt)
-  end
-
-  -- HACK: hacky as b4LLz, but fuck it, no one's gonna see :tf:
-  self.config = patch_highlight_config(self.config)
-
-  local loc_section_mod = require 'nvim-headband.impl.winbar.location_section'
-  local loc_available, loc_section = loc_section_mod.get(self.config.location_section)
-
-  local file_section_mod = require 'nvim-headband.impl.winbar.file_section'
-
-  return
-    hl('WinBar')
-    .. ' '
-    .. file_section_mod.get(self.config.file_section)
-    .. self:get_separator_conditionally(loc_available and (loc_section ~= ''))
-    .. loc_section
+  local WinbarBuilder = require 'nvim-headband.impl.winbar.winbar_builder'
+  return WinbarBuilder.build(self.config)
 end
 
 function NvimHeadbandWinbarMod.get()
