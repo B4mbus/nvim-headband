@@ -47,6 +47,16 @@ local shorten_path = function(path)
   return format_path(shortened_path)
 end
 
+local reverse_path = function(path)
+  local sep = get_preffered_path_separator()
+  local split_path = fn.split(path, sep)
+
+  return table.concat(
+    fn.reverse(split_path),
+    sep
+  )
+end
+
 local FileSection = {}
 
 function FileSection:build_full_path(path_without_filename, filename)
@@ -116,6 +126,11 @@ end
 function FileSection:get_file_section()
   local icon = self:get_icon()
   local path = self:get_path()
+
+  if self.config.reversed then
+    path = reverse_path(path)
+  end
+
   local wrapper = require 'nvim-headband.impl.winbar.shared'.evaluate_wrap(self.config.wrap)
 
   return wrapper(

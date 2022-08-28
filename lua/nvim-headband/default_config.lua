@@ -35,6 +35,7 @@ local default_config = {
     enable_devicons = true,
 
     position = 'left',
+    reversed = true
   },
 
   location_section = {
@@ -52,6 +53,7 @@ local default_config = {
     icons = 'default',
 
     position = 'left',
+    reversed = false
   },
 
   styling = {
