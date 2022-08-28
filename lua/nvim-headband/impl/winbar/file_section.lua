@@ -44,7 +44,7 @@ local shorten_path = function(path)
     preffered_separator
   )
 
-  return format_path(shortened_path .. preffered_separator)
+  return format_path(shortened_path)
 end
 
 local FileSection = {}
@@ -60,10 +60,12 @@ function FileSection:build_full_path(path_without_filename, filename)
     full_path = full_path:lower()
   end
 
+  local preffered_separator = get_preffered_path_separator()
   return
     hl('NvimHeadbandPath')
     .. full_path
-    ..hl('NvimHeadbandFilename')
+    .. preffered_separator
+    .. hl('NvimHeadbandFilename')
     .. filename
     .. empty_hl
 end
