@@ -17,7 +17,7 @@ local issue_setup_error_notification = function(error)
 
   ErrorHandler.headband_notify_error_deffered(
     'Error encountered while trying to setup the winbar, disabling.\n'
-    .. 'Make sure your config is correct.'
+    .. 'Make sure your config is correct.\n'
     .. 'If you are sure it\'s a bug, please file an issue on "https://github.com/B4mbus/nvim-headband".'
     .. '\n\n'
     .. error

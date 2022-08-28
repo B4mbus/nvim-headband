@@ -45,7 +45,7 @@ function NvimHeadbandWinbarMod.get()
   local error_handler = function(error)
     ErrorHandler.headband_notify_error_deffered(
       'Error encountered while trying to get the winbar, disabling.\n'
-      .. 'Make sure your config is correct.'
+      .. 'Make sure your config is correct.\n'
       .. 'If you are sure it\'s a bug, please file an issue on "https://github.com/B4mbus/nvim-headband".'
       .. '\n\n'
       .. error
