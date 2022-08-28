@@ -1,6 +1,6 @@
 local SectionShared = {}
 
-local issue_wrap_concanetable_error = function(section)
+local function issue_wrap_concanetable_error(section)
   error(string.format('The wrap %s section must be concatenable.', section))
 end
 
@@ -8,13 +8,13 @@ local empty_wrap_function = function(arg)
   return arg
 end
 
-local wrap_function = function(wrap_pre, wrap_post)
+local function wrap_function(wrap_pre, wrap_post)
   return function(arg)
     return (wrap_pre or '') .. arg .. (wrap_post or '')
   end
 end
 
-SectionShared.evaluate_wrap = function(wrap)
+function SectionShared.evaluate_wrap(wrap)
   if not wrap then
     return empty_wrap_function
   end

@@ -3,7 +3,7 @@ local WinbarBuilder = {}
 local hl = require 'nvim-headband.impl.utils'.hl
 local empty_hl = require 'nvim-headband.impl.utils'.empty_hl
 
-local patch_highlight_config = function(config)
+local function patch_highlight_config(config)
   config.file_section.highlights = {}
   config.file_section.highlights.devicons = config.styling.highlights.devicons
 
@@ -13,7 +13,7 @@ local patch_highlight_config = function(config)
   return config
 end
 
-local in_unsaved_buffer = function()
+local function in_unsaved_buffer()
   return vim.fn.filereadable(
     vim.fn.expand('%:p')
   ) == 0
@@ -90,7 +90,7 @@ function WinbarBuilder:get_sections_with_layout()
   end
 end
 
-WinbarBuilder.build = function(config)
+function WinbarBuilder.build(config)
   local self = WinbarBuilder
 
   self.config = config

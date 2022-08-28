@@ -2,17 +2,17 @@
 ---@author Daniel Zaradny <danielzaradny@gmail.com>
 ---@license MIT
 
-local has_winbar = function()
+local function has_winbar()
   return vim.api.nvim_get_all_options_info()['winbar']
 end
 
-local issue_lack_of_winbar_notification = function()
+local function issue_lack_of_winbar_notification()
   require 'nvim-headband.error_handler'.headband_notify_error_deffered(
     'This neovim installation does not have the winbar feature. Cannot enable nvim-headband.'
   )
 end
 
-local issue_setup_error_notification = function(error)
+local function issue_setup_error_notification(error)
   local ErrorHandler = require 'nvim-headband.impl.error_handler'
 
   ErrorHandler.headband_notify_error_deffered(
@@ -26,13 +26,13 @@ end
 
 local Headband = {}
 
-Headband.protected_setup = function(config)
+function Headband.protected_setup(config)
   require 'nvim-headband.impl.highlights'.setup_highlights(config.styling)
   require 'nvim-headband.impl.winbar'.start(config)
 end
 
 --- Function to call to get winbar up and running
-Headband.setup = function(user_config)
+function Headband.setup(user_config)
   if not has_winbar() then
     issue_lack_of_winbar_notification()
   else
@@ -48,17 +48,17 @@ Headband.setup = function(user_config)
 end
 
 --- Enables the headband winbar
-Headband.enable = function()
+function Headband.enable()
   NvimHeadbandWinbarMod:enable()
 end
 
 --- Disables the headband winbar
-Headband.disable = function()
+function Headband.disable()
   NvimHeadbandWinbarMod:disable()
 end
 
 --- Enables the headband winbar if it's disabled and disables it if it's enabled
-Headband.toggle = function()
+function Headband.toggle()
   if NvimHeadbandWinbarMod.config.enable then
     NvimHeadbandWinbarMod:disable()
   else

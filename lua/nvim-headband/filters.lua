@@ -3,7 +3,7 @@ local Filters = {}
 --- Returns a @WinFilterFunc that filters out certain buffertypes
 ---@param buffertypes string[] The buffertypes
 ---@return WinFilterFunc
-Filters.bt_filter = function(buffertypes)
+function Filters.bt_filter(buffertypes)
   --- Filters out certain buffertypes
   ---@type WinFilterFunc
   ---@param bid number Buffer id
@@ -20,7 +20,7 @@ end
 --- Returns a @WinFilterFunc that filters out certain buffertypes
 ---@param filetypes string[] The filetypes
 ---@return WinFilterFunc
-Filters.ft_filter = function(filetypes)
+function Filters.ft_filter(filetypes)
   --- Filters out certain filetypes
   ---@type WinFilterFunc
   ---@param bid number Buffer id
@@ -37,7 +37,7 @@ end
 --- Returns a @WinFilterFunc that filters out certain buffertypes
 ---@param bufnames string[] The buffer names
 ---@return WinFilterFunc
-Filters.bname_filter = function(bufnames)
+function Filters.bname_filter(bufnames)
   --- Filters out certain buffer names
   ---@type WinFilterFunc
   ---@param bid number Buffer id
@@ -54,7 +54,7 @@ end
 --- Returns a @WinFilterFunc that runs certain filters right after another
 ---@vararg WinFilterFunc The functions
 ---@return WinFilterFunc
-Filters.combine = function(...)
+function Filters.combine(...)
   local filters = { ... }
 
   --- Returns combined @WinFilterFunc s
@@ -79,7 +79,7 @@ end
 --- Returns a @WinFilterFunc that runs certain filters right after another and immediately returns if any of them returns false
 ---@vararg WinFilterFunc The functions
 ---@return WinFilterFunc
-Filters.strict_combine = function(...)
+function Filters.strict_combine(...)
   local filters = { ... }
 
   --- Returns combined @WinFilterFunc s

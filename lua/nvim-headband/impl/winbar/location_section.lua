@@ -1,19 +1,19 @@
 local hl = require 'nvim-headband.impl.utils'.hl
 local empty_hl = require 'nvim-headband.impl.utils'.empty_hl
 
-local issue_lack_of_location_provider_error = function()
+local function issue_lack_of_location_provider_error()
   require 'nvim-headband.impl.error_handler'.headband_notify_error_deffered(
     'The "SmiteshP/nvim-navic" plugin is not present. Cannot enable navic for winbar.'
   )
 end
 
-local get_location_provider_mod = function()
+local function get_location_provider_mod()
   local conditional_require = require 'nvim-headband.impl.utils'.conditional_require
 
    return conditional_require('nvim-navic', issue_lack_of_location_provider_error)
 end
 
-local get_location_icons = function(config)
+local function get_location_icons(config)
   if type(config.icons) == 'string' and config.icons == 'default' then
     return {
       File          = " ",
@@ -50,7 +50,7 @@ local get_location_icons = function(config)
   end
 end
 
-local setup_location_provider = function(config)
+local function setup_location_provider(config)
   local loaded, location_provider = get_location_provider_mod()
 
   if loaded then
@@ -64,7 +64,7 @@ local setup_location_provider = function(config)
   end
 end
 
-local get_raw_locations_items = function(data)
+local function get_raw_locations_items(data)
   if not data then
     return nil
   end

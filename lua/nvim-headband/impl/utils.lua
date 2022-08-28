@@ -1,6 +1,6 @@
 local Utils = {}
 
-Utils.conditional_require = function(name, handler)
+function Utils.conditional_require(name, handler)
   if package.preload[name] then
     return true, require(name)
   end
@@ -16,7 +16,7 @@ end
 
 --- Returns the return of a call or returns the object itself depdening if it's a function
 ---@param obj any Whatever object
-Utils.call_or_id = function(obj)
+function Utils.call_or_id(obj)
   if type(obj) == 'function' then
     return obj()
   else
@@ -26,7 +26,7 @@ end
 
 Utils.empty_hl = '%##'
 
-Utils.hl = function(name)
+function Utils.hl(name)
   return '%#' .. name .. '#'
 end
 

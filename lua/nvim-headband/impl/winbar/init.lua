@@ -3,7 +3,7 @@ local fn = vim.fn
 
 local ErrorHandler = require 'nvim-headband.impl.error_handler'
 
-local get_headband_callback = function(mod)
+local function get_headband_callback(mod)
   return function()
     local proper_buffer =
       api.nvim_buf_get_option(0, 'buftype') == ''

@@ -5,7 +5,7 @@ local fn = vim.fn
 local hl = require 'nvim-headband.impl.utils'.hl
 local empty_hl = require 'nvim-headband.impl.utils'.empty_hl
 
-local issue_lack_of_devicons_error = function()
+local function issue_lack_of_devicons_error()
   require 'nvim-headband.impl.error_handler'.headband_notify_error_deffered(
       'The "kyazdani42/nvim-web-devicons" plugin is not present. Cannot enable devicons for winbar.'
     )
@@ -17,7 +17,7 @@ local get_devicons_mod = function()
   return conditional_require('nvim-web-devicons', issue_lack_of_devicons_error)
 end
 
-local get_preffered_path_separator = function()
+local function get_preffered_path_separator()
   if fn.has('win32') then
     return '\\'
   else
@@ -25,7 +25,7 @@ local get_preffered_path_separator = function()
   end
 end
 
-local format_path = function(path)
+local function format_path(path)
   if fn.has('win32') then
     return path:sub(1, 1) .. ':' .. path:sub(2, -1)
   else
@@ -33,7 +33,7 @@ local format_path = function(path)
   end
 end
 
-local shorten_path = function(path)
+local function shorten_path(path)
   local preffered_separator = get_preffered_path_separator()
   local get_first = function(path_elem)
     return path_elem:sub(1, 1)
@@ -47,7 +47,7 @@ local shorten_path = function(path)
   return format_path(shortened_path)
 end
 
-local reverse_path = function(path)
+local function reverse_path(path)
   local sep = get_preffered_path_separator()
   local split_path = fn.split(path, sep)
 

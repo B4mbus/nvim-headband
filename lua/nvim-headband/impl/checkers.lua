@@ -1,6 +1,6 @@
 local Checkers = {}
 
-Checkers.ensure = function (obj, ...)
+function Checkers.ensure(obj, ...)
   for _, needed_type in ipairs({ ... }) do
     if type(obj) == needed_type then
       return true
@@ -10,7 +10,7 @@ Checkers.ensure = function (obj, ...)
   return false
 end
 
-Checkers.concatenable = function(obj)
+function Checkers.concatenable(obj)
   return Checkers.ensure(obj, 'number', 'string')
 end
 

@@ -1,6 +1,6 @@
 local Highlights = {}
 
-Highlights.setup_highlights = function(config)
+function Highlights.setup_highlights(config)
   local highlights = config.highlights
 
   local hl = function(group, opts)
