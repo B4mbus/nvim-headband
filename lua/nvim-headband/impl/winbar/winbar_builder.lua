@@ -27,6 +27,7 @@ function WinbarBuilder:separator_available(loc_available)
     fs.enable
     and ls.enable
     and loc_available
+    and fs.position == ls.position
 end
 
 function WinbarBuilder:get_separator_conditionally(loc_available)
@@ -51,15 +52,7 @@ function WinbarBuilder:build_unsaved_buffer_winbar()
   return hl('NvimHeadbandEmptyBuf') .. ' ' .. call_or_id(ubt)
 end
 
-WinbarBuilder.build = function(config)
-  local self = WinbarBuilder
-
-  self.config = config
-
-  if in_unsaved_buffer() then
-    return self:build_unsaved_buffer_winbar()
-  end
-
+function WinbarBuilder:get_sections_strings()
   -- HACK: hacky as b4LLz, but fuck it, no one's gonna see :tf: :tf:
   self.config = patch_highlight_config(self.config)
 
@@ -68,12 +61,54 @@ WinbarBuilder.build = function(config)
 
   local file_section_mod = require 'nvim-headband.impl.winbar.file_section'
 
-  return hl('WinBar')
-    .. ' '
-    .. file_section_mod.get(self.config.file_section)
-    .. self:get_separator_conditionally(loc_available and (loc_section ~= ''))
-    .. loc_section
-    .. ' '
+  return
+    file_section_mod.get(self.config.file_section),
+    self:get_separator_conditionally(loc_available and (loc_section ~= '')),
+    loc_section
+end
+
+function WinbarBuilder:get_sections_with_layout()
+  local fstring, sep, lstring = self:get_sections_strings()
+
+  local fpos = self.config.file_section.position
+  local lpos = self.config.location_section.position
+
+  if fpos == 'left' and lpos == 'left' then
+    return '', fstring, sep, '', lstring
+
+  elseif fpos == 'right' and lpos == 'right' then
+    return '%=', fstring, sep, '', lstring
+
+  elseif fpos == 'left' and lpos == 'right' then
+    return '', fstring, sep, '%=', lstring
+
+  elseif fpos == 'right' and lpos == 'left' then
+    return '', lstring, sep, '%=', fstring
+
+  else
+    error('The "position" option must be a string of either "left" or "right".')
+  end
+end
+
+WinbarBuilder.build = function(config)
+  local self = WinbarBuilder
+
+  self.config = config
+
+  if in_unsaved_buffer() then
+    return self:build_unsaved_buffer_winbar()
+  else
+    local first_align, first_section, separator, second_align, second_section = self:get_sections_with_layout()
+
+    return hl('WinBar')
+      .. ' '
+      .. first_align
+      .. first_section
+      .. separator
+      .. second_align
+      .. second_section
+      .. ' '
+  end
 end
 
 return WinbarBuilder

@@ -29,11 +29,12 @@ local default_config = {
     enable = true,
 
     text = 'filename',
-    bold_filename = true,
 
     wrap = nil,
 
     enable_devicons = true,
+
+    position = 'left',
   },
 
   location_section = {
@@ -48,7 +49,9 @@ local default_config = {
 
     separator = symbols.nice_arrow,
 
-    icons = 'default'
+    icons = 'default',
+
+    position = 'left',
   },
 
   styling = {
