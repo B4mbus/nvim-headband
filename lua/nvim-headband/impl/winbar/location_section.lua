@@ -62,7 +62,7 @@ local function setup_location_provider(config)
   end
 end
 
-local function get_raw_locations_items(data)
+local function get_raw_locations_items(data, reverse)
   if not data then
     return nil
   end
@@ -71,27 +71,27 @@ local function get_raw_locations_items(data)
     return hl('NavicIcons' .. name) .. icon .. empty_hl
   end
 
-  return vim.tbl_map(function(item)
-    return icon_hl(item.type, item.icon) .. item.name
-  end, data)
+  return vim.tbl_map(
+    function(item)
+      if reverse then
+        return icon_hl(item.type, item.icon) .. item.name
+      else
+        return item.name .. icon_hl(item.type, item.icon)
+      end
+      end,
+    data
+  )
 end
 
 local LocationSection = {}
 
 function LocationSection:get_empty_symbol()
-  local empty_symbol = self.config.empty_symbol
-
-  if empty_symbol == '' then
-    return ''
-  else
-    return
-hl 'NvimHeadbandEmptyLocSymbol' .. empty_symbol .. empty_hl
-  end
+  return hl 'NvimHeadbandEmptyLocSymbol' .. self.conig.empty_symbol .. empty_hl
 end
 
 function LocationSection:get_location(mod)
   local raw_location_items = get_raw_locations_items(mod.get_data())
-  if not raw_location_items then
+  if not raw_location_items and self.config.empty_symbol ~= '' then
     return self:get_empty_symbol()
   end
 
