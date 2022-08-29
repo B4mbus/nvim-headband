@@ -90,7 +90,7 @@ function LocationSection:get_empty_symbol()
 end
 
 function LocationSection:get_location(mod)
-  local raw_location_items = get_raw_locations_items(mod.get_data())
+  local raw_location_items = get_raw_locations_items(mod.get_data(), self.config.reversed)
 
   if not raw_location_items then
     if self.config.empty_symbol ~= '' then
@@ -121,7 +121,7 @@ function LocationSection.get(config)
     self.config = config
 
     if not self.location_setup then
-      self:setup_location_provider(loc_provider_loaded, loc_provider)
+      self:setup_location_provider(loc_provider)
       self.location_setup = true
     end
 
