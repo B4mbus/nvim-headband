@@ -15,33 +15,35 @@ end
 
 local function get_location_icons(config)
   if type(config.icons) == 'string' and config.icons == 'default' then
-    return {
-      File = ' ',
-      Module = ' ',
-      Namespace = ' ',
-      Package = ' ',
-      Class = ' ',
-      Method = ' ',
-      Property = ' ',
-      Field = ' ',
-      Constructor = ' ',
-      Enum = '練',
-      Interface = '練',
-      Function = ' ',
-      Variable = ' ',
-      Constant = ' ',
-      String = ' ',
-      Number = ' ',
-      Boolean = '◩ ',
-      Array = ' ',
-      Object = ' ',
-      Key = ' ',
-      Null = 'ﳠ ',
-      EnumMember = ' ',
-      Struct = ' ',
-      Event = ' ',
-      Operator = ' ',
-      TypeParameter = ' ',
+    return nil
+  elseif type(config.icons) == 'string' and config.icons == 'none' then
+    return  {
+      File = '',
+      Module = '',
+      Namespace = '',
+      Package = '',
+      Class = '',
+      Method = '',
+      Property = '',
+      Field = '',
+      Constructor = '',
+      Enum = '',
+      Interface = '',
+      Function = '',
+      Variable = '',
+      Constant = '',
+      String = '',
+      Number = '',
+      Boolean = '',
+      Array = '',
+      Object = '',
+      Key = '',
+      Null = '',
+      EnumMember = '',
+      Struct = '',
+      Event = '',
+      Operator = '',
+      TypeParameter = '',
     }
   elseif type(config.icons) == 'table' then
     return config.icons
@@ -56,15 +58,17 @@ local function get_raw_locations_items(data, reverse)
   end
 
   local icon_hl = function(name, icon)
-    return hl('NavicIcons' .. name) .. icon:sub(1, -2) .. empty_hl
+    return (hl('NavicIcons' .. name) .. icon:sub(1, -2) .. empty_hl)
   end
 
   return vim.tbl_map(
     function(item)
+      local empty_icon = item.icon ~= ''
+
       if reverse then
-        return item.name .. ' ' .. icon_hl(item.type, item.icon)
+        return item.name .. (empty_icon and '' or (' ' .. icon_hl(item.type, item.icon)))
       else
-        return icon_hl(item.type, item.icon) ..  ' ' .. item.name
+        return (empty_icon and (icon_hl(item.type, item.icon) ..  ' ') or '') .. item.name
       end
     end,
     data
