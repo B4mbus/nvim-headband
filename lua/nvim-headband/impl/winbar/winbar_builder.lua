@@ -22,7 +22,10 @@ function WinbarBuilder:separator_available(loc_available)
   local ls = self.config.location_section
 
   return
-fs.enable and ls.enable and loc_available and fs.position == ls.position
+    fs.enable
+    and ls.enable
+    and loc_available
+    and fs.position == ls.position
 end
 
 function WinbarBuilder:get_separator_conditionally(loc_available)
@@ -32,15 +35,14 @@ function WinbarBuilder:get_separator_conditionally(loc_available)
 
   local call_or_id = require('nvim-headband.impl.utils').call_or_id
 
-  return
-hl 'NvimHeadbandSeparator' .. ' ' .. call_or_id(self.config.separator_text) .. ' ' .. empty_hl
+  return hl('NvimHeadbandSeparator') .. ' ' .. call_or_id(self.config.separator_text) .. ' ' .. empty_hl
 end
 
 function WinbarBuilder:build_unsaved_buffer_winbar()
   local ubt = self.config.unsaved_buffer_text
   local call_or_id = require('nvim-headband.impl.utils').call_or_id
 
-  return hl 'NvimHeadbandEmptyBuf' .. ' ' .. call_or_id(ubt)
+  return hl('NvimHeadbandEmptyBuf') .. ' ' .. call_or_id(ubt)
 end
 
 function WinbarBuilder:get_sections_strings()
@@ -65,15 +67,20 @@ function WinbarBuilder:get_sections_with_layout()
   local lpos = self.config.location_section.position
 
   if fpos == 'left' and lpos == 'left' then
-    return '', fstring, sep, '', lstring
+    return '' .. fstring .. sep .. '' .. lstring
+
   elseif fpos == 'right' and lpos == 'right' then
-    return '%=', fstring, sep, '', lstring
+    return '%=' .. fstring .. sep .. '' .. lstring
+
   elseif fpos == 'left' and lpos == 'right' then
-    return '', fstring, sep, '%=', lstring
+    return '' .. fstring .. sep .. '%=' .. lstring
+
   elseif fpos == 'right' and lpos == 'left' then
-    return '', lstring, sep, '%=', fstring
+    return '' .. lstring .. sep .. '%=' .. fstring
+
   else
     error 'The "position" option must be a string of either "left" or "right".'
+
   end
 end
 
@@ -85,9 +92,9 @@ function WinbarBuilder.build(config)
   if in_unsaved_buffer() then
     return self:build_unsaved_buffer_winbar()
   else
-    local first_align, first_section, separator, second_align, second_section = self:get_sections_with_layout()
+    local winbar_string =  self:get_sections_with_layout()
 
-    return hl 'WinBar' .. ' ' .. first_align .. first_section .. separator .. second_align .. second_section .. ' '
+    return hl('WinBar') .. ' ' .. winbar_string .. ' '
   end
 end
 
