@@ -78,7 +78,7 @@ local function get_raw_locations_items(data, reverse)
       else
         return item.name .. icon_hl(item.type, item.icon)
       end
-      end,
+    end,
     data
   )
 end
@@ -91,6 +91,7 @@ end
 
 function LocationSection:get_location(mod)
   local raw_location_items = get_raw_locations_items(mod.get_data())
+
   if not raw_location_items and self.config.empty_symbol ~= '' then
     return self:get_empty_symbol()
   end
