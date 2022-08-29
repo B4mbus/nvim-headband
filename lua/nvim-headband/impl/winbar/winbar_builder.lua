@@ -42,7 +42,7 @@ function WinbarBuilder:build_unsaved_buffer_winbar()
   local ubt = self.config.unsaved_buffer_text
   local call_or_id = require('nvim-headband.impl.utils').call_or_id
 
-  return hl('NvimHeadbandEmptyBuf') .. ' ' .. call_or_id(ubt)
+  return hl('NvimHeadbandUnsavedBuf') .. ' ' .. call_or_id(ubt)
 end
 
 function WinbarBuilder:get_sections_strings()
