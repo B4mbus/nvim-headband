@@ -76,8 +76,12 @@ local function get_raw_locations_items(data, reverse)
   )
 end
 
-local LocationSection = {}
 
+function highlight_symbol(symbol)
+  return hl('NvimHeadbandEmptyLocSymbol') .. symbol .. empty_hl
+end
+
+local LocationSection = {}
 
 function LocationSection:setup_location_provider(location_provider)
   location_provider.setup {
@@ -89,17 +93,13 @@ function LocationSection:setup_location_provider(location_provider)
   }
 end
 
-
-function LocationSection:get_empty_symbol()
-  return hl 'NvimHeadbandEmptyLocSymbol' .. self.config.empty_symbol .. empty_hl
-end
-
 function LocationSection:get_location(mod)
   local raw_location_items = get_raw_locations_items(mod.get_data(), self.config.reversed)
 
   if not raw_location_items then
-    if self.config.empty_symbol ~= '' then
-      return self:get_empty_symbol()
+    local symbol = self.config.empty_symbol
+    if symbol and symbol ~= '' then
+      return highlight_symbol(symbol)
     else
       return ''
     end
