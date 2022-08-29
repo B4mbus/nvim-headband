@@ -1,3 +1,15 @@
+--[[
+
+Available groups:
+ - NvimHeadbandFilename - for the filename part of the path ('full', 'shortened' or 'filename')
+ - NvimHeadbandPath - for the path-without-filename part of the path ('full' or 'shortened')
+ - NvimHeadbandSeparator - for the general separator
+ - NvimHeadbandLocSeparator - for the location separator
+ - NvimHeadbandUnsavedBuf - when the buffer is unsaved
+ - NvimHeadbandEmptyLocSymbol - for the empty location symbol
+--]]
+
+
 local Highlights = {}
 
 function Highlights.setup_highlights(config)
@@ -12,7 +24,7 @@ function Highlights.setup_highlights(config)
   end
 
   if highlights.default_location_separator then
-    hl('NavicSeparator', { fg = '#6d8086' })
+    hl('NvimHeadbandLocSeparator', { fg = '#6d8086' })
   end
 
   if config.location_icons == 'link' then
