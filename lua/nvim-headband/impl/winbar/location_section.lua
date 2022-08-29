@@ -2,7 +2,9 @@ local hl = require('nvim-headband.impl.utils').hl
 local empty_hl = require('nvim-headband.impl.utils').empty_hl
 
 local function issue_lack_of_location_provider_error()
-  require('nvim-headband.impl.error_handler').headband_notify_error_deffered 'The "SmiteshP/nvim-navic" plugin is not present. Cannot enable navic for winbar.'
+  require('nvim-headband.impl.error_handler').headband_notify_error_deffered(
+    'The "SmiteshP/nvim-navic" plugin is not present. Cannot enable navic for winbar.'
+  )
 end
 
 local function get_location_provider_mod()
@@ -90,8 +92,12 @@ end
 function LocationSection:get_location(mod)
   local raw_location_items = get_raw_locations_items(mod.get_data())
 
-  if not raw_location_items and self.config.empty_symbol ~= '' then
-    return self:get_empty_symbol()
+  if not raw_location_items then
+    if self.config.empty_symbol ~= '' then
+      return self:get_empty_symbol()
+    else
+      return ''
+    end
   end
 
   local build_separator = function(sep)
