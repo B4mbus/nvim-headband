@@ -65,6 +65,7 @@ local function get_raw_locations_items(data, reverse)
     function(item)
       local empty_icon = item.icon ~= ''
 
+      -- TODO: Refactor maybe? Looks hella unreadable right now.
       if reverse then
         return item.name .. (empty_icon and '' or (' ' .. icon_hl(item.type, item.icon)))
       else
