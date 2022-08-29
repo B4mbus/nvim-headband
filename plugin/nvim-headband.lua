@@ -1,1 +1,1 @@
-require 'nvim-headband'.setup()
+-- require 'nvim-headband'.setup()
