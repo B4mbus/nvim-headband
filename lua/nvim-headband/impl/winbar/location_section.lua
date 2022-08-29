@@ -77,7 +77,7 @@ local function get_raw_locations_items(data, reverse)
 end
 
 
-function highlight_symbol(symbol)
+local function highlight_empty_symbol(symbol)
   return hl('NvimHeadbandEmptyLocSymbol') .. symbol .. empty_hl
 end
 
@@ -99,7 +99,7 @@ function LocationSection:get_location(mod)
   if not raw_location_items then
     local symbol = self.config.empty_symbol
     if symbol and symbol ~= '' then
-      return highlight_symbol(symbol)
+      return highlight_empty_symbol(symbol)
     else
       return ''
     end
