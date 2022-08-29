@@ -82,9 +82,9 @@ function NvimHeadbandWinbarMod:disable()
     return
   end
 
+  self:soft_disable()
   self.config.enable = false
   self:clear_autocmd()
-  self:soft_disable()
 end
 
 function NvimHeadbandWinbarMod:enable(force)
@@ -94,9 +94,9 @@ function NvimHeadbandWinbarMod:enable(force)
     return
   end
 
+  self:soft_enable()
   self.config.enable = true
   self:register_autocmd()
-  self:soft_enable()
 end
 
 local Winbar = {}
