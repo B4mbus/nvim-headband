@@ -6,13 +6,12 @@ local Filters = {}
 function Filters.bt_filter(buffertypes)
   --- Filters out certain buffertypes
   ---@type FilterFunc
-  ---@param bid number Buffer id
   ---@param bname string Buffer name
   ---@param bt string Buftype
   ---@param ft string Filetype
   ---@param prev boolean The result of previous filter if used with a combinator
   ---@return boolean
-  return function(bid, bname, bt, ft, prev)
+  return function(bname, bt, ft, prev)
     return prev or vim.tbl_contains(buffertypes, bt)
   end
 end
@@ -23,13 +22,12 @@ end
 function Filters.ft_filter(filetypes)
   --- Filters out certain filetypes
   ---@type FilterFunc
-  ---@param bid number Buffer id
   ---@param bname string Buffer name
   ---@param bt string Buftype
   ---@param ft string Filetype
   ---@param prev boolean The result of previous filter if used with a combinator
   ---@return boolean
-  return function(bid, bname, bt, ft, prev)
+  return function(bname, bt, ft, prev)
     return prev or vim.tbl_contains(filetypes, ft)
   end
 end
@@ -40,13 +38,12 @@ end
 function Filters.bname_filter(bufnames)
   --- Filters out certain buffer names
   ---@type FilterFunc
-  ---@param bid number Buffer id
   ---@param bname string Buffer name
   ---@param bt string Buftype
   ---@param ft string Filetype
   ---@param prev boolean The result of previous filter if used with a combinator
   ---@return boolean
-  return function(bid, bname, bt, ft, prev)
+  return function(bname, bt, ft, prev)
     return prev or vim.tbl_contains(bufnames, bname)
   end
 end
@@ -59,17 +56,16 @@ function Filters.combine(...)
 
   --- Returns combined @FilterFunc s
   ---@type FilterFunc
-  ---@param bid number Buffer id
   ---@param bname string Buffer name
   ---@param bt string Buftype
   ---@param ft string Filetype
   ---@param prev boolean The result of previous filter if used with a combinator
   ---@return boolean
-  return function(bid, bname, bt, ft, prev)
+  return function(bname, bt, ft, prev)
     local prev = prev or false
 
     for _, filter in ipairs(filters) do
-      prev = filter(bid, bname, bt, ft, prev)
+      prev = filter(bname, bt, ft, prev)
     end
 
     return prev
@@ -84,17 +80,16 @@ function Filters.strict_combine(...)
 
   --- Returns combined @FilterFunc s
   ---@type FilterFunc
-  ---@param bid number Buffer id
   ---@param bname string Buffer name
   ---@param bt string Buftype
   ---@param ft string Filetype
   ---@param prev boolean The result of previous filter if used with a combinator
   ---@return boolean
-  return function(bid, bname, bt, ft, prev)
+  return function(bname, bt, ft, prev)
     local prev = prev or false
 
     for _, filter in ipairs(filters) do
-      prev = filter(bid, bname, bt, ft, prev)
+      prev = filter(bname, bt, ft, prev)
 
       if prev then
         return true

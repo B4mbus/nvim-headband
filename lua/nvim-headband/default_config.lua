@@ -8,7 +8,7 @@ local ft_filter = require('nvim-headband.filters').ft_filter
 ---@alias StringFunc fun(bid: number, bname: string, bt: string, ft: string): string
 
 --- Basically asks a question 'should this window be excluded from having a winbar?', that is, if it returns true, a window will not have a winbar
----@alias FilterFunc fun(bid: number, bname: string, bt: string, ft: string): boolean
+---@alias FilterFunc fun(bname: string, bt: string, ft: string): boolean
 
 --- Returns two string values that will wrap a section
 ---@alias WrapFunc fun(): string, string
