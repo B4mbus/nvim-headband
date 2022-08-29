@@ -62,9 +62,9 @@ local function get_raw_locations_items(data, reverse)
   return vim.tbl_map(
     function(item)
       if reverse then
-        return icon_hl(item.type, item.icon) .. item.name
-      else
         return item.name .. icon_hl(item.type, item.icon)
+      else
+        return icon_hl(item.type, item.icon) .. item.name
       end
     end,
     data
@@ -101,7 +101,7 @@ function LocationSection:get_location(mod)
   end
 
   local build_separator = function(sep)
-    return ' ' .. hl 'NavicSeparator' .. sep .. empty_hl .. ' '
+    return ' ' .. hl('NavicSeparator') .. sep .. empty_hl .. ' '
   end
 
   local separator = build_separator(self.config.separator)
