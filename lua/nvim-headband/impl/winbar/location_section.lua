@@ -48,20 +48,6 @@ local function get_location_icons(config)
   end
 end
 
-local function setup_location_provider(config)
-  local loaded, location_provider = get_location_provider_mod()
-
-  if loaded then
-    location_provider.setup {
-      icons = get_location_icons(config),
-      highlight = (config.highlights.location_icons ~= 'none'),
-
-      depth_limit = config.depth_limit,
-      depth_limit_indicator = config.depth_limit_indicator,
-    }
-  end
-end
-
 local function get_raw_locations_items(data, reverse)
   if not data then
     return nil
@@ -84,6 +70,18 @@ local function get_raw_locations_items(data, reverse)
 end
 
 local LocationSection = {}
+
+
+function LocationSection:setup_location_provider(loaded, location_provider)
+  location_provider.setup {
+    icons = get_location_icons(self.config),
+    highlight = (self.config.highlights.location_icons ~= 'none'),
+
+    depth_limit = self.config.depth_limit,
+    depth_limit_indicator = self.config.depth_limit_indicator,
+  }
+end
+
 
 function LocationSection:get_empty_symbol()
   return hl 'NvimHeadbandEmptyLocSymbol' .. self.conig.empty_symbol .. empty_hl
@@ -112,16 +110,18 @@ function LocationSection.get(config)
     return false, ''
   end
 
-  setup_location_provider(config)
-
-  self.config = config
-
   local loc_provider_loaded, loc_provider = get_location_provider_mod()
-
-  local available = loc_provider.is_available()
-
   if loc_provider_loaded then
-    local wrapper = require('nvim-headband.impl.winbar.shared').evaluate_wrap(self.config.wrap)
+    if not self.location_setup then
+      self:setup_location_provider(loc_provider_loaded, loc_provider)
+      self.location_setup = true
+    end
+
+    self.config = config
+
+    local available = loc_provider.is_available()
+
+    local wrapper = require 'nvim-headband.impl.winbar.shared'.evaluate_wrap(self.config.wrap)
     local location = wrapper(self:get_location(loc_provider))
 
     return available, (available and location or '')
