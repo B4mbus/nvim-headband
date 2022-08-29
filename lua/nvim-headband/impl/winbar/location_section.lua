@@ -74,7 +74,7 @@ end
 local LocationSection = {}
 
 
-function LocationSection:setup_location_provider(loaded, location_provider)
+function LocationSection:setup_location_provider(location_provider)
   location_provider.setup {
     icons = get_location_icons(self.config),
     highlight = (self.config.highlights.location_icons ~= 'none'),
