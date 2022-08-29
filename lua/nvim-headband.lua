@@ -30,7 +30,7 @@ function Headband.protected_setup(config)
 end
 
 --- Function to call to get winbar up and running
----@param user_config UserConfig The user configuration table to use
+---@param user_config UserConfig? The user configuration table to use
 function Headband.setup(user_config)
   if not has_winbar() then
     issue_lack_of_winbar_notification()
