@@ -56,15 +56,15 @@ local function get_raw_locations_items(data, reverse)
   end
 
   local icon_hl = function(name, icon)
-    return hl('NavicIcons' .. name) .. icon .. empty_hl
+    return hl('NavicIcons' .. name) .. icon:sub(1, -2) .. empty_hl
   end
 
   return vim.tbl_map(
     function(item)
       if reverse then
-        return item.name .. icon_hl(item.type, item.icon)
+        return item.name .. ' ' .. icon_hl(item.type, item.icon)
       else
-        return icon_hl(item.type, item.icon) .. item.name
+        return icon_hl(item.type, item.icon) ..  ' ' .. item.name
       end
     end,
     data
