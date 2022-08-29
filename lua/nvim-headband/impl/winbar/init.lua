@@ -17,16 +17,16 @@ end
 NvimHeadbandWinbarMod = {}
 
 function NvimHeadbandWinbarMod.get_winbar(self)
+  if not self.config.enable then
+    return ''
+  end
+
   local WinbarBuilder = require 'nvim-headband.impl.winbar.winbar_builder'
   return WinbarBuilder.build(self.config)
 end
 
 function NvimHeadbandWinbarMod.get()
   local self = NvimHeadbandWinbarMod
-
-  if not self.config.enable then
-    return ''
-  end
 
   local bid = fn.bufwinnr(fn.bufnr())
   local bname = fn.bufname()
