@@ -91,7 +91,7 @@ end
 
 
 function LocationSection:get_empty_symbol()
-  return hl 'NvimHeadbandEmptyLocSymbol' .. self.conig.empty_symbol .. empty_hl
+  return hl 'NvimHeadbandEmptyLocSymbol' .. self.config.empty_symbol .. empty_hl
 end
 
 function LocationSection:get_location(mod)
