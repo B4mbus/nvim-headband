@@ -118,6 +118,8 @@ function LocationSection.get(config)
 
   local loc_provider_loaded, loc_provider = get_location_provider_mod()
   if loc_provider_loaded then
+    self.config = config
+
     if not self.location_setup then
       self:setup_location_provider(loc_provider_loaded, loc_provider)
       self.location_setup = true
