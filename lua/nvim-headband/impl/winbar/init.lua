@@ -73,7 +73,9 @@ function NvimHeadbandWinbarMod:soft_enable()
 end
 
 function NvimHeadbandWinbarMod:soft_disable()
-  vim.wo.winbar = ''
+  for _, window in ipairs(api.nvim_list_wins()) do
+    api.nvim_win_set_option(window, 'winbar', '')
+  end
 end
 
 function NvimHeadbandWinbarMod:disable()
