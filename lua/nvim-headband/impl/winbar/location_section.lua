@@ -53,7 +53,7 @@ local function get_location_icons(config)
 end
 
 local function get_raw_locations_items(data, reverse)
-  if not data then
+  if not data or next(data) == nil then
     return nil
   end
 
