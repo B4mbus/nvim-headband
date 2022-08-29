@@ -64,7 +64,7 @@ local default_config = {
     enable_devicons = true,
 
     position = 'left',
-    reversed = true,
+    reversed = false,
   },
 
   ---@class UserConfig.LocationSection
