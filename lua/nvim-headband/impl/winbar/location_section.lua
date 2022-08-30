@@ -67,7 +67,7 @@ local function get_raw_locations_items(data, reverse)
 
       -- TODO: Refactor maybe? Looks hella unreadable right now.
       if reverse then
-        return item.name .. (empty_icon and '' or (' ' .. icon_hl(item.type, item.icon)))
+        return item.name .. (empty_icon and (' ' .. icon_hl(item.type, item.icon)) or '')
       else
         return (empty_icon and (icon_hl(item.type, item.icon) ..  ' ') or '') .. item.name
       end
