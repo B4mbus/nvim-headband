@@ -94,7 +94,12 @@ function LocationSection:setup_location_provider(location_provider)
 end
 
 function LocationSection:get_location(mod)
-  local raw_location_items = get_raw_locations_items(mod.get_data(), self.config.reversed)
+  local data = mod.get_data()
+  if data and self.config.reversed then
+    data = vim.fn.reverse(data)
+  end
+
+  local raw_location_items = get_raw_locations_items(data, self.config.reversed)
 
   if not raw_location_items then
     local symbol = self.config.empty_symbol
