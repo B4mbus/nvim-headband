@@ -1,5 +1,4 @@
 --[[
-
 Available groups:
  - NvimHeadbandFilename - for the filename part of the path ('full', 'shortened' or 'filename')
  - NvimHeadbandPath - for the path-without-filename part of the path ('full' or 'shortened')
@@ -7,24 +6,32 @@ Available groups:
  - NvimHeadbandLocSeparator - for the location separator
  - NvimHeadbandUnsavedBuf - when the buffer is unsaved
  - NvimHeadbandEmptyLocSymbol - for the empty location symbol
---]]
-
+]]
 
 local Highlights = {}
 
 function Highlights.setup_highlights(config)
-  local highlights = config.highlights
-
+  local hl_exists = function(name)
+    return vim.fn.hlID(name) ~= 0
+  end
   local hl = function(group, opts)
     vim.api.nvim_set_hl(0, group, opts)
   end
 
+  local highlights = config.highlights
+
+  local filename_hl = 'NvimHeadbandFilename'
+
   if config.bold_filename then
-    hl('NvimHeadbandFilename', { bold = true })
+    local ok, existing_hl = pcall(vim.api.nvim_get_hl_by_name, filename_hl, {})
+    local existing_hl = ok and existing_hl or {}
+
+    hl(filename_hl, vim.tbl_extend('force', { bold = true }, existing_hl))
   end
 
-  if highlights.default_location_separator then
-    hl('NvimHeadbandLocSeparator', { fg = '#6d8086' })
+  local loc_sep_hl = 'NvimHeadbandLocSeparator'
+  if highlights.default_location_separator and not hl_exists(loc_sep_hl) then
+    hl(loc_sep_hl, { fg = '#6d8086' })
   end
 
   if config.location_icons == 'link' then
