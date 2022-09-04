@@ -7,7 +7,7 @@ local function has_winbar()
 end
 
 local function issue_lack_of_winbar_notification()
-  require('nvim-headband.error_handler').headband_notify_error_deffered 'This neovim installation does not have the winbar feature. Cannot enable nvim-headband.'
+  require('nvim-headband.impl.error_handler').headband_notify_error_deffered 'This neovim installation does not have the winbar feature. Cannot enable nvim-headband.'
 end
 
 local function issue_setup_error_notification(error)
