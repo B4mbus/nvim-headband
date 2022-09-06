@@ -85,15 +85,17 @@ end
 function NvimHeadbandWinbarMod:disable()
   if not self.config.enable then
     return
-  end
+  else
+    self.config.enable = false
 
-  self.config.enable = false
-  self:clear_winbar_string()
-  self:clear_autocmd()
+    self:clear_winbar_string()
+    self:clear_autocmd()
+  end
 end
 
 function NvimHeadbandWinbarMod:enable()
   self.config.enable = true
+
   self:set_winbar_string()
   self:register_autocmd()
 end
