@@ -13,6 +13,14 @@ local function get_headband_callback(mod)
   end
 end
 
+local function get_buffer_context()
+  local bname = fn.bufname()
+  local bt = api.nvim_buf_get_option(0, 'bt')
+  local ft = api.nvim_buf_get_option(0, 'ft')
+
+  return bname, bt, ft
+end
+
 --- The global winbar mod, contains the whole needed state for the winbar to work
 NvimHeadbandWinbarMod = {}
 
@@ -28,11 +36,7 @@ end
 function NvimHeadbandWinbarMod.get()
   local self = NvimHeadbandWinbarMod
 
-  local bname = fn.bufname()
-  local bt = api.nvim_buf_get_option(0, 'bt')
-  local ft = api.nvim_buf_get_option(0, 'ft')
-
-  if self.config.window_filter(bname, bt, ft) then
+  if self.config.window_filter(get_buffer_context()) then
     self:disable()
     return
   else
