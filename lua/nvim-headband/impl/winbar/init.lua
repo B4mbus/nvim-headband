@@ -83,20 +83,14 @@ function NvimHeadbandWinbarMod:disable()
     return
   end
 
-  self:soft_disable()
   self.config.enable = false
+  self:soft_disable()
   self:clear_autocmd()
 end
 
-function NvimHeadbandWinbarMod:enable(force)
-  local force = force or false
-
-  if self.config.enable and not force then
-    return
-  end
-
-  self:soft_enable()
+function NvimHeadbandWinbarMod:enable()
   self.config.enable = true
+  self:soft_enable()
   self:register_autocmd()
 end
 
@@ -111,7 +105,7 @@ Winbar.start = function(config)
   NvimHeadbandWinbarMod.augroup = augroup 'NvimHeadbandWinbar'
   NvimHeadbandWinbarMod.winbar_string = '%{%v:lua.NvimHeadbandWinbarMod.get()%}'
 
-  NvimHeadbandWinbarMod:enable(true)
+  NvimHeadbandWinbarMod:enable()
 end
 
 return Winbar
