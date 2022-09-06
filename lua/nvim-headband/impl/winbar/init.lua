@@ -72,11 +72,11 @@ function NvimHeadbandWinbarMod:clear_autocmd()
   api.nvim_clear_autocmds { group = self.augroup }
 end
 
-function NvimHeadbandWinbarMod:soft_enable()
+function NvimHeadbandWinbarMod:set_winbar_string()
   vim.wo.winbar = self.winbar_string
 end
 
-function NvimHeadbandWinbarMod:soft_disable()
+function NvimHeadbandWinbarMod:clear_winbar_string()
   for _, window in ipairs(api.nvim_list_wins()) do
     api.nvim_win_set_option(window, 'winbar', '')
   end
@@ -88,13 +88,13 @@ function NvimHeadbandWinbarMod:disable()
   end
 
   self.config.enable = false
-  self:soft_disable()
+  self:clear_winbar_string()
   self:clear_autocmd()
 end
 
 function NvimHeadbandWinbarMod:enable()
   self.config.enable = true
-  self:soft_enable()
+  self:set_winbar_string()
   self:register_autocmd()
 end
 
