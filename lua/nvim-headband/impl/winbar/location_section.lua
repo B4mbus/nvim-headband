@@ -52,24 +52,39 @@ local function get_location_icons(config)
   end
 end
 
+local function format_icon(name, icon)
+  local highlight = hl('NavicIcons' .. name)
+
+  --[[
+    HACK:
+    Hacky asf but nvim navic pads icons with spaces on the left and for some fucking reason
+    they are returned with a space from `get_data()`.
+
+    Now the catch is that `Enum` and `Interface` symbols are not padded with a space because they occupy
+    2 times the width so simple subbing will basically break things.
+  ]]--
+  local formatted_icon =
+    (name == 'Enum' or name == 'Interface')
+      and icon
+      or icon:sub(1, -2)
+
+  return highlight .. formatted_icon .. empty_hl
+end
+
 local function get_raw_locations_items(data, reverse)
   if not data or next(data) == nil then
     return nil
   end
 
-  local icon_hl = function(name, icon)
-    return (hl('NavicIcons' .. name) .. icon:sub(1, -2) .. empty_hl)
-  end
-
   return vim.tbl_map(
     function(item)
-      local empty_icon = item.icon ~= ''
+      local icon_empty = item.icon ~= ''
 
       -- TODO: Refactor maybe? Looks hella unreadable right now.
       if reverse then
-        return item.name .. (empty_icon and (' ' .. icon_hl(item.type, item.icon)) or '')
+        return item.name .. (icon_empty and (' ' .. format_icon(item.type, item.icon)) or '')
       else
-        return (empty_icon and (icon_hl(item.type, item.icon) ..  ' ') or '') .. item.name
+        return (icon_empty and (format_icon(item.type, item.icon) ..  ' ') or '') .. item.name
       end
     end,
     data
