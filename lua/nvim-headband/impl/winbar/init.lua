@@ -3,22 +3,25 @@ local fn = vim.fn
 
 local ErrorHandler = require('nvim-headband.impl.error_handler')
 
-local function get_headband_callback(mod)
-  return function()
-    local proper_buffer = api.nvim_buf_get_option(0, 'buftype') == '' and fn.getcmdwintype() == ''
-
-    if proper_buffer then
-      vim.wo.winbar = mod.winbar_string
-    end
-  end
-end
-
 local function get_buffer_context()
   local bname = fn.bufname()
   local bt = api.nvim_buf_get_option(0, 'bt')
   local ft = api.nvim_buf_get_option(0, 'ft')
 
   return bname, bt, ft
+end
+
+local function get_headband_callback(self)
+  return function()
+    local proper_buffer =
+      api.nvim_buf_get_option(0, 'buftype') == ''
+      and fn.getcmdwintype() == ''
+      and self.config.window_filter(get_buffer_context())
+
+    if proper_buffer then
+      vim.wo.winbar = self.winbar_string
+    end
+  end
 end
 
 --- The global winbar mod, contains the whole needed state for the winbar to work
@@ -35,13 +38,6 @@ end
 
 function NvimHeadbandWinbarMod.get()
   local self = NvimHeadbandWinbarMod
-
-  if self.config.window_filter(get_buffer_context()) then
-    self:disable()
-    return
-  else
-    self:enable()
-  end
 
   local error_handler = function(error)
     ErrorHandler.headband_notify_error_deffered(
