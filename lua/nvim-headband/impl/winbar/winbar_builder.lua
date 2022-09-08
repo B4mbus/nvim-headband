@@ -35,24 +35,32 @@ function WinbarBuilder:get_separator_conditionally(loc_available)
 
   local call_or_id = require('nvim-headband.impl.utils').call_or_id
 
-  return hl('NvimHeadbandSeparator') .. ' ' .. call_or_id(self.config.separator_text) .. ' ' .. empty_hl
+  return
+    hl('NvimHeadbandSeparator')
+      .. ' '
+      .. call_or_id(self.config.separator_text)
+      .. ' '
+      .. empty_hl
 end
 
 function WinbarBuilder:build_unsaved_buffer_winbar()
-  local ubt = self.config.unsaved_buffer_text
+  local unsaved_buffer_text = self.config.unsaved_buffer_text
   local call_or_id = require('nvim-headband.impl.utils').call_or_id
 
-  return hl('NvimHeadbandUnsavedBuf') .. ' ' .. call_or_id(ubt)
+  return
+    hl('NvimHeadbandUnsavedBuf')
+      .. ' '
+      .. call_or_id(unsaved_buffer_text)
 end
 
 function WinbarBuilder:get_sections_strings()
   -- HACK: hacky as b4LLz, but fuck it, no one's gonna see :tf: :tf:
   self.config = patch_highlight_config(self.config)
 
-  local loc_section_mod = require 'nvim-headband.impl.winbar.location_section'
+  local loc_section_mod = require('nvim-headband.impl.winbar.location_section')
   local loc_available, loc_section = loc_section_mod.get(self.config.location_section)
 
-  local file_section_mod = require 'nvim-headband.impl.winbar.file_section'
+  local file_section_mod = require('nvim-headband.impl.winbar.file_section')
 
   return
     file_section_mod.get(self.config.file_section),

@@ -2,7 +2,9 @@ local hl = require('nvim-headband.impl.utils').hl
 local empty_hl = require('nvim-headband.impl.utils').empty_hl
 
 local function issue_lack_of_location_provider_error()
-  require('nvim-headband.impl.error_handler').headband_notify_error_deffered(
+  local ErrorHandler = require('nvim-headband.impl.error_handler')
+
+  ErrorHandler.headband_notify_error_deffered(
     'The "SmiteshP/nvim-navic" plugin is not present. Cannot enable navic for winbar.'
   )
 end
@@ -90,7 +92,6 @@ local function get_raw_locations_items(data, reverse)
     data
   )
 end
-
 
 local function highlight_empty_symbol(symbol)
   return hl('NvimHeadbandEmptyLocSymbol') .. symbol .. empty_hl

@@ -1,4 +1,4 @@
-local symbols = require 'nvim-headband.symbols'
+local symbols = require('nvim-headband.symbols')
 
 local strict_combine = require('nvim-headband.filters').strict_combine
 local bt_filter = require('nvim-headband.filters').bt_filter

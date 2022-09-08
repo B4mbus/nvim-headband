@@ -6,7 +6,11 @@ local hl = require('nvim-headband.impl.utils').hl
 local empty_hl = require('nvim-headband.impl.utils').empty_hl
 
 local function issue_lack_of_devicons_error()
-  require('nvim-headband.impl.error_handler').headband_notify_error_deffered 'The "kyazdani42/nvim-web-devicons" plugin is not present. Cannot enable devicons for winbar.'
+  local ErrorHandler = require('nvim-headband.impl.error_handler')
+
+  ErrorHandler.headband_notify_error_deffered(
+    'The "kyazdani42/nvim-web-devicons" plugin is not present. Cannot enable devicons for winbar.'
+  )
 end
 
 local get_devicons_mod = function()
@@ -16,7 +20,7 @@ local get_devicons_mod = function()
 end
 
 local function get_preffered_path_separator()
-  if fn.has 'win32' then
+  if fn.has('win32') then
     return '\\'
   else
     return '/'
@@ -24,7 +28,7 @@ local function get_preffered_path_separator()
 end
 
 local function format_path(path)
-  if fn.has 'win32' then
+  if fn.has('win32') then
     return path:sub(1, 1) .. ':' .. path:sub(2, -1)
   else
     return '/' .. path
@@ -37,7 +41,13 @@ local function shorten_path(path)
     return path_elem:sub(1, 1)
   end
 
-  local shortened_path = table.concat(vim.tbl_map(get_first, fn.split(path, preffered_separator)), preffered_separator)
+  local shortened_path = table.concat(
+    vim.tbl_map(
+      get_first,
+      fn.split(path, preffered_separator)
+    ),
+    preffered_separator
+  )
 
   return format_path(shortened_path)
 end
@@ -46,7 +56,10 @@ local function reverse_path(path)
   local sep = get_preffered_path_separator()
   local split_path = fn.split(path, sep)
 
-  return table.concat(fn.reverse(split_path), sep)
+  return table.concat(
+    fn.reverse(split_path),
+    sep
+  )
 end
 
 local FileSection = {}
@@ -54,24 +67,30 @@ local FileSection = {}
 function FileSection:build_full_path(path_without_filename, filename)
   local full_path = path_without_filename
 
-  if self.config.text:find 'shortened' then
+  if self.config.text:find('shortened') then
     full_path = shorten_path(path_without_filename)
   end
 
-  if self.config.text:find 'lower' then
+  if self.config.text:find('lower') then
     full_path = full_path:lower()
   end
 
   local preffered_separator = get_preffered_path_separator()
+
   return
-hl 'NvimHeadbandPath' .. full_path .. preffered_separator .. hl 'NvimHeadbandFilename' .. filename .. empty_hl
+    hl('NvimHeadbandPath')
+    .. full_path
+    .. preffered_separator
+    .. hl 'NvimHeadbandFilename'
+    .. filename
+    .. empty_hl
 end
 
 function FileSection:get_path()
   local text = self.config.text
 
-  local filename = fn.expand '%:p:t'
-  local path_without_filename = fn.expand '%:p:h'
+  local filename = fn.expand('%:p:t')
+  local path_without_filename = fn.expand('%:p:h')
 
   if type(text) == 'function' then
     return text()

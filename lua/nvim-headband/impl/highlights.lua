@@ -10,10 +10,12 @@ Available groups:
 
 local Highlights = {}
 
+-- TODO: refactor this shit
 function Highlights.setup_highlights(config)
   local hl_exists = function(name)
     return vim.fn.hlID(name) ~= 0
   end
+
   local hl = function(group, opts)
     vim.api.nvim_set_hl(0, group, opts)
   end

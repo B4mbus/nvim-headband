@@ -1,7 +1,7 @@
 local api = vim.api
 local fn = vim.fn
 
-local ErrorHandler = require 'nvim-headband.impl.error_handler'
+local ErrorHandler = require('nvim-headband.impl.error_handler')
 
 local function get_headband_callback(mod)
   return function()
@@ -29,7 +29,7 @@ function NvimHeadbandWinbarMod.get_winbar(self)
     return ''
   end
 
-  local WinbarBuilder = require 'nvim-headband.impl.winbar.winbar_builder'
+  local WinbarBuilder = require('nvim-headband.impl.winbar.winbar_builder')
   return WinbarBuilder.build(self.config)
 end
 
@@ -61,11 +61,14 @@ function NvimHeadbandWinbarMod.get()
 end
 
 function NvimHeadbandWinbarMod:register_autocmd()
-  api.nvim_create_autocmd({ 'VimEnter', 'BufEnter' }, {
-    pattern = '*',
-    group = NvimHeadbandWinbarMod.augroup,
-    callback = get_headband_callback(NvimHeadbandWinbarMod),
-  })
+  api.nvim_create_autocmd(
+    { 'VimEnter', 'BufEnter' },
+    {
+      pattern = '*',
+      group = NvimHeadbandWinbarMod.augroup,
+      callback = get_headband_callback(NvimHeadbandWinbarMod),
+    }
+  )
 end
 
 function NvimHeadbandWinbarMod:clear_autocmd()
