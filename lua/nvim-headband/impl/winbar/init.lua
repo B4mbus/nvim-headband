@@ -107,7 +107,7 @@ Winbar.start = function(config)
   end
 
   NvimHeadbandWinbarMod.config = config
-  NvimHeadbandWinbarMod.augroup = augroup 'NvimHeadbandWinbar'
+  NvimHeadbandWinbarMod.augroup = augroup('NvimHeadbandWinbar')
   NvimHeadbandWinbarMod.winbar_string = '%{%v:lua.NvimHeadbandWinbarMod.get()%}'
 
   NvimHeadbandWinbarMod:enable()
