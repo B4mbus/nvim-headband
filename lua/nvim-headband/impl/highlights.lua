@@ -8,27 +8,82 @@ Available groups:
  - NvimHeadbandEmptyLocSymbol - for the empty location symbol
 ]]
 
+local function hl_exists(name)
+  return vim.fn.hlID(name) ~= 0
+end
+
+local function hl(group, opts)
+  vim.api.nvim_set_hl(0, group, opts)
+end
+
+local function register_bold_filename()
+  local filename_hl = 'NvimHeadbandFilename'
+
+  local ok, existing_hl = pcall(vim.api.nvim_get_hl_by_name, filename_hl, {})
+  local existing_hl = ok and existing_hl or {}
+
+  hl(filename_hl, vim.tbl_extend('force', { bold = true }, existing_hl))
+end
+
+local function  register_linked_navic_icons_hls()
+  local group_suffixes = {
+    'Field',
+    'Property',
+    'Event',
+    'Text',
+    'Enum',
+    'Keyword',
+    'Constant',
+    'Constructor',
+    'Reference',
+    'Function',
+    'Method',
+    'Struct',
+    'Class',
+    'Module',
+    'Operator',
+    'Variable',
+    'File',
+    'Unit',
+    'Snippet',
+    'Folder',
+    'Value',
+    'EnumMember',
+    'Interface',
+    'Color',
+    'TypeParameter',
+  }
+
+  for _, suffix in ipairs(group_suffixes) do
+    hl('NavicIcons' .. suffix, { link = 'CmpItemKind' .. suffix })
+  end
+end
+
+local function  register_default_navic_icons_hls()
+  local groups = {
+    Variable = { fg = '#9CDCFE' },
+    Interface = { fg = '#9CDCFE' },
+    Text = { fg = '#9CDCFE' },
+    Function = { fg = '#C586C0' },
+    Method = { fg = '#C586C0' },
+    Keyword = { fg = '#D4D4D4' },
+    Property = { fg = '#D4D4D4' },
+    Unit = { fg = '#D4D4D4' },
+  }
+
+  for group_suffix, opts in pairs(groups) do
+    hl('CmpItemKind' .. group_suffix, opts)
+  end
+end
+
 local Highlights = {}
 
 -- TODO: refactor this shit
 function Highlights.setup_highlights(config)
-  local hl_exists = function(name)
-    return vim.fn.hlID(name) ~= 0
-  end
-
-  local hl = function(group, opts)
-    vim.api.nvim_set_hl(0, group, opts)
-  end
-
   local highlights = config.highlights
 
-  local filename_hl = 'NvimHeadbandFilename'
-
   if config.bold_filename then
-    local ok, existing_hl = pcall(vim.api.nvim_get_hl_by_name, filename_hl, {})
-    local existing_hl = ok and existing_hl or {}
-
-    hl(filename_hl, vim.tbl_extend('force', { bold = true }, existing_hl))
+    register_bold_filename()
   end
 
   local loc_sep_hl = 'NvimHeadbandLocSeparator'
@@ -37,52 +92,9 @@ function Highlights.setup_highlights(config)
   end
 
   if config.location_icons == 'link' then
-    local group_suffixes = {
-      'Field',
-      'Property',
-      'Event',
-      'Text',
-      'Enum',
-      'Keyword',
-      'Constant',
-      'Constructor',
-      'Reference',
-      'Function',
-      'Method',
-      'Struct',
-      'Class',
-      'Module',
-      'Operator',
-      'Variable',
-      'File',
-      'Unit',
-      'Snippet',
-      'Folder',
-      'Value',
-      'EnumMember',
-      'Interface',
-      'Color',
-      'TypeParameter',
-    }
-
-    for _, suffix in ipairs(group_suffixes) do
-      hl('NavicIcons' .. suffix, { link = 'CmpItemKind' .. suffix })
-    end
+    register_linked_navic_icons_hls()
   elseif highlights.location_icons == 'default' then
-    local groups = {
-      Variable = { fg = '#9CDCFE' },
-      Interface = { fg = '#9CDCFE' },
-      Text = { fg = '#9CDCFE' },
-      Function = { fg = '#C586C0' },
-      Method = { fg = '#C586C0' },
-      Keyword = { fg = '#D4D4D4' },
-      Property = { fg = '#D4D4D4' },
-      Unit = { fg = '#D4D4D4' },
-    }
-
-    for group_suffix, opts in pairs(groups) do
-      hl('CmpItemKind' .. group_suffix, opts)
-    end
+     register_default_navic_icons_hls()
   end
 end
 
