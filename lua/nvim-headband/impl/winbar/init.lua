@@ -1,8 +1,6 @@
 local api = vim.api
 local fn = vim.fn
 
-local ErrorHandler = require('nvim-headband.impl.error_handler')
-
 local function get_buffer_context()
   local bname = fn.bufname()
   local bt = api.nvim_buf_get_option(0, 'bt')
@@ -40,6 +38,8 @@ function NvimHeadbandWinbarMod.get()
   local self = NvimHeadbandWinbarMod
 
   local error_handler = function(error)
+    local ErrorHandler = require('nvim-headband.impl.error_handler')
+
     ErrorHandler.headband_notify_error_deffered(
       'Error encountered while trying to get the winbar, disabling.\n'
         .. 'Make sure your config is correct.\n'
