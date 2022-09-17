@@ -17,7 +17,7 @@ local function get_headband_callback(self)
       and self.config.window_filter(get_buffer_context())
 
     if proper_buffer then
-      vim.wo.winbar = self.winbar_string
+      self:set_winbar_string()
     end
   end
 end
