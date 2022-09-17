@@ -35,7 +35,7 @@ local default_config = {
     bt_filter {
       'NvimTree',
       'nerdtree',
-      'neot-tree',
+      'neo-tree',
       'packer',
       'alpha',
       'dashboard',
