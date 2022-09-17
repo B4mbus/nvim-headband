@@ -14,7 +14,6 @@ local function get_headband_callback(self)
     local proper_buffer =
       api.nvim_buf_get_option(0, 'buftype') == ''
       and fn.getcmdwintype() == ''
-      and self.config.window_filter(get_buffer_context())
 
     if proper_buffer then
       self:set_winbar_string()
@@ -36,6 +35,11 @@ end
 
 function NvimHeadbandWinbarMod.get()
   local self = NvimHeadbandWinbarMod
+
+  -- NOTE: this has to be HERE and not in the autocmd because some buffers get some time to set up their filetypes, buftypes and names, e.g. Neogit
+  if self.config.window_filter(get_buffer_context()) then
+    self:clear_single_window_winbar_string()
+  end
 
   local error_handler = function(error)
     local ErrorHandler = require('nvim-headband.impl.error_handler')
@@ -73,6 +77,10 @@ end
 
 function NvimHeadbandWinbarMod:set_winbar_string()
   vim.wo.winbar = self.winbar_string
+end
+
+function NvimHeadbandWinbarMod:clear_single_window_winbar_string()
+  vim.wo.winbar = ''
 end
 
 function NvimHeadbandWinbarMod:clear_winbar_string()
