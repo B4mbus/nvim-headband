@@ -61,8 +61,8 @@ function NvimHeadbandWinbarMod:register_autocmd()
     { 'VimEnter', 'BufEnter' },
     {
       pattern = '*',
-      group = NvimHeadbandWinbarMod.augroup,
-      callback = get_headband_callback(NvimHeadbandWinbarMod),
+      group = self.augroup,
+      callback = get_headband_callback(self),
     }
   )
 end
