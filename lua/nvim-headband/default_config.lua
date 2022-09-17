@@ -44,6 +44,7 @@ local default_config = {
     },
     ft_filter {
       'NeogitCommitMessage',
+      'NeogitStatus',
     }
   ),
 
