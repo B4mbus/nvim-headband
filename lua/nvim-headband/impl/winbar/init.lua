@@ -24,7 +24,7 @@ end
 --- The global winbar mod, contains the whole needed state for the winbar to work
 NvimHeadbandWinbarMod = {}
 
-function NvimHeadbandWinbarMod.get_winbar(self)
+function NvimHeadbandWinbarMod.get_winbar_string(self)
   if not self.config.enable then
     return ''
   end
@@ -55,7 +55,7 @@ function NvimHeadbandWinbarMod.get()
     self:disable()
   end
 
-  local _, winbar_string = xpcall(self.get_winbar, error_handler, self)
+  local _, winbar_string = xpcall(self.get_winbar_string, error_handler, self)
 
   return winbar_string
 end
