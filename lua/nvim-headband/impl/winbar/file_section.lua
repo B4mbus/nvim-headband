@@ -102,15 +102,11 @@ function FileSection:get_path()
 end
 
 function FileSection:format_icon(name, icon)
-  local format_string = '%s'
-
   if self.config.highlights.devicons then
-    -- we add '%' here so that `fmt` doesn't try to take it as an format argument
-    -- (the result will be %%Highlight#)
-    format_string = '%' .. hl(name) .. format_string
+    icon = hl(name) .. icon
   end
 
-  return fmt(format_string, icon) .. empty_hl
+  return icon .. empty_hl
 end
 
 function FileSection:get_icon()
