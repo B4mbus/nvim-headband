@@ -119,8 +119,10 @@ function FileSection:get_icon()
   local devicons_loaded, devicons = get_devicons_mod()
 
   if devicons_loaded then
-    local ft = api.nvim_buf_get_option(0, 'ft')
-    local icon, name = devicons.get_icon_by_filetype(ft)
+    local filename = vim.fn.expand('%:t')
+    local ext = vim.fn.fnamemodify(filename, ':e')
+
+    local icon, name = devicons.get_icon(filename, ext)
     if not icon or not name then
       return ''
     end
