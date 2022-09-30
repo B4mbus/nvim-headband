@@ -19,17 +19,15 @@ local ft_filter = require('nvim-headband.filters').ft_filter
 --- The user configuration that's meant to be passed to setup()
 ---@class UserConfig
 ---@field public enable boolean Whether to enable the headband winbar
+---@field window_filter FilterFunc Filters out windows that should not have a winbar, e.g. trees, dashboards, neogit
 ---@field public separator_text string | StringFunc A string that will be displayed as separator between the file and location section, if both are present (can be a StringFunc)
 ---@field public unsaved_buffer_text string | StringFunc A string that will be displayed when an unsaved buffer is opened (can be a StringFunc)
----@field window_filter FilterFunc Filters out windows that should not have a winbar, e.g. trees, dashboards, neogit
 ---
 ---@field public file_section UserConfig.FileSection The file section config
 ---@field public location_section UserConfig.LocationSection The location section config
 ---@field public styling UserConfig.Styling Highlights and other styling config
 local default_config = {
   enable = true,
-  separator_text = '::',
-  unsaved_buffer_text = '%f',
 
   window_filter = strict_combine(
     bt_filter {
@@ -48,6 +46,10 @@ local default_config = {
       'NeogitStatus',
     }
   ),
+
+  separator_text = '::',
+  unsaved_buffer_text = '%f',
+
 
   ---@class UserConfig.FileSection
   ---@field public enable boolean Whether to enable the file section
