@@ -22,6 +22,7 @@ local ft_filter = require('nvim-headband.filters').ft_filter
 ---@field window_filter FilterFunc Filters out windows that should not have a winbar, e.g. trees, dashboards, neogit
 ---@field public separator_text string | StringFunc A string that will be displayed as separator between the file and location section, if both are present (can be a StringFunc)
 ---@field public unsaved_buffer_text string | StringFunc A string that will be displayed when an unsaved buffer is opened (can be a StringFunc)
+---@field public wrap string[] | WrapFunc | nil Wraps the entire winbar in some strings
 ---
 ---@field public file_section UserConfig.FileSection The file section config
 ---@field public location_section UserConfig.LocationSection The location section config
@@ -50,6 +51,7 @@ local default_config = {
   separator_text = '::',
   unsaved_buffer_text = '%f',
 
+  wrap = { ' ', ' ' },
 
   ---@class UserConfig.FileSection
   ---@field public enable boolean Whether to enable the file section
