@@ -4,6 +4,7 @@ Available groups:
  - NvimHeadbandPath - for the path-without-filename part of the path ('full' or 'shortened')
  - NvimHeadbandSeparator - for the general separator
  - NvimHeadbandLocSeparator - for the location separator
+ - NvimHeadbandLocText - for the location text
  - NvimHeadbandUnsavedBuf - when the buffer is unsaved
  - NvimHeadbandEmptyLocSymbol - for the empty location symbol
 ]]

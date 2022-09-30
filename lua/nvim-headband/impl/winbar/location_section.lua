@@ -73,6 +73,10 @@ local function hl_icon(name, icon)
   return highlight .. formatted_icon .. empty_hl
 end
 
+local function hl_name(name)
+  return hl('NvimHeadbandLocText') .. name .. empty_hl
+end
+
 local function get_raw_locations_items(data, reverse)
   if not data or next(data) == nil then
     return nil
@@ -84,9 +88,9 @@ local function get_raw_locations_items(data, reverse)
 
       -- TODO: Refactor maybe? Looks hella unreadable right now.
       if reverse then
-        return item.name .. (icon_empty and (' ' .. hl_icon(item.type, item.icon)) or '')
+        return hl_name(item.name) .. (icon_empty and (' ' .. hl_icon(item.type, item.icon)) or '')
       else
-        return (icon_empty and (hl_icon(item.type, item.icon) ..  ' ') or '') .. item.name
+        return (icon_empty and (hl_icon(item.type, item.icon) ..  ' ') or '') .. hl_name(item.name)
       end
     end,
     data
