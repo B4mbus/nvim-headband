@@ -100,7 +100,7 @@ function WinbarBuilder.build(config)
   if in_unsaved_buffer() then
     return self:build_unsaved_buffer_winbar()
   else
-    local winbar_string =  self:get_sections_with_layout()
+    local winbar_string = self:get_sections_with_layout()
 
     return hl('WinBar') .. ' ' .. winbar_string .. ' '
   end
