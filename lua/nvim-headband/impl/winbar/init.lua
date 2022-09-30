@@ -72,7 +72,7 @@ function NvimHeadbandWinbarMod:register_autocmd()
 end
 
 function NvimHeadbandWinbarMod:clear_autocmd()
-  api.nvim_clear_autocmds { group = self.augroup }
+  api.nvim_clear_autocmds({ group = self.augroup })
 end
 
 function NvimHeadbandWinbarMod:set_winbar_string()
