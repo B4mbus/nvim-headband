@@ -101,7 +101,7 @@ function FileSection:get_path()
   end
 end
 
-function FileSection:format_icon(name, icon)
+function FileSection:hl_icon(name, icon)
   if self.config.highlights.devicons then
     icon = hl(name) .. icon
   end
@@ -125,7 +125,7 @@ function FileSection:get_icon()
       return ''
     end
 
-    return self:format_icon(name, icon)
+    return self:hl_icon(name, icon)
   end
 end
 
