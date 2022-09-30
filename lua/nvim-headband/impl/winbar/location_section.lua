@@ -54,7 +54,7 @@ local function get_location_icons(config)
   end
 end
 
-local function format_icon(name, icon)
+local function hl_icon(name, icon)
   local highlight = hl('NavicIcons' .. name)
 
   --[[
@@ -84,9 +84,9 @@ local function get_raw_locations_items(data, reverse)
 
       -- TODO: Refactor maybe? Looks hella unreadable right now.
       if reverse then
-        return item.name .. (icon_empty and (' ' .. format_icon(item.type, item.icon)) or '')
+        return item.name .. (icon_empty and (' ' .. hl_icon(item.type, item.icon)) or '')
       else
-        return (icon_empty and (format_icon(item.type, item.icon) ..  ' ') or '') .. item.name
+        return (icon_empty and (hl_icon(item.type, item.icon) ..  ' ') or '') .. item.name
       end
     end,
     data
