@@ -101,7 +101,7 @@ function WinbarBuilder.build(config)
     return self:build_unsaved_buffer_winbar()
   else
     local winbar_string = self:get_sections_with_layout()
-    local wrapper = require('nvim-headband.impl.winbar.shared').evaluate_wrap(self.config.wrap)
+    local wrapper = require('nvim-headband.impl.winbar.shared').create_wrapper(self.config.wrap)
 
     return hl('WinBar') .. wrapper(winbar_string)
   end

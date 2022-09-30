@@ -139,7 +139,7 @@ function FileSection:get_file_section()
     path = reverse_path(path)
   end
 
-  local wrapper = require('nvim-headband.impl.winbar.shared').evaluate_wrap(self.config.wrap)
+  local wrapper = require('nvim-headband.impl.winbar.shared').create_wrapper(self.config.wrap)
 
   return wrapper(icon .. ' ' .. path .. empty_hl)
 end
