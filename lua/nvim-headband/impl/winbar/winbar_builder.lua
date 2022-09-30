@@ -61,9 +61,10 @@ function WinbarBuilder:get_sections_strings()
   local loc_available, loc_section = loc_section_mod.get(self.config.location_section)
 
   local file_section_mod = require('nvim-headband.impl.winbar.file_section')
+  local file_section = file_section_mod.get(self.config.file_section)
 
   return
-    file_section_mod.get(self.config.file_section),
+    file_section,
     self:get_separator_conditionally(loc_available and (loc_section ~= '')),
     loc_section
 end
@@ -87,7 +88,7 @@ function WinbarBuilder:get_sections_with_layout()
     return '' .. lstring .. sep .. '%=' .. fstring
 
   else
-    error 'The "position" option must be a string of either "left" or "right".'
+    error('The "position" option must be a string of either "left" or "right".')
 
   end
 end
