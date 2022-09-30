@@ -43,6 +43,7 @@ local default_config = {
       'nofile',
     },
     ft_filter {
+      'gitcommit',
       'NeogitCommitMessage',
       'NeogitStatus',
     }
