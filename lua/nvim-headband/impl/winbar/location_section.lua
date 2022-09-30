@@ -127,7 +127,7 @@ function LocationSection:get_location(mod)
   end
 
   local build_separator = function(sep)
-    return ' ' .. hl('NvimHeadbandLocSeparator') .. sep .. empty_hl .. ' '
+    return hl('NvimHeadbandLocSeparator') .. ' ' .. sep .. ' ' .. empty_hl
   end
 
   local separator = build_separator(self.config.separator)
