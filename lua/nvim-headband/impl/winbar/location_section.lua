@@ -97,6 +97,10 @@ local function highlight_empty_symbol(symbol)
   return hl('NvimHeadbandEmptyLocSymbol') .. symbol .. empty_hl
 end
 
+local build_separator = function(sep)
+  return hl('NvimHeadbandLocSeparator') .. ' ' .. sep .. ' ' .. empty_hl
+end
+
 local LocationSection = {}
 
 function LocationSection:setup_location_provider(location_provider)
@@ -124,10 +128,6 @@ function LocationSection:get_location(mod)
     else
       return ''
     end
-  end
-
-  local build_separator = function(sep)
-    return hl('NvimHeadbandLocSeparator') .. ' ' .. sep .. ' ' .. empty_hl
   end
 
   local separator = build_separator(self.config.separator)
