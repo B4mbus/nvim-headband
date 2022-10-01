@@ -19,6 +19,7 @@ local ft_filter = require('nvim-headband.filters').ft_filter
 --- The user configuration that's meant to be passed to setup()
 ---@class UserConfig
 ---@field public enable boolean Whether to enable the headband winbar
+---@field public enable_if_single_window boolean Whether to enable the headband winbar if only a single window is shown
 ---@field window_filter FilterFunc Filters out windows that should not have a winbar, e.g. trees, dashboards, neogit
 ---@field public separator_text string | StringFunc A string that will be displayed as separator between the file and location section, if both are present (can be a StringFunc)
 ---@field public unsaved_buffer_text string | StringFunc A string that will be displayed when an unsaved buffer is opened (can be a StringFunc)
@@ -29,6 +30,8 @@ local ft_filter = require('nvim-headband.filters').ft_filter
 ---@field public styling UserConfig.Styling Highlights and other styling config
 local default_config = {
   enable = true,
+
+  enable_if_single_window = false,
 
   window_filter = strict_combine(
     bt_filter {

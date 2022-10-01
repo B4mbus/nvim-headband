@@ -36,6 +36,11 @@ end
 function NvimHeadbandWinbarMod.get()
   local self = NvimHeadbandWinbarMod
 
+  if not self.config.enable_if_single_window and (#api.nvim_list_wins() == 1) then
+    self:clear_single_window_winbar_string()
+    return
+  end
+
   -- NOTE: this has to be HERE and not in the autocmd because some buffers get some time to set up their filetypes, buftypes and names, e.g. Neogit
   if self.config.window_filter(get_buffer_context()) then
     self:clear_single_window_winbar_string()
