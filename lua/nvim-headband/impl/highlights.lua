@@ -77,7 +77,40 @@ local function register_default_navic_icons_hls()
   end
 end
 
+local function convert_decimal_colors_to_hex_strings(definition)
+  for attr, val in pairs(definition) do
+    if attr == 'foreground' or attr == 'background' then
+      definition[attr] = vim.fn.printf('#%x', val)
+    end
+  end
+
+  return definition
+end
+
+local function extract_hls_definition(name)
+  return convert_decimal_colors_to_hex_strings(
+    vim.api.nvim_get_hl_by_name(name,true)
+  )
+end
+
+local function remove_key(table, key)
+  table[key] = nil
+  return table
+end
+
 local Highlights = {}
+
+---Returns the highlight definition without foreground, keeping all other attributes
+---@param name string The name of the highlight
+function Highlights.hl_definition_no_fg(name)
+  return remove_key(extract_hls_definition(name), 'foreground')
+end
+
+---Returns the highlight definition without background, keeping all other attributes
+---@param name string The name of the highlight
+function Highlights.hl_definition_no_bg(name)
+  return remove_key(extract_hls_definition(name), 'bcakground')
+end
 
 function Highlights.setup_highlights(config)
   local highlights = config.highlights
