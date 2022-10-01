@@ -53,11 +53,11 @@ use {
 
 ## ⚙ Configuration
 
-See [Configuration & Usage](configuration-and-usage.md).
+See [Configuration & Usage](CONFIGURATION_AND_USAGE.md).
 
 ## 🎨 Highlights
 
-See [Configuration & Usage - Highlights](configuration-and-usage.md#-Highlights).
+See [Configuration & Usage - Highlights](CONFIGURATION_AND_USAGE.md#-Highlights).
 
 ### 🔜 Soon
  1. For shortened paths an option to make them full for a second (`:toogle_short()`?)
