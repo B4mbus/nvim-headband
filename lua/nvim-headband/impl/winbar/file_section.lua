@@ -1,6 +1,8 @@
 local fmt = string.format
 local api = vim.api
 local fn = vim.fn
+local Highlights = require('nvim-headband.impl.highlights')
+
 
 local hl = require('nvim-headband.impl.utils').hl
 local empty_hl = require('nvim-headband.impl.utils').empty_hl
@@ -98,10 +100,48 @@ function FileSection:get_path()
   end
 end
 
-function FileSection:hl_icon(name, icon)
-  if self.config.highlights.devicons then
-    icon = hl(name) .. icon
+function FileSection:get_highlight_next_to_icon()
+  if self.config.text == 'filename' then
+    return Highlights.highlight_definition('NvimHeadbandFilename')
+  else
+    return Highlights.highlight_definition('NvimHeadbandPath')
   end
+end
+
+function FileSection:create_and_activate_hl_definition(original_name, patched_name, keep_foreground)
+  local original_hl_def = Highlights.highlight_definition(original_name)
+  local highlight_next_to_icon_bg = self:get_highlight_next_to_icon().background
+
+  original_hl_def.background = highlight_next_to_icon_bg
+
+  if not keep_foreground then
+    original_hl_def = Highlights.remove_fg_from_definiton(original_hl_def)
+  end
+
+  vim.api.nvim_set_hl(0, patched_name, original_hl_def)
+end
+
+function FileSection:create_local_patched_hl(original_name, keep_foreground)
+  local patched_name = 'NvimHeadband' .. original_name .. 'Patched'
+
+  if not Highlights.hl_exists(patched_name) then
+    self:create_and_activate_hl_definition(original_name, patched_name, keep_foreground)
+  end
+
+  return patched_name
+end
+
+function FileSection:hl_icon(name, icon)
+  local hl_name = name
+
+  if Highlights.definition_has_bg(self:get_highlight_next_to_icon()) then
+    hl_name = self:create_local_patched_hl(
+      name,
+      self.config.highlights.devicons -- keep foreground if highlights.devicons is true
+    )
+  end
+
+  icon = hl(hl_name) .. icon
 
   return icon .. empty_hl
 end

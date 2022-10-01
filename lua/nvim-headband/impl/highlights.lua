@@ -80,7 +80,7 @@ end
 local function convert_decimal_colors_to_hex_strings(definition)
   for attr, val in pairs(definition) do
     if attr == 'foreground' or attr == 'background' then
-      definition[attr] = vim.fn.printf('#%x', val)
+      definition[attr] = val == 0 and '#000000' or vim.fn.printf('#%x', val)
     end
   end
 
@@ -94,20 +94,24 @@ end
 
 local Highlights = {}
 
-function Highlights.remove_bg_from_definiton(definition)
-  return remove_key(definition, 'background')
-end
-
 function Highlights.remove_fg_from_definiton(definition)
   return remove_key(definition, 'foreground')
 end
 
----Returns the highlight definition without foreground, keeping all other attributes
----@param name string The name of the highlight
 function Highlights.highlight_definition(name)
   return convert_decimal_colors_to_hex_strings(
     vim.api.nvim_get_hl_by_name(name, true)
   )
+end
+
+function Highlights.definition_has_bg(definition)
+  return definition.background ~= nil
+end
+
+function Highlights.hl_exists(name)
+  local ok, _ = pcall(vim.api.nvim_get_hl_by_name, name, true)
+
+  return ok
 end
 
 function Highlights.setup_highlights(config)
