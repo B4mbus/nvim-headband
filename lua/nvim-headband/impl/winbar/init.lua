@@ -25,10 +25,6 @@ end
 NvimHeadbandWinbarMod = {}
 
 function NvimHeadbandWinbarMod.get_winbar_string(self)
-  if not self.config.enable then
-    return ''
-  end
-
   local WinbarBuilder = require('nvim-headband.impl.winbar.winbar_builder')
   return WinbarBuilder.build(self.config)
 end
@@ -81,7 +77,9 @@ function NvimHeadbandWinbarMod:clear_autocmd()
 end
 
 function NvimHeadbandWinbarMod:set_winbar_string()
-  vim.wo.winbar = self.winbar_string
+  for _, window in ipairs(api.nvim_list_wins()) do
+    api.nvim_win_set_option(window, 'winbar', self.winbar_string)
+  end
 end
 
 function NvimHeadbandWinbarMod:clear_single_window_winbar_string()
@@ -115,6 +113,10 @@ end
 local Winbar = {}
 
 Winbar.start = function(config)
+  if not config.enable then
+    return
+  end
+
   local augroup = function(x)
     return api.nvim_create_augroup(x, { clear = true })
   end
