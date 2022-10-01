@@ -1,3 +1,5 @@
+ local Highlights = require('nvim-headband.impl.highlights')
+
 local SectionShared = {}
 
 local function issue_wrap_concanetable_error(section)
@@ -12,6 +14,18 @@ local function wrap_function(wrap_pre, wrap_post)
   return function(arg)
     return (wrap_pre or '') .. arg .. (wrap_post or '')
   end
+end
+
+local function create_and_activate_hl_definition(original_name, patched_name, bg, keep_foreground)
+  local original_hl_def = Highlights.highlight_definition(original_name)
+
+  original_hl_def.background = bg
+
+  if not keep_foreground then
+    original_hl_def = Highlights.remove_fg_from_definiton(original_hl_def)
+  end
+
+  vim.api.nvim_set_hl(0, patched_name, original_hl_def)
 end
 
 function SectionShared.create_wrapper(wrap)
@@ -37,6 +51,21 @@ function SectionShared.create_wrapper(wrap)
   end
 
   return wrap_function(wrap_pre, wrap_post)
+end
+
+function SectionShared.create_local_patched_hl(original_name, bg, keep_foreground)
+  local patched_name = 'NvimHeadband' .. original_name .. 'Patched'
+
+  if not Highlights.hl_exists(patched_name) then
+    create_and_activate_hl_definition(
+      original_name,
+      patched_name,
+      bg,
+      keep_foreground
+    )
+  end
+
+  return patched_name
 end
 
 return SectionShared

@@ -1,6 +1,7 @@
 local hl = require('nvim-headband.impl.utils').hl
 local empty_hl = require('nvim-headband.impl.utils').empty_hl
 local Highlights = require('nvim-headband.impl.highlights')
+local create_local_patched_hl = require('nvim-headband.impl.winbar.shared').create_local_patched_hl
 
 local function issue_lack_of_location_provider_error()
   local ErrorHandler = require('nvim-headband.impl.error_handler')
@@ -59,29 +60,6 @@ local function get_text_highlight()
   return Highlights.highlight_definition('NvimHeadbandLocText')
 end
 
-local function create_and_activate_hl_definition(original_name, patched_name, keep_foreground)
-  local original_hl_def = Highlights.highlight_definition(original_name)
-  local highlight_next_to_icon_bg = get_text_highlight().background
-
-  original_hl_def.background = highlight_next_to_icon_bg
-
-  if not keep_foreground then
-    original_hl_def = Highlights.remove_fg_from_definiton(original_hl_def)
-  end
-
-  vim.api.nvim_set_hl(0, patched_name, original_hl_def)
-end
-
-local function create_local_patched_hl(original_name, keep_foreground)
-  local patched_name = 'NvimHeadband' .. original_name .. 'Patched'
-
-  if not Highlights.hl_exists(patched_name) then
-    create_and_activate_hl_definition(original_name, patched_name, keep_foreground)
-  end
-
-  return patched_name
-end
-
 local function hl_name(name)
   return hl('NvimHeadbandLocText') .. name .. empty_hl
 end
@@ -115,6 +93,7 @@ function LocationSection:hl_icon(name, icon)
   if Highlights.definition_has_bg(get_text_highlight()) then
     highlight_name = create_local_patched_hl(
       highlight_name,
+      get_text_highlight().background,
       not (self.config.highlights.location_icons == 'none') -- if the highlights are not set to none, keep foreground
     )
   end
