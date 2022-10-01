@@ -146,7 +146,7 @@ function FileSection:hl_icon(name, icon)
   return icon .. empty_hl
 end
 
-function FileSection:get_icon()
+function FileSection:get_icon_with_space()
   if not self.config.enable_devicons then
     return ''
   end
@@ -162,12 +162,13 @@ function FileSection:get_icon()
       return ''
     end
 
-    return self:hl_icon(name, icon)
+  -- NOTE: we are adding a space because if there's a need to patch highlight's background we need to highlight the space as well
+    return self:hl_icon(name, icon .. ' ')
   end
 end
 
 function FileSection:get_file_section()
-  local icon = self:get_icon()
+  local icon_with_space = self:get_icon_with_space()
   local path = self:get_path()
 
   if self.config.reversed then
@@ -176,7 +177,7 @@ function FileSection:get_file_section()
 
   local wrapper = require('nvim-headband.impl.winbar.shared').create_wrapper(self.config.wrap)
 
-  return wrapper(icon .. ' ' .. path .. empty_hl)
+  return wrapper(icon_with_space .. path .. empty_hl)
 end
 
 function FileSection.get(config)
