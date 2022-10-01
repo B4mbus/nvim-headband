@@ -9,7 +9,7 @@ vim.api.nvim_set_hl(0, 'BubblesFront', { fg = color })
 local reverse_arrow = require 'nvim-headband.symbols'.reverse_nice_arrow
 local bubbles_wrap = { '%#BubblesFront#', '%#BubblesFront#' }
 
-require 'nvim-headband'.setup {
+return {
   file_section = {
     wrap = bubbles_wrap
   },
