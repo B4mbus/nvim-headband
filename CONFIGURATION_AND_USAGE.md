@@ -1,6 +1,6 @@
 # ⚙ Configuration & Usage
 
-## Usage
+## 🚀 Usage
 
 Nvim-headband allows disabling, enabling and toggling on the fly:
 ```lua
@@ -200,7 +200,7 @@ local default_config = {
 return default_config
 ```
 
-## Highlights
+## 🎨 Highlights
 
 These are the available groups:
  - **NvimHeadbandFilename** - for the filename part of the path ('full', 'shortened' or 'filename')
