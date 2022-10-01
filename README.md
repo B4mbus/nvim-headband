@@ -63,3 +63,4 @@ See [Configuration & Usage - Highlights](configuration-and-usage.md#-Highlights)
  1. For shortened paths an option to make them full for a second (`:toogle_short()`?)
  2. Clickable and hoverable items in sections (directories, location items)
  3. Make `unsaved_buffer` a section like file_section so that it's easier to configure it's behavior
+ 4. Vim docs
