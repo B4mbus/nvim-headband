@@ -89,7 +89,7 @@ end
 
 local function extract_hls_definition(name)
   return convert_decimal_colors_to_hex_strings(
-    vim.api.nvim_get_hl_by_name(name,true)
+    vim.api.nvim_get_hl_by_name(name, true)
   )
 end
 
@@ -100,16 +100,24 @@ end
 
 local Highlights = {}
 
+function Highlights.remove_bg_from_definiton(definition)
+  return remove_key(definition, 'background')
+end
+
+function Highlights.remove_fg_from_definiton(definition)
+  return remove_key(definition, 'foreground')
+end
+
 ---Returns the highlight definition without foreground, keeping all other attributes
 ---@param name string The name of the highlight
 function Highlights.hl_definition_no_fg(name)
-  return remove_key(extract_hls_definition(name), 'foreground')
+  return Highlights.remove_fg_from_definiton(extract_hls_definition(name))
 end
 
 ---Returns the highlight definition without background, keeping all other attributes
 ---@param name string The name of the highlight
 function Highlights.hl_definition_no_bg(name)
-  return remove_key(extract_hls_definition(name), 'bcakground')
+  return Highlights.remove_bg_from_definiton(extract_hls_definition(name))
 end
 
 function Highlights.setup_highlights(config)
