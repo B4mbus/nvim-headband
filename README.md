@@ -19,7 +19,19 @@ nvim-headband..
 
 ## 🖼 Showcase
 
-***TODO***
+I'd like me a winbar!
+![Winbar default](../media/default.png)
+Although I'd like to see a little it more of the path..
+![Winbar with shortened path](../media/shortened_path.png)
+Hmmm.. And it'd be nice if the location was on the right!
+![Winbar with location on the right](../media/location_on_right.png)
+Ooooh! And I like bubbles, wonder if..
+![Winbar with bubbles](../media/bubbles.png)
+
+Perfect!  
+<small>
+All the above and more preconfigured winbars can be [**found here**](PRECONFIGURED_WINBARS.md).
+</small>
 
 ## 💾 Installation
 
@@ -50,3 +62,4 @@ See [Configuration & Usage - Highlights](configuration-and-usage.md#-Highlights)
 ### 🔜 Soon
  1. For shortened paths an option to make them full for a second (`:toogle_short()`?)
  2. Clickable and hoverable items in sections (directories, location items)
+ 3. Make `unsaved_buffer` a section like file_section so that it's easier to configure it's behavior
