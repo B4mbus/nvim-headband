@@ -126,6 +126,11 @@ function Highlights.setup_highlights(config)
     hl(loc_sep_hl, { fg = '#6d8086' })
   end
 
+  local loc_text_hl = 'NvimHeadbandLocText'
+  if not hl_exists(loc_text_hl) then
+    hl(loc_text_hl, { fg = '#c9d1d9' })
+  end
+
   if config.location_icons == 'link' then
     register_linked_navic_icons_hls()
   elseif highlights.location_icons == 'default' then
