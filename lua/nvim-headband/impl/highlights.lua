@@ -117,6 +117,16 @@ end
 function Highlights.setup_highlights(config)
   local highlights = config.highlights
 
+  local path_hl = 'NvimHeadbandPath'
+  if not hl_exists(path_hl) then
+    hl(path_hl, { fg = '#999999' })
+  end
+
+  local filename_hl = 'NvimHeadbandFilename'
+  if not hl_exists(filename_hl) then
+    hl(filename_hl, { fg = '#ffffff' })
+  end
+
   if config.bold_filename then
     register_bold_filename()
   end
