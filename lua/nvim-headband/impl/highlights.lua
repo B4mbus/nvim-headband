@@ -87,12 +87,6 @@ local function convert_decimal_colors_to_hex_strings(definition)
   return definition
 end
 
-local function extract_hls_definition(name)
-  return convert_decimal_colors_to_hex_strings(
-    vim.api.nvim_get_hl_by_name(name, true)
-  )
-end
-
 local function remove_key(table, key)
   table[key] = nil
   return table
@@ -110,14 +104,10 @@ end
 
 ---Returns the highlight definition without foreground, keeping all other attributes
 ---@param name string The name of the highlight
-function Highlights.hl_definition_no_fg(name)
-  return Highlights.remove_fg_from_definiton(extract_hls_definition(name))
-end
-
----Returns the highlight definition without background, keeping all other attributes
----@param name string The name of the highlight
-function Highlights.hl_definition_no_bg(name)
-  return Highlights.remove_bg_from_definiton(extract_hls_definition(name))
+function Highlights.highlight_definition(name)
+  return convert_decimal_colors_to_hex_strings(
+    vim.api.nvim_get_hl_by_name(name, true)
+  )
 end
 
 function Highlights.setup_highlights(config)
