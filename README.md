@@ -29,9 +29,9 @@ Ooooh! And I like bubbles, wonder if..
 ![Winbar with bubbles](../media/bubbles.png)
 
 Perfect!  
-<small>
+<sup>
 All the above and more preconfigured winbars can be [**found here**](PRECONFIGURED_WINBARS.md).
-</small>
+</sup>
 
 ## 💾 Installation
 
