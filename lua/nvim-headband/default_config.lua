@@ -31,7 +31,7 @@ local ft_filter = require('nvim-headband.filters').ft_filter
 local default_config = {
   enable = true,
 
-  enable_if_single_window = false,
+  enable_if_single_window = true,
 
   window_filter = strict_combine(
     bt_filter {
