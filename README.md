@@ -21,7 +21,7 @@ nvim-headband..
 
 I'd like me a winbar!
 ![Winbar default](../media/default.png)
-Although I'd like to see a little it more of the path..
+Although I'd like to see a little bit more of the path..
 ![Winbar with shortened path](../media/shortened_path.png)
 Hmmm.. And it'd be nice if the location was on the right!
 ![Winbar with location on the right](../media/location_on_right.png)
