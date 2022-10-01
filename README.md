@@ -40,7 +40,7 @@ Install with your favourite package manager, e.g. **[https://github.com/wbthomas
 use {
   'B4mbus/nvim-headband',
   config = function()
-    require 'nvim-headband'.setup {
+    require('nvim-headband').setup {
       -- Your configuration goes here
     }
   end
