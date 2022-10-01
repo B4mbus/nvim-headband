@@ -92,9 +92,7 @@ function FileSection:get_path()
   local filename = fn.expand('%:p:t')
   local path_without_filename = fn.expand('%:p:h')
 
-  if type(text) == 'function' then
-    return text()
-  elseif text == 'filename' then
+  if text == 'filename' then
     return hl 'NvimHeadbandFilename' .. filename .. empty_hl
   else
     return self:build_full_path(path_without_filename, filename)

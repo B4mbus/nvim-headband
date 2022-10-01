@@ -55,7 +55,7 @@ local default_config = {
 
   ---@class UserConfig.FileSection
   ---@field public enable boolean Whether to enable the file section
-  ---@field public text string | StringFunc The text of the file section, can be 'filename' | 'full' | 'shortened' | 'full_lower' | 'shortened_lower' or a StringFunc
+  ---@field public text string The text of the file section, can be 'filename' | 'full' | 'shortened' | 'full_lower' | 'shortened_lower'
   ---@field public wrap string[] | WrapFunc | nil Wraps the section in some strings
   ---@field public enable_devicons boolean Whether to enable devicons for the file section
   ---@field public position SectionPosition The position of the section
