@@ -64,3 +64,4 @@ See [Configuration & Usage - Highlights](configuration-and-usage.md#-Highlights)
  2. Clickable and hoverable items in sections (directories, location items)
  3. Make `unsaved_buffer` a section like file_section so that it's easier to configure it's behavior
  4. Vim docs
+ 5. Add an option to center both sections
