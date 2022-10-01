@@ -1,9 +1,5 @@
 <div align="center">
 
-# ⚠ WIP ⚠ WIP ⚠ WIP ⚠ WIP ⚠
-
-The plugin is still WIP. Most stuff generally work, but I spotted some bugs that are submitted in the Issues and the documentation is not present (neither readme nor vim docs).
-
 # nvim-headband - a simple and opinionated winbar
   <div>
     <a href='#-Showcase'>🖼 Showcase</a> |
@@ -33,12 +29,12 @@ use {
   'B4mbus/nvim-headband',
   config = function()
     require 'nvim-headband'.setup {
-      -- Optionally, if you want to configure stuff
+      -- Your configuration goes here
     }
   end
   requires = {
-    { 'SmiteshP/nvim-navic', opt = true } -- required for for the navic section to work
-    { 'kyazdani42/nvim-web-devicons', opt = true } -- required for for devicons and default location_section.separator highlight group
+    { 'SmiteshP/nvim-navic' } -- required for for the navic section to work
+    { 'kyazdani42/nvim-web-devicons' } -- required for for devicons and default location_section.separator highlight group
   }
 }
 ```
@@ -51,11 +47,6 @@ See [Configuration & Usage](configuration-and-usage.md).
 
 See [Configuration & Usage - Highlights](configuration-and-usage.md#-Highlights).
 
-## 🧾 Todo
-
-### 📚 Docs
- 1. Vim docs
-
 ### 🔜 Soon
- 1. For shoretened paths an option to make them full for a second (`:toogle_short()`?)
+ 1. For shortened paths an option to make them full for a second (`:toogle_short()`?)
  2. Clickable and hoverable items in sections (directories, location items)
