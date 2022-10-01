@@ -43,7 +43,8 @@ use {
     require('nvim-headband').setup {
       -- Your configuration goes here
     }
-  end
+  end,
+  after = 'nvim-web-devicons',
   requires = {
     { 'SmiteshP/nvim-navic' } -- required for for the navic section to work
     { 'kyazdani42/nvim-web-devicons' } -- required for for devicons and default location_section.separator highlight group
