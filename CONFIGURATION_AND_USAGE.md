@@ -1,4 +1,4 @@
-# ⚙ Configuration & Usage
+# 🐱‍👤 Configuration & Usage
 
 ## 🚀 Usage
 
