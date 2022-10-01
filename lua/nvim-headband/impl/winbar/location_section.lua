@@ -133,9 +133,9 @@ function LocationSection:get_raw_locations_items(data, reverse)
 
       -- TODO: Refactor maybe? Looks hella unreadable right now.
       if reverse then
-        return hl_name(item.name) .. (icon_empty and (' ' .. self:hl_icon(item.type, item.icon)) or '')
+        return hl_name(item.name) .. (icon_empty and self:hl_icon(item.type, ' ' .. item.icon) or '')
       else
-        return (icon_empty and (self:hl_icon(item.type, item.icon) ..  ' ') or '') .. hl_name(item.name)
+        return (icon_empty and self:hl_icon(item.type, item.icon .. ' ') or '') .. hl_name(item.name)
       end
     end,
     data
