@@ -8,7 +8,7 @@ require('nvim-headband').disable() -- Disables
 require('nvim-headband').enables() -- Enables
 require('nvim-headband').toggle() -- Toggles
 ```
-## Configuration
+## ⚙  Configuration
 
 ### Symbols
 
