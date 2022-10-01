@@ -11,7 +11,7 @@
 </div>
 
 nvim-headband..
- - is **simple** - you can just install it and you are good to go
+ - is **simple** - you can just install it, call setup and you are good to go
  - is **opinionated** - it doesn't give you *all the possible* cofiguration options in the world, it has two simple sections
  - has **sane defaults** - it's very likely that you won't have to change the default configuration
 
