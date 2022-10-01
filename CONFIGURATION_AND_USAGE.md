@@ -1,6 +1,6 @@
-## ⚙ Configuration & Usage
+# ⚙ Configuration & Usage
 
-### Usage
+## Usage
 
 Nvim-headband allows disabling, enabling and toggling on the fly:
 ```lua
@@ -8,9 +8,9 @@ require('nvim-headband').disable() -- Disables
 require('nvim-headband').enables() -- Enables
 require('nvim-headband').toggle() -- Toggles
 ```
-### Configuration
+## Configuration
 
-#### Symbols
+### Symbols
 
 Nvim-headband exports all internally used symbols, they can be accessed via `require('nvim-headband.symbols')`:
 ```lua
@@ -22,12 +22,12 @@ Nvim-headband exports all internally used symbols, they can be accessed via `req
 }
 ```
 
-#### Wraps
+### Wraps
 
 Every section has a `wrap` option, which is supposed to be `nil`, an array of two strings or a function returning two strings.  
 By default the entire winbar is wrapped in `{ ' ', ' ' }` and both `file_section` and `location_section` are wrapped in `nil` (no wrap).
 
-#### Filters
+### Filters
 
 Filters are used to filter out unwanted windows. A filter should be a valid `FilterFunc`:
 ```lua
@@ -200,7 +200,7 @@ local default_config = {
 return default_config
 ```
 
-### Highlights
+## Highlights
 
 These are the available groups:
  - **NvimHeadbandFilename** - for the filename part of the path ('full', 'shortened' or 'filename')
