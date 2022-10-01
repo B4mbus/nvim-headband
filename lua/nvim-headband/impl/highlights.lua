@@ -26,7 +26,7 @@ local function register_bold_filename()
   hl(filename_hl, vim.tbl_extend('force', { bold = true }, existing_hl))
 end
 
-local function  register_linked_navic_icons_hls()
+local function register_linked_navic_icons_hls()
   local group_suffixes = {
     'Field',
     'Property',
@@ -60,7 +60,7 @@ local function  register_linked_navic_icons_hls()
   end
 end
 
-local function  register_default_navic_icons_hls()
+local function register_default_navic_icons_hls()
   local groups = {
     Variable = { fg = '#9CDCFE' },
     Interface = { fg = '#9CDCFE' },
@@ -79,7 +79,6 @@ end
 
 local Highlights = {}
 
--- TODO: refactor this shit
 function Highlights.setup_highlights(config)
   local highlights = config.highlights
 
