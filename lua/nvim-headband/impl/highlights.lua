@@ -21,7 +21,7 @@ local function register_bold_filename()
   local filename_hl = 'NvimHeadbandFilename'
 
   local ok, existing_hl = pcall(vim.api.nvim_get_hl_by_name, filename_hl, {})
-  local existing_hl = ok and existing_hl or {}
+  existing_hl = ok and existing_hl or {}
 
   hl(filename_hl, vim.tbl_extend('force', { bold = true }, existing_hl))
 end
