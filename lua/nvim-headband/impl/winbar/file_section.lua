@@ -102,9 +102,9 @@ end
 
 function FileSection:get_highlight_next_to_icon()
   if self.config.text == 'filename' then
-    return Highlights.highlight_definition('NvimHeadbandFilename')
+    return Highlights.get_highlight_definition('NvimHeadbandFilename')
   else
-    return Highlights.highlight_definition('NvimHeadbandPath')
+    return Highlights.get_highlight_definition('NvimHeadbandPath')
   end
 end
 

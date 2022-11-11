@@ -108,7 +108,7 @@ function Highlights.remove_fg_from_definiton(definition)
   return remove_key(definition, 'foreground')
 end
 
-function Highlights.highlight_definition(name)
+function Highlights.get_highlight_definition(name)
   return convert_decimal_colors_to_hex_strings(
     vim.api.nvim_get_hl_by_name(name, true)
   )

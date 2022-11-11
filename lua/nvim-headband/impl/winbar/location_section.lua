@@ -57,7 +57,7 @@ local function get_location_icons(config)
 end
 
 local function get_text_highlight()
-  return Highlights.highlight_definition('NvimHeadbandLocText')
+  return Highlights.get_highlight_definition('NvimHeadbandLocText')
 end
 
 local function hl_name(name)

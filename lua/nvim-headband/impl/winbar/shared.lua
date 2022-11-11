@@ -17,7 +17,7 @@ local function wrap_function(wrap_pre, wrap_post)
 end
 
 local function create_and_activate_hl_definition(original_name, patched_name, bg, keep_foreground)
-  local original_hl_def = Highlights.highlight_definition(original_name)
+  local original_hl_def = Highlights.get_highlight_definition(original_name)
 
   original_hl_def.background = bg
 
