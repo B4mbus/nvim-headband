@@ -46,6 +46,7 @@ strict_combine(
     'dashboard',
     'startify',
     'nofile',
+    'terminal'
   }),
   ft_filter({
     'gitcommit',

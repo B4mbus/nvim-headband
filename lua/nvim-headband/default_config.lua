@@ -43,6 +43,7 @@ local default_config = {
       'dashboard',
       'startify',
       'nofile',
+      'terminal'
     },
     ft_filter {
       'gitcommit',
