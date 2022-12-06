@@ -34,6 +34,8 @@ end
 --- Function to call to get winbar up and running
 ---@param user_config UserConfig? The user configuration table to use
 function Headband.setup(user_config)
+  vim.notify('The development of the nvim-headband plugin has been discontinued and the plugin will not be maintained, it will be deleted from GitHub in 7 days from now, that is, on 13 Dec 2022.')
+
   if not has_winbar() then
     issue_lack_of_winbar_notification()
   else
