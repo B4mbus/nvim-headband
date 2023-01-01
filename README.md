@@ -1,5 +1,7 @@
 # Do not use this plugin :p
 
+I made this decision a few weeks ago and revoked it, but after further consideration I will not main nvim-headband (**the plugin will be archived**).
+
 I originally made this plugin right before winbar went into master, in a couple of days, not thinking of any architecture, without prior bigger experience and with barely any sleep, which resulted in a plugin that isn't well considered and full of bugs. The best I can do to this plugin is almost completely rewrite it, but I don't really fancy to do so, I'd like to direct my attention into other projects I think would be more valuable to the community. There are already plugins out there that do the same (but better), like [**barbecue.nvim**](https://github.com/utilyre/barbecue.nvim) and statusline plugins have a winbar feature as well.
 
 <div align="center">

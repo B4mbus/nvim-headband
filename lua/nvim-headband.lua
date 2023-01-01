@@ -34,6 +34,12 @@ end
 --- Function to call to get winbar up and running
 ---@param user_config UserConfig? The user configuration table to use
 function Headband.setup(user_config)
+  ErrorHandler.headband_notify_error_deffered([[
+    Nvim-headband will not be maintained.
+    Please checkout the repository readme for more information and switch to other plugin (like https://github.com/utilyre/barbecue.nvim) or use youre statusline's winbar feature.
+  ]])
+  return
+
   if not has_winbar() then
     issue_lack_of_winbar_notification()
   else
